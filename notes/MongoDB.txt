@@ -1,0 +1,60 @@
+--> Database purpose :
+	Store, Organise and Manage large amount of data; one stop place to manage login , security, back up and recovery; well platform for data analysis.
+--> Types of Database:
+	. Real Time (Oracle, MySQL) - OLTP   vs  OLAP - DSS/DW (Netezza, SapHana) vs   New SQL - NoSQL/Big Data(Mongo DB, Cassandra/Couch DB)
+		SQL 				vs 			Non SQL
+	1. one type data     			1. Multiple Type Data
+	2. vertical data	 			2. horizontal data
+	3. Fixed schema		 			3. variable Schema
+	4. ACID(High Consistency)		4. BASE (High AVaiability)
+	
+	. ACID - Atomocity - Entire transaction is successful or roll backs incase of intermittent failure.
+			 Consistency - Structured consitency will be maintained since there are no variable schema or data  insertion is possible. Commited transaction wont cause any structural damage to DB.
+			 Isolation - Mutiple transaction will be execusted seperately and independent of each other
+			 Durability - Commited data will exist even in case of network outage , if transaction dails before commit it wont impact the manipulated data
+	  
+	  BASE - Basic AVailablity - Data base available most of the time.
+			 Soft State - Due to the lack of immediate consistency, data values may change over time
+			 Eventual Consistency - Stores exhibit consistency at later point of time.
+
+	. CAP Theory - COnsistency - Data will be same for everyone after the transaction
+				   AVaiability - System should not have down time
+				   Partial Tolerance - System continuous to function even during the down time (servers are paritioned into multiple groups so if one server is down the traffic will be routed 
+										to working server)
+			CA - RDBMS(Single site cluster) , AP - Couch DB Cassandra(System is avaialble under partition but data will be inconsistent), 
+			CP - Mongo DB(Some data may not be accessible but rest is consistent and accurate)
+--> No SQL Database FEATURES - 
+	. Supports multiple number of concurrent users (Volume)
+	. provides extremely responsive experience (Velocity)
+	. Handles semi and unstructered data (Variablity)
+	. Always available with no down time
+	. Adapts to change in requirements
+	. Veracity - Uncertainity due to latency, deception etc
+	
+	--> Categories of NoSQL DB :
+		1. Document Base - Complex data Structure -(Mongo DB , COuch DB, Cloudant)
+		2. Key Value Pairs - its a simple non SQL having single value against Key (Memched, COherence)
+		3. Graph Store - used to store network connections - Neo 4g, HyperGraph DB
+		4. Wide COlumn Store - Cassandra , HBase, BigTable - Stores columns of large data instead of rows
+--> MONGO DB :
+	Open source document database used for big data handling ; No primary and foriegn key concept ; reduces time for running complex queries and designed for easy development and scaling
+	; provides high performance, availability and scalability
+	
+	. Mongo Database -  Mongo Server had Multiple Data Base. Mongo Database is Ohysical container fo COLLECTIONS(TABLES). Mongod primary resource of mongo system. Handles data requests, manages data format
+	and performs background management operations
+	
+	. Mongo DB Collections - group of similar or realted documents in a DB. COllection doesnt had specific schema . DOcuments with in collection contain different feilds.
+	
+	. Mongo DB tools - Core Processes - mongod, mongos, mongo
+					   Data Import and Export tools - mongoimport and mongo export 
+					   Diagnostic tools - mongostat, mongotop, mongosniff, mongoperf
+					   Windows Services - mongod.exe, mongos.exe
+					   Binary Import and Export (Data back up and recovery) - mongodump, mongorestore, bsondump, mongooplog
+					   GridFS(Process large files) - mongofiles
+					   
+	JSON(Java Script Object Notation) and BSON(Binary JSON):
+	. JSON - light weight , text structured key - value pair data, easily understandable data 
+	. BSON - binary encoded serialization of JSON, contains extension that inlcudes datat types not part of JSON(light weight, traversable, Efficient)
+		
+	
+	

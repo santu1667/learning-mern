@@ -1,0 +1,439 @@
+Case Study: 
+-------------
+Need to implement CRUD on Product Collection , Get Product by category, Get product by brand, Get Product by Seller Code
+
+Solution:
+--------------
+    . Create DB "onlineStore", Create Collection "placedOrders"
+    --> use onlineStore
+    --> db.createCollection("placedOrders")
+    . Insert document into the placedOrders Collection - Single Insert
+    --> db.placedOrders.insert({
+        "pogId":"1",
+        "Supc":"1234",
+        "Brand":"Samsung",
+        "Description":"Samsung Note 22 Ultra",
+        "sizeInInches":6.8,
+        "category":"Electronis",
+        "subCategory":"Mobiles",
+        "price":1199,
+        "quanitity":10,
+        "country":"USA",
+        "sellerCode":"1",
+        "Creation time": ISODate("2022-06-02"),
+        "stock":"In Stock"
+    })
+    . Insert many documents in single Execution - Creation
+    --> db.placedOrders.insertMany([
+		{"pogId":"11","Supc":"1234","Brand":"Samsung","Description":"Samsung s22","sizeInInchesInInches":6.0,
+        "category":"Electronis","subCategory":"Mobiles","price":899,"quanitity":8000,"country":"USA","sellerCode":"11","Creation time": ISODate("1960-06-30"),
+        "stock":"In Stock"},
+		{"pogId":"2","Supc":"1235","Brand":"Apple","Description":"IPhone 13 Pro","sizeInInches":6.7,
+        "category":"Electronis","subCategory":"Mobiles","price":1300,"quanitity":200,"country":"USA","sellerCode":"2","Creation time": ISODate("1950-10-23"),
+        "stock":"Out of Stock"},
+		{"pogId":"3","Supc":"1236","Brand":"Motorola","Description":"Moto G Stylus","sizeInInches":6.3,
+        "category":"Electronis","subCategory":"Mobiles","price":680,"quanitity":500,"country":"USA","sellerCode":"3","Creation time": ISODate("1975-11-01"),
+        "stock":"Coming Soon"},
+		{"pogId":"4","Supc":"1235","Brand":"Apple","Description":"Apple 14","sizeInInches":6.0,
+        "category":"Electronis","subCategory":"Mobiles","price":799,"quanitity":480,"country":"USA","sellerCode":"4","Creation time": ISODate("1978-12-03"),
+        "stock":"In Stock"},
+		{"pogId":"5","Supc":"1238","Brand":"One Plus","Description":"One Plus 11 Pro","sizeInInches":6.6,
+        "category":"Electronis","subCategory":"Mobiles","price":799,"quanitity":600,"country":"USA","sellerCode":"5","Creation time": ISODate("1979-01-04"),
+        "stock":"Out of Stock"},
+		{"pogId":"5","Supc":"1235","Brand":"Apple","Description":"Apple Ipad Pro 14","sizeInInches":9.0,
+        "category":"Electronis","subCategory":"Tablets","price":699,"quanitity":800,"country":"USA","sellerCode":"6","Creation time": ISODate("1980-02-05"),
+        "stock":"In Stock"},
+		{"pogId":"6","Supc":"1240","Brand":"Huaweii","Description":"Huaweii Pro","sizeInInches":5.8,
+        "category":"Electronis","subCategory":"Mobiles","price":499,"quanitity":1000,"country":"USA","sellerCode":"7","Creation time": ISODate("1981-03-06"),
+        "stock":"Out of Stock"},
+		{"pogId":"7","Supc":"1241","Brand":"Google","Description":"Google Plus 10","sizeInInches":6.6,
+        "category":"Electronis","subCategory":"Mobiles","price":899,"quanitity":600,"country":"USA","sellerCode":"8","Creation time": ISODate("1982-04-09"),
+        "stock":"In Stock"},
+		{"pogId":"8","Supc":"1242","Brand":"OPPO","Description":"OPPO Verna","sizeInInches":6.6,
+        "category":"Electronis","subCategory":"Mobiles","price":220,"quanitity":3000,"country":"USA","sellerCode":"9","Creation time": ISODate("1983-04-08"),
+        "stock":"In Stock"},
+		{"pogId":"9","Supc":"1243","Brand":"Sony","Description":"Sony Xperia 13","sizeInInches":5.9,
+        "category":"Electronis","subCategory":"Mobiles","price":999,"quanitity":490,"country":"USA","sellerCode":"10","Creation time": ISODate("1984-05-10"),
+        "stock":"Coming Soon"}
+		])
+
+        -- Inserting Different Category
+
+        db.placedOrders.insertMany([
+		{"pogId":"12","Supc":"1237","Brand":"Gerber","Description":"Gerber Play Truck","category":"Kids","subCategory":"Toys","price":40,
+        "quanitity":8000,"country":"USA","sellerCode":"11","Creation time": ISODate("1960-06-30"),
+        "stock":"In Stock"},
+		{"pogId":"20","Supc":"1238","Brand":"Melisaa&Doug","Description":"Kids Pretend as Doctor Set","category":"Kids",
+        "subCategory":"Toys","price":60,"quanitity":200,"country":"USA","sellerCode":2,"Creation time": ISODate("1950-10-23"),
+        "stock":"Out of Stock"},
+		{"pogId":"21","Supc":"1237","Brand":"Gerber","Description":"Gerber Baby Fire Truck",
+        "category":"Kids","subCategory":"Toys","price":680,"quanitity":500,"country":"USA","sellerCode":11,"Creation time": ISODate("1975-11-01"),
+        "stock":"Coming Soon"},
+        {"pogId":"20","Supc":"1235","Brand":"Walgreens","Description":"Walgreens Tylenol Kids","category":"Kids",
+        "subCategory":"Medicines","price":20,"quanitity":200,"country":"USA","sellerCode":5,"Creation time": ISODate("1950-10-23"),
+        "stock":"In Stock"},
+		{"pogId":"21","Supc":"1235","Brand":"Walgreens","Description":"Walgreens Baby Cough Syrup",
+        "category":"Kids","subCategory":"Medicines","price":22,"quanitity":500,"country":"USA","sellerCode":5,"Creation time": ISODate("1975-11-01"),
+        "stock":"Coming Soon"}
+        ])
+		
+		
+		Total no of records in createCollection
+        -------------------------------------------------------
+        db.placedOrders.find().count() - 16
+
+        Read -- Operation
+		-----------------------------------------------------------------
+		--> db.placedOrders.find({"price":{$lte:50},"category":"Kids","subCategory":"Medicines"}).explain("executionStats");
+         "explainVersion" : "1",
+        "queryPlanner" : {
+                "namespace" : "onlineStore.placedOrders",
+                "indexFilterSet" : false,
+                "parsedQuery" : {
+                        "$and" : [
+                                {
+                                        "category" : {
+                                                "$eq" : "Kids"
+                                        }
+                                },
+                                {
+                                        "subCategory" : {
+                                                "$eq" : "Medicines"
+                                        }
+                                },
+                                {
+                                        "price" : {
+                                                "$lte" : 50
+                                        }
+                                }
+                        ]
+                },
+                "maxIndexedOrSolutionsReached" : false,
+                "maxIndexedAndSolutionsReached" : false,
+                "maxScansToExplodeReached" : false,
+                "winningPlan" : {
+                        "stage" : "COLLSCAN",
+                        "filter" : {
+                                "$and" : [
+                                        {
+                                                "category" : {
+                                                        "$eq" : "Kids"
+                                                }
+                                        },
+                                        {
+                                                "subCategory" : {
+                                                        "$eq" : "Medicines"
+                                                }
+                                        },
+                                        {
+                                                "price" : {
+                                                        "$lte" : 50
+                                                }
+                                        }
+                                ]
+                        },
+                        "direction" : "forward"
+                },
+                "rejectedPlans" : [ ]
+        },
+        "executionStats" : {
+                "executionSuccess" : true,
+                "nReturned" : 2,
+                "executionTimeMillis" : 341,
+                "totalKeysExamined" : 0,
+                "totalDocsExamined" : 16,
+                "executionStages" : {
+                        "stage" : "COLLSCAN",
+                        "filter" : {
+                                "$and" : [
+                                        {
+                                                "category" : {
+                                                        "$eq" : "Kids"
+                                                }
+                                        },
+                                        {
+                                                "subCategory" : {
+                                                        "$eq" : "Medicines"
+                                                }
+                                        },
+                                        {
+                                                "price" : {
+                                                        "$lte" : 50
+                                                }
+                                        }
+                                ]
+                        },
+                        "nReturned" : 2,
+                        "executionTimeMillisEstimate" : 0,
+                        "works" : 18,
+                        "advanced" : 2,
+                        "needTime" : 15,
+                        "needYield" : 0,
+                        "saveState" : 0,
+                        "restoreState" : 0,
+                        "isEOF" : 1,
+                        "direction" : "forward",
+                        "docsExamined" : 16
+                }
+        },
+        "command" : {
+                "find" : "placedOrders",
+                "filter" : {
+                        "price" : {
+                                "$lte" : 50
+                        },
+                        "category" : "Kids",
+                        "subCategory" : "Medicines"
+                },
+                "$db" : "onlineStore"
+        },
+        "serverInfo" : {
+                "host" : "EC2AMAZ-D9GMPCC",
+                "port" : 27017,
+                "version" : "5.0.4",
+                "gitVersion" : "62a84ede3cc9a334e8bc82160714df71e7d3a29e"
+        },
+        "serverParameters" : {
+                "internalQueryFacetBufferSizeBytes" : 104857600,
+                "internalQueryFacetMaxOutputDocSizeBytes" : 104857600,
+                "internalLookupStageIntermediateDocumentMaxSizeBytes" : 104857600,
+                "internalDocumentSourceGroupMaxMemoryBytes" : 104857600,
+                "internalQueryMaxBlockingSortMemoryUsageBytes" : 104857600,
+                "internalQueryProhibitBlockingMergeOnMongoS" : 0,
+                "internalQueryMaxAddToSetBytes" : 104857600,
+                "internalDocumentSourceSetWindowFieldsMaxMemoryBytes" : 104857600
+        },
+        "ok" : 1
+}
+
+-- db.placedOrders.find({"price":{$lte:50},"category":"Kids","subCategory":"Medicines"}).pretty() - 341m
+{
+        "_id" : ObjectId("62a4fb3e45580db28f23c61b"),
+        "pogId" : "20",
+        "Supc" : "1235",
+        "Brand" : "Walgreens",
+        "Description" : "Walgreens Tylenol Kids",
+        "category" : "Kids",
+        "subCategory" : "Medicines",
+        "price" : 20,
+        "quanitity" : 200,
+        "country" : "USA",
+        "sellerCode" : 5,
+        "Creation time" : ISODate("1950-10-23T00:00:00Z"),
+        "stock" : "In Stock"
+}
+{
+        "_id" : ObjectId("62a4fb3e45580db28f23c61c"),
+        "pogId" : "21",
+        "Supc" : "1235",
+        "Brand" : "Walgreens",
+        "Description" : "Walgreens Baby Cough Syrup",
+        "category" : "Kids",
+        "subCategory" : "Medicines",
+        "price" : 22,
+        "quanitity" : 500,
+        "country" : "USA",
+        "sellerCode" : 5,
+        "Creation time" : ISODate("1975-11-01T00:00:00Z"),
+        "stock" : "Coming Soon"
+}
+
+	-->  Create index on price, category and subcategory to check the execution 
+
+    --> db.placedOrders.createIndex({"price":1,"category":1,"subCategory":1})
+        {
+            "numIndexesBefore" : 1,
+            "numIndexesAfter" : 2,
+            "createdCollectionAutomatically" : false,
+            "ok" : 1
+        }
+    --> Check number of Indexes --> db.placedOrders.getIndexes() -2
+        [
+        {
+                "v" : 2,
+                "key" : {
+                        "_id" : 1
+                },
+                "name" : "_id_"
+        },
+        {
+                "v" : 2,
+                "key" : {
+                        "price" : 1,
+                        "category" : 1,
+                        "subCategory" : 1
+                },
+                "name" : "price_1_category_1_subCategory_1"
+        }
+        ]
+
+
+        --> Execute the Query again to see difference in executuion time --
+        db.placedOrders.find({"price":{$lte:50},"category":"Kids","subCategory":"Medicines"}).explain("executionStats");
+                
+        "explainVersion" : "1",
+        "queryPlanner" : {
+                "namespace" : "onlineStore.placedOrders",
+                "indexFilterSet" : false,
+                "parsedQuery" : {
+                        "$and" : [
+                                {
+                                        "category" : {
+                                                "$eq" : "Kids"
+                                        }
+                                },
+                                {
+                                        "subCategory" : {
+                                                "$eq" : "Medicines"
+                                        }
+                                },
+                                {
+                                        "price" : {
+                                                "$lte" : 50
+                                        }
+                                }
+                        ]
+                },
+                "maxIndexedOrSolutionsReached" : false,
+                "maxIndexedAndSolutionsReached" : false,
+                "maxScansToExplodeReached" : false,
+                "winningPlan" : {
+                        "stage" : "FETCH",
+                        "inputStage" : {
+                                "stage" : "IXSCAN",
+                                "keyPattern" : {
+                                        "price" : 1,
+                                        "category" : 1,
+                                        "subCategory" : 1
+                                },
+                                "indexName" : "price_1_category_1_subCategory_1",
+                                "isMultiKey" : false,
+                                "multiKeyPaths" : {
+                                        "price" : [ ],
+                                        "category" : [ ],
+                                        "subCategory" : [ ]
+                                },
+                                "isUnique" : false,
+                                "isSparse" : false,
+                                "isPartial" : false,
+                                "indexVersion" : 2,
+                                "direction" : "forward",
+                                "indexBounds" : {
+                                        "price" : [
+                                                "[-inf.0, 50.0]"
+                                        ],
+                                        "category" : [
+                                                "[\"Kids\", \"Kids\"]"
+                                        ],
+                                        "subCategory" : [
+                                                "[\"Medicines\", \"Medicines\"]"
+                                        ]
+                                }
+                        }
+                },
+                "rejectedPlans" : [ ]
+        },
+        "executionStats" : {
+                "executionSuccess" : true,
+                "nReturned" : 2,
+                "executionTimeMillis" : 65,
+                "totalKeysExamined" : 4,
+                "totalDocsExamined" : 2,
+                "executionStages" : {
+                        "stage" : "FETCH",
+                        "nReturned" : 2,
+                        "executionTimeMillisEstimate" : 10,
+                        "works" : 4,
+                        "advanced" : 2,
+                        "needTime" : 1,
+                        "needYield" : 0,
+                        "saveState" : 0,
+                        "restoreState" : 0,
+                        "isEOF" : 1,
+                        "docsExamined" : 2,
+                        "alreadyHasObj" : 0,
+                        "inputStage" : {
+                                "stage" : "IXSCAN",
+                                "nReturned" : 2,
+                                "executionTimeMillisEstimate" : 10,
+                                "works" : 4,
+                                "advanced" : 2,
+                                "needTime" : 1,
+                                "needYield" : 0,
+                                "saveState" : 0,
+                                "restoreState" : 0,
+                                "isEOF" : 1,
+                                "keyPattern" : {
+                                        "price" : 1,
+                                        "category" : 1,
+                                        "subCategory" : 1
+                                },
+                                "indexName" : "price_1_category_1_subCategory_1",
+                                "isMultiKey" : false,
+                                "multiKeyPaths" : {
+                                        "price" : [ ],
+                                        "category" : [ ],
+                                        "subCategory" : [ ]
+                                },
+                                "isUnique" : false,
+                                "isSparse" : false,
+                                "isPartial" : false,
+                                "indexVersion" : 2,
+                                "direction" : "forward",
+                                "indexBounds" : {
+                                        "price" : [
+                                                "[-inf.0, 50.0]"
+                                        ],
+                                        "category" : [
+                                                "[\"Kids\", \"Kids\"]"
+                                        ],
+                                        "subCategory" : [
+                                                "[\"Medicines\", \"Medicines\"]"
+                                        ]
+                                },
+                                "keysExamined" : 4,
+                                "seeks" : 2,
+                                "dupsTested" : 0,
+                                "dupsDropped" : 0
+                        }
+                }
+        },
+        "command" : {
+                "find" : "placedOrders",
+                "filter" : {
+                        "price" : {
+                                "$lte" : 50
+                        },
+                        "category" : "Kids",
+                        "subCategory" : "Medicines"
+                },
+                "$db" : "onlineStore"
+        },
+        "serverInfo" : {
+                "host" : "EC2AMAZ-D9GMPCC",
+                "port" : 27017,
+                "version" : "5.0.4",
+                "gitVersion" : "62a84ede3cc9a334e8bc82160714df71e7d3a29e"
+        },
+        "serverParameters" : {
+                "internalQueryFacetBufferSizeBytes" : 104857600,
+                "internalQueryFacetMaxOutputDocSizeBytes" : 104857600,
+                "internalLookupStageIntermediateDocumentMaxSizeBytes" : 104857600,
+                "internalDocumentSourceGroupMaxMemoryBytes" : 104857600,
+                "internalQueryMaxBlockingSortMemoryUsageBytes" : 104857600,
+                "internalQueryProhibitBlockingMergeOnMongoS" : 0,
+                "internalQueryMaxAddToSetBytes" : 104857600,
+                "internalDocumentSourceSetWindowFieldsMaxMemoryBytes" : 104857600
+        },
+        "ok" : 1
+}
+        
+
+CONCLUSION :
+--------------
+If we see the parameter  "executionTimeMillis"  before and after set up Index 
+ "executionTimeMillis" : 341 - Before
+  "executionTimeMillis" : 65 - After
+  
+  So the execution time reduced from 314 to 65 in a collection of records count 16. So assuming data in billions how effective
+  the indexing works and is especially important in setting up the index for correct feilds in mongo DB.

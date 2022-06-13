@@ -1,0 +1,23 @@
+Key Issues:
+--------------
+Data is non schematic- Data contains structured , semi structured and unstructured data 
+SQL Queries impacting performance
+
+Additional Requirements :
+--------------------------------
+Business needs new Application in 2 weeks and should be deployed in 100 days
+Transforms Customer Experience and enhances efficiency
+
+Analysis and COmparision:
+-------------------------------
+
+Based on the above pointers , comparing the benefits from SQL DB vs NO SQL. Non SQL (mongo DB) is the best solution that can be implemneted
+SQL 				vs 			Non SQL
+	1. one type data     			1. Multiple Type Data
+	2. vertical data	 		2. horizontal data
+	3. Fixed schema		 		3. variable Schema
+	4. ACID(High Consistency)		4. BASE (High AVaiability)
+
+Conclusion:
+-------------------------------
+Non SQL DB is efficient to implement for above case study. Installed the Non SQL , Mongo DB on the local machine and explored it

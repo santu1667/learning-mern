@@ -1,0 +1,30 @@
+Node JS:
+
+1. Server side open source run time environment built on chrome v8 JS engine
+2. Provides Event driven , non blocking(Asynchronous) and Cross Platform 
+   runtime environment
+3. created by Ryan Dahl in 2009
+
+Advantages:
+------------
+
+1. Open Source
+2. Uses JavaScript to build entire server side Application
+3. Cross Platform Framwork
+4. Low Learning Curve
+
+DisAdvantages :
+------------------------
+
+1. 
+2.
+
+Installation:
+
+https://github.com/coreybutler/nvm-windows 
+
+Download setup.exe
+npm install latest - intall latest version of node js
+npm use <version> to switch to latest version
+
+Check node JS Version after installation -- > node -v this comes with npm installer npm -v

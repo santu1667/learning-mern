@@ -1,0 +1,120 @@
+Case Study :
+
+. Create new collection users and insert document userId: 1092, Name:Simon, password:abcd123
+    --> use users, 
+    --> db.users.insert(
+        {
+            "_id":1092,
+            "name":"Simon",
+            "password":"abcd123",
+            "Orders":[
+                {
+                    "orderId":"ORD34",
+                    "orderStatus":"Placed",
+                    "orderedDate":ISODate("2022-05-14"),
+                    "price":"100000$",
+                    "productInformation":
+                    {
+                        "title":"Ferrari",
+                        "type":"auto",
+                        "manfacturer":"Ferrari"
+                    }
+                },
+                {
+                     "orderId":"ORD35",
+                    "orderStatus":"Ready for Shipping",
+                    "orderedDate":ISODate("2022-05-12"),
+                    "price":"1200$",
+                    "productInformation":
+                    {
+                        "title":"Samsung Note Ultra 22",
+                        "type":"Electronics",
+                        "manfacturer":"Samsung"
+                    }
+                }
+            ]
+        })
+    --> insert another document:
+     db.users.insert(
+        {
+            "_id":1090,
+            "name":"Santosh",
+            "password":"efgh123",
+            "Orders":[
+                {
+                    "orderId":"ORD10",
+                    "orderStatus":"Ready for Shipping",
+                    "orderedDate":ISODate("2022-05-10"),
+                    "price":"100$",
+                    "productInformation":
+                    {
+                        "title":"Melissa & Doug Doctor Set",
+                        "type":"toys",
+                        "manfacturer":"Melisaa & Doug"
+                    }
+                },
+                {
+                     "orderId":"ORD12",
+                    "orderStatus":"Shipped",
+                    "orderedDate":ISODate("2022-05-08"),
+                    "price":"1200$",
+                    "productInformation":
+                    {
+                        "title":"Iphone 14 Pro Max",
+                        "type":"Electronics",
+                        "manfacturer":"Apple"
+                    }
+                }
+            ]
+        })
+    ---> insert 3rd document:
+    db.users.insert(
+        {
+            "_id":1091,
+            "name":"Vardhini",
+            "password":"ijkl1234",
+            "Orders":[
+                {
+                    "orderId":"ORD20",
+                    "orderStatus":"Order Placed",
+                    "orderedDate":ISODate("2022-06-02"),
+                    "price":"1000$",
+                    "productInformation":
+                    {
+                        "title":"Samsung Smart UHD 55 in TV",
+                        "type":"Electronics",
+                        "manfacturer":"Samsung"
+                    }
+                },
+                {
+                    "orderId":"ORD22",
+                    "orderStatus":"Shipped",
+                    "orderedDate":ISODate("2022-05-08"),
+                    "price":"1200$",
+                    "productInformation":
+                    {
+                        "title":"One Plus Pro",
+                        "type":"Electronics",
+                        "manfacturer":"One Plus"
+                    }
+                }
+            ]
+        })
+    
+    . find all documents inserted in users collection:
+    --> db.users.find() same as db.users.find({}) - retreives all documents
+    --> db.users.find({},{name:1,Orders: {orderId:1,orderStatus:1}}) - displays all records from collection with feilds name, OrderId 
+        and OrderSTatus
+    --> db.users.find({name:{$in:["Santosh","Vardhini"]}}) - retreives documents having order name Santosh and Vardhini
+    --> db.users.find({"Orders.price":{$gt :"1000$"} },{name:1,Orders: {orderId:1,price:1.orderStatus:1}).pretty()
+    --> db.users.find({"Orders.price":{$lte :"5000$"} },{name:1,Orders: {orderStatus:1,price:1,{productInformation: {title:1}}}).pretty()
+    --> find the order which had Order Id OrD34 - db.users.find({"Orders.orderId":"ORD34"})
+
+    . update the OrderStatus of Order ORD34 from Placed to Scheduled for Manfacturing
+    --> db.users.update({"Orders.orderId":"ORD34"},{$set:{"orderStatus":"Scheduled for Manfacturing"}}) 
+    --> Bulk Update - 
+        db.users.update({"Orders.price":{$lte:"1000$"}},{$set:{"Orders.price":"1512$"}})
+
+    . find document with Manfacturer Ferrari
+    --> db.users.find({"Orders.productInformation.manfacturer":{$eq :"Ferrari"}}) ann execute remove query to do iteration
+    --> db.users.remove({"Orders.productInformation.manfacturer":{$eq :"Ferrari"}})

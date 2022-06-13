@@ -1,0 +1,14 @@
+Case Study TMDB :
+
+
+As the data needed to be gathered in one hit excluding complex queries and performance view , NOn SQL DB in the better solution in implementing the TMDB case study.
+Follow the below steps for the case study execution
+
+1. Go to path where mongo DB is installed from powershell/command prompt 
+2. Execute mongod to check what version is installed. Incase if any errors is received , check the Environment Variables and add the bin folder of installed Mongo DB in the Path.
+3. After executing mongod , execute the below commands
+  --> use tmdb - create data base tmdb
+  --> db.createCollection("tmbd_tvShows") - Create a collection named tmdb_tvShows to save the tv shw information
+  --> show collections --> display the list of collections created
+  --> db.tmbd_tvShows.insert("Document Record to insert tvshow data - Refer tmdb.json for the JSON file") - This statement inserts the 
+  record/ document into the collection

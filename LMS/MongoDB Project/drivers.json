@@ -1,0 +1,62 @@
+[
+    {
+        "savedAddress":"9835 Fredericksburg Rd,San Antonio,TX,78240","defaultAddress":"9835 Fredericksburg Rd,San Antonio,TX,78240",
+        "mobileNumber":"2102920729","email":"driver1@gmail.com","firstName":"driverfn-1","lastName":"driverln-1","driverRating":4.9,
+        "trips":15,"photo":"photoURL","driverCurrentLocation":[-98.576850,29.531810],"vehicleInformation":{"vehicleName":"Honda Civic",
+            "vehicleCategory":"Sedan","vehicleNumberPlate":"KYH1235","vehicleColor":"red","Optionals":"baby carseat"}
+    },
+    {
+        "savedAddress":"9840 Fredericksburg Rd,San Antonio,TX,78240","defaultAddress":"9840 Fredericksburg Rd,San Antonio,TX,78240",
+        "mobileNumber":"2102920730","email":"driver2@gmail.com","firstName":"driverfn-2","lastName":"driverln-2","driverRating":4.3,
+        "trips":60,"photo":"photoURL","driverCurrentLocation":[-98.576970,29.534890],"vehicleInformation":{"vehicleName":"Toyota Rav4 XSE",
+           "vehicleCategory":"SUV","vehicleNumberPlate":"KYH3621","vehicleColor":"silver","Optionals":"luggage carrier"}
+    },
+    {
+        "savedAddress":"5100 Usaa Blvd, San Antonio, TX 78240","defaultAddress":"5100 Usaa Blvd, San Antonio, TX 78240",
+        "mobileNumber":"2102920731","email":"driver3@gmail.com","firstName":"driverfn-3","lastName":"driverln-3","driverRating":4.4,
+        "trips":22,"photo":"photoURL","driverCurrentLocation":[-98.585430,29.533490],"vehicleInformation":{"vehicleName":"Chrysler Pacifia",
+            "vehicleCategory":"MiniVan","vehicleNumberPlate":"KYH3655","vehicleColor":"gray","Optionals":["baby carseat","luggage carrier"]}
+    },
+    {
+        "savedAddress":"16505 La Cantera Pkwy, San Antonio, TX 78256","defaultAddress":"16505 La Cantera Pkwy, San Antonio, TX 78256",
+        "mobileNumber":"2102920732","email":"driver4@gmail.com","firstName":"driverfn-4","lastName":"driverln-4","driverRating":3.9,
+        "trips":110,"photo":"photoURL","driverCurrentLocation":[-98.6169379,29.6003526],"vehicleInformation":{"vehicleName":"BMW X1",
+            "vehicleCategory":"Sports","vehicleNumberPlate":"KYH1285","vehicleColor":"white"}
+    },
+    {
+        "savedAddress":"1700 Jackson Keller Rd, San Antonio, TX 78213","defaultAddress":"1700 Jackson Keller Rd, San Antonio, TX 78213",
+        "mobileNumber":"2102920733","email":"driver5@gmail.com","firstName":"driverfn-5","lastName":"driverln-5","driverRating":4.1,
+        "trips":32,"photo":"photoURL","driverCurrentLocation":[-98.5222518,29.5109657],"vehicleInformation":{"vehicleName":"Chevrolet Malibu LS",
+            "vehicleCategory":"Sedan","vehicleNumberPlate":"KYH2135","vehicleColor":"red","Optionals":["baby carseat","luggage carrier"]}
+    },
+    {
+        "savedAddress":"18130 Talavera Ridge, San Antonio, TX 78257","defaultAddress":"18130 Talavera Ridge, San Antonio, TX 78257",
+        "mobileNumber":"2102920734","email":"driver6@gmail.com","firstName":"driverfn-6","lastName":"driverln-6","driverRating":4.8,
+        "trips":26,"photo":"photoURL","driverCurrentLocation":[-98.5992901,29.6160007],"vehicleInformation":{"vehicleName":"Honda ",
+            "vehicleCategory":"SUV","vehicleNumberPlate":"KYH8571","vehicleColor":"white","Optionals":"luggage carrier"}
+    },
+    {
+        "savedAddress":"1700 Jackson Keller Rd, San Antonio, TX 78213","defaultAddress":"1700 Jackson Keller Rd, San Antonio, TX 78213",
+        "mobileNumber":"2102920735","email":"driver7@gmail.com","firstName":"driverfn-7","lastName":"driverln-7","driverRating":4.0,
+        "trips":30,"photo":"photoURL","driverCurrentLocation":[-98.5222518,29.5109657],"vehicleInformation":{"vehicleName":"Tesla Model S",
+            "vehicleCategory":"Super Car","vehicleNumberPlate":"KYH9874","vehicleColor":"red"}
+    },
+    {
+        "savedAddress":"3631 Callaghan Rd, San Antonio, TX 78228","defaultAddress":"3631 Callaghan Rd, San Antonio, TX 78228",
+        "mobileNumber":"2102920736","email":"driver8@gmail.com","firstName":"driverfn-8","lastName":"driverln-8","driverRating":4.9,
+        "trips":5,"photo":"photoURL","driverCurrentLocation":[-98.5222518,29.5109657],"vehicleInformation":{"vehicleName":"Honda Accord",
+            "vehicleCategory":"Sedan","vehicleNumberPlate":"KYH7894","vehicleColor":"silver","Optionals":["baby carseat","luggage carrier"]}
+    },
+    {
+        "savedAddress":"5420 Callaghan Rd, San Antonio, TX 78228","defaultAddress":"5420 Callaghan Rd, San Antonio, TX 78228",
+        "mobileNumber":"2102920737","email":"driver9@gmail.com","firstName":"driverfn-9","lastName":"driverln-9","driverRating":3.8,
+        "trips":45,"photo":"photoURL","driverCurrentLocation":[-98.5828357,29.4802428],"vehicleInformation":{"vehicleName":"Ram 1500 Classic",
+            "vehicleCategory":"Truck","vehicleNumberPlate":"KYH9874","vehicleColor":"blue","Optionals":"luggage Puller"}
+    },
+    {
+        "savedAddress":"7810 Callaghan Rd, San Antonio, TX 78228","defaultAddress":"7810 Callaghan Rd, San Antonio, TX 78228",
+        "mobileNumber":"2102920738","email":"driver10@gmail.com","firstName":"driverfn-10","lastName":"driverln-11","driverRating":3.6,
+        "trips":61,"photo":"photoURL","driverCurrentLocation":[-98.5536362,29.5080824],"vehicleInformation":{"vehicleName":"Honda E",
+            "vehicleCategory":"Hatchback","vehicleNumberPlate":"KYH0000","vehicleColor":"black"}
+    }
+]

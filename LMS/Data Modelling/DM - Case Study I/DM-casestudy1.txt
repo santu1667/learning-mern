@@ -1,0 +1,39 @@
+Data Modelling Case Study -1
+--------------------------------
+
+Requirement :
+An Automation gaint had been using multiple DB's and multiple warehouses from long time which created repeated and outdaed ifnormation.
+Issues mentioned :
+-------------------
+. Data must be integrated from different Applications in JSON format
+. Different Data Modelling techniques used to store data in different DB's
+. Storing redundant data results in improper utilization of resources
+Additional info: 
+------------------
+.Personalized server must be created and deployed at minimal cost and in lesser period
+
+Two DBA's propsed plan approaches via SQL DB and Non SQL DB 
+
+Analysis/ Answer:
+-------------------------------------------
+
+DBA A Proposed Plan: DB Type - Oracle ; Employees Reqd: 20 ; Time needed - 14-15 months ; Resource Requirement - 3 instances ; Performance - 3 iteration performance enhancement
+----------------------
+
+--> Disadavantages :
+	. As Application needs data in JSON format, retreving and data conversion will be more effort
+	. Cost will be more as needed more employess and need more time to compelte the migration
+	. Manitenance will be tough by choosing the Oracle DB
+
+DBA B Propsed Solution: DB Type - NoSQL ; Employees Reqd: 3-4 ; Time needed - 4 months ; Resource Requirement - 1 instances ; Performance - official drivers can be implemented to integrate with Apps
+-------------------------
+
+--> Advantages :
+	. Faster , Easy Maintenance and cost effective and satisfies all requirements given for project
+	. Avoid of complex data modelling including primary kwy and foreign key concept
+	
+	Disadvantages :
+	. More duplicate data might be inserted into documents
+	
+Conclusion : Considering above 2 options DBA B 's plan is good and selected to implemented
+----------

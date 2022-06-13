@@ -1,0 +1,25 @@
+----> Express JS 
+        Web framework in Node JS behaves like middleware to help manage servers and routes
+        Has call back function which had request and response
+        Uses routing table  which is used to perform different operations based on URL
+        Renders dynamic HTML by passing arguments
+        * npm install Express - saves installtion express package in node_modules
+        
+    CLient- Server Connection:
+        Client establishes connection wit server via URL: and Server makes its services availabe via port(http:xxxxx:port)
+        Deafult Port - 80
+
+        Code:
+        const express=  require('express');
+        const app= express();
+        const port= 6050;
+        app.listen(port, err()
+        {
+            if(err){throw error;}console.log('Server is runnign on Port '+port)
+        })
+
+    Routing - Helps you to route the request URL to diffrent destinations based on the path or URL
+
+
+    Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+

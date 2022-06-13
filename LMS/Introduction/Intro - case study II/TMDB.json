@@ -1,0 +1,102 @@
+db.tmbd_tvShows.insert({
+    "showName":"Strange Things",
+    "show Details":"When a young boy disappears, his mother, a police chief and his friends must confront terrifying supernatural forces in order to get him back.",
+    "seasons":[
+        {
+            "seasonNumber":"1",
+            "Episodes":[
+                {"episodeNumber":"1", 
+                    "episodeTitle":"The Vanishing of Will Byers", 
+                    "cast&crew":["Millie Bobby Brown","David Harbour","Natalia Dyer"], 
+                    "reviews":["Excellent!","Worth Watching","Can be better"],
+                    "ratings":"8.5"
+                },
+                {
+                    "episodeNumber":"2", 
+                    "episodeTitle":"The Weirdo on Maple Street", 
+                    "cast&crew":["Millie Bobby Brown","David Harbour","Natalia Dyer"], 
+                    "reviews":["Excellent!","Worth Watching","Can be better"],
+                    "ratings":"8.8"
+                },
+                {
+                    "episodeNumber":"3", 
+                    "episodeTitle":"Holly, Jolly", 
+                    "cast&crew":["Millie Bobby Brown","David Harbour","Natalia Dyer"], 
+                    "reviews":["Excellent!","Worth Watching","Can be better"],
+                    "ratings":"9"
+                }]
+        },
+        {
+            "seasonNumber":"2",
+            "Episodes":[
+                {"episodeNumber":"1", 
+                    "episodeTitle":"MADMAX", 
+                    "cast&crew":["Millie Bobby Brown","David Harbour","Natalia Dyer"], 
+                    "reviews":["Excellent!","Worth Watching","Can be better"],
+                    "ratings":"8.5"
+                },
+                {
+                    "episodeNumber":"2", 
+                    "episodeTitle":"Trick or Treat, Freak", 
+                    "cast&crew":["Millie Bobby Brown","David Harbour","Natalia Dyer"], 
+                    "reviews":["Excellent!","Worth Watching","Can be better"],
+                    "ratings":"8.8"
+                },
+                {
+                    "episodeNumber":"3", 
+                    "episodeTitle":"The Pollywog", 
+                    "cast&crew":["Millie Bobby Brown","David Harbour","Natalia Dyer"], 
+                    "reviews":["Excellent!","Worth Watching","Can be better"],
+                    "ratings":"9"
+                }]
+        },
+        {
+            "seasonNumber":"3",
+            "Episodes":[
+                {"episodeNumber":"1", 
+                    "episodeTitle":"Suzie, Do You Copy?", 
+                    "cast&crew":["Millie Bobby Brown","David Harbour","Natalia Dyer"], 
+                    "reviews":["Excellent!","Worth Watching","Can be better"],
+                    "ratings":"8.5"
+                },
+                {
+                    "episodeNumber":"2", 
+                    "episodeTitle":"The Mall Rats", 
+                    "cast&crew":["Millie Bobby Brown","David Harbour","Natalia Dyer"], 
+                    "reviews":["Excellent!","Worth Watching","Can be better"],
+                    "ratings":"8.8"
+                },
+                {
+                    "episodeNumber":"3", 
+                    "episodeTitle":"The Case of the Missing Lifeguard", 
+                    "cast&crew":["Millie Bobby Brown","David Harbour","Natalia Dyer"], 
+                    "reviews":["Excellent!","Worth Watching","Can be better"],
+                    "ratings":"9"
+                }]
+        },
+        {
+            "seasonNumber":"4",
+            "Episodes":[
+                {"episodeNumber":"1", 
+                    "episodeTitle":"The Hellfire Club", 
+                    "cast&crew":["Millie Bobby Brown","David Harbour","Natalia Dyer"], 
+                    "reviews":["Excellent!","Worth Watching","Can be better"],
+                    "ratings":"8.5"
+                },
+                {
+                    "episodeNumber":"2", 
+                    "episodeTitle":"Vecna's Curse", 
+                    "cast&crew":["Millie Bobby Brown","David Harbour","Natalia Dyer"], 
+                    "reviews":["Excellent!","Worth Watching","Can be better"],
+                    "ratings":"8.8"
+                },
+                {
+                    "episodeNumber":"3", 
+                    "episodeTitle":"The Monster and the Superhero", 
+                    "cast&crew":["Millie Bobby Brown","David Harbour","Natalia Dyer"], 
+                    "reviews":["Excellent!","Worth Watching","Can be better"],
+                    "ratings":"9"
+                }]
+        }
+        ]
+})

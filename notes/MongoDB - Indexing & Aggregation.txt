@@ -1,0 +1,108 @@
+MOngo DB - Indexing and Aggregation:
+---------------------------------------------------------------
+
+    db.sales.aggregate([
+    {
+        $group:{_id:'$item',avarageQuantity:{$avg:'$quantity'}}
+    }
+    ])
+
+    2. db.sales.aggregate([
+    {
+        $group:{_id:'$item',avgAmount:{$avg:{$multiply:['$quantity','$price']}}}
+    },
+    {$sort: {$avgAmount:1}}
+    ])
+
+    2. db.sales.aggregate([
+    {
+        $group:{_id:'$item',avgAmount:{$avg:{$multiply:['$quantity','$price']}}}
+    },
+    {$match: {avgAmount:{$lt:200}}},
+    {$sort: {$avgAmount:1}}
+    ])
+
+	--> Indexes reduces the time by storing certain data temporarily and helps mongo DB to save time while traversing through data instead of going through all document feilds
+	
+	--> Types of Indexes:
+		
+		. Hashed Index :
+		. Text index:
+		. Geospatial index:
+		. Default_id:
+		. Single Feild :
+		. Compound Index: 
+		. Multikey Index: 
+		
+		--> Index properties:
+		--------------------------------------------------------
+		TTL(Total Time to Live indexes): Special indexes which are used to delte the data automatically after specific duration of time. Ideal for purge data.
+		Unique Index: This index wont allow the duplicate value on the index. The default unique index on the Mondo DB collection is _id
+		Sparse Index: This property ensures the Query search for documents having indexed feild. Sparse index along with unique index used to reject duplicate feild values and
+					  ignore documents without indexed keys
+					  
+					  
+		--> Index Creation :
+			. When index creation is in progress , we cannot perform read and write oprations for collections
+			. Index can be created using createIndex() command and if no earlier index exists in the menitoned feild.
+			. Replica Set --> a group of mongod instances that host the same data set. Background operation of index creation for replica set begins after it completes for primary. Index creation on   	secondary nodes always happens in recovery mode.
+			
+			Queries:
+			
+			--> db.collection.dropIndex  -- To remove an index
+			--> db.collection.createIndex -- To create an index
+			--> db.collection.reIndex -- rebuild all indexes on a collection in single operation
+			--> db.currentOp -- status of Indexing Operation
+			--> db.killOp -- termiante ongoing process of index build
+			--> db.collection.getIndexes -- Return list of Indexes on a collection
+			--> db.collection.explain -- return how many milliseconds took to process a query
+			
+	Aggregators:
+	-------------------------------------------------------------------------------------------------
+		--> Operations that process data sets and return calculated results are called Aggregators.
+		--> Approaches:
+			. Pipeline - A framework for performing aggregation tasks modelled on concept of data processing pipelines. usinf this, Mongo DB passes the documents of asingle collection through pipelines
+			. $project, $match , $group, $unwind, $sort, $skip, $limit, $geoNear
+			. count(), distinct(), group()
+
+			Need to check on drop Index and index creation on Non existing feilds
+
+			
+
+			 db.usersInformation.dropIndex({ "key" : {
+...                         "firstName" : 1,
+...                         "lastName" : 1,
+...                         "driverRating" : 1,
+...                         "rating" : 1
+...                 }})
+								{
+										"ok" : 0,
+										"errmsg" : "can't find index with key: { key: { firstName: 1.0, lastName: 1.0, driverRating: 1.0, rating: 1.0 } }",
+										"code" : 27,
+										"codeName" : "IndexNotFound"
+								}
+
+			 db.usersInformation.getIndexes()
+[
+        {
+                "v" : 2,
+                "key" : {
+                        "_id" : 1
+                },
+                "name" : "_id_"
+        },
+        {
+                "v" : 2,
+                "key" : {
+                        "firstName" : 1,
+                        "lastName" : 1,
+                        "driverRating" : 1,
+                        "rating" : 1
+                },
+                "name" : "firstName_1_lastName_1_driverRating_1_rating_1"
+        }
+]
+			
+		
+			
+			

@@ -1,0 +1,52 @@
+[
+    {
+        "savedAddress":"9835 Fredericksburg Rd,San Antonio,TX,78240","defaultAddress":"9835 Fredericksburg Rd,San Antonio,TX,78240",
+        "mobileNumber":"2092920729","email":"user1@gmail.com","firstName":"userfn-1","lastName":"userln-1","userRating":4.9,
+        "ridesTaken":15,"photo":"photoURL","userCurrentLocation":[-98.576850,29.531810]
+    },
+    {
+        "savedAddress":"9840 Fredericksburg Rd,San Antonio,TX,78240","defaultAddress":"9840 Fredericksburg Rd,San Antonio,TX,78240",
+        "mobileNumber":"2092920730","email":"user2@gmail.com","firstName":"userfn-2","lastName":"userln-2","userRating":4.3,
+        "ridesTaken":60,"photo":"photoURL","userCurrentLocation":[-98.576970,29.534890]
+    },
+    {
+        "savedAddress":"5100 Usaa Blvd, San Antonio, TX 78240","defaultAddress":"5100 Usaa Blvd, San Antonio, TX 78240",
+        "mobileNumber":"2092920731","email":"user3@gmail.com","firstName":"userfn-3","lastName":"userln-3","userRating":4.4,
+        "ridesTaken":22,"photo":"photoURL","userCurrentLocation":[-98.585430,29.533490]
+    },
+    {
+        "savedAddress":"16505 La Cantera Pkwy, San Antonio, TX 78256","defaultAddress":"16505 La Cantera Pkwy, San Antonio, TX 78256",
+        "mobileNumber":"2092920732","email":"user4@gmail.com","firstName":"userfn-4","lastName":"userln-4","userRating":3.9,
+        "ridesTaken":110,"photo":"photoURL","userCurrentLocation":[-98.6169379,29.6003526]
+    },
+    {
+        "savedAddress":"1700 Jackson Keller Rd, San Antonio, TX 78213","defaultAddress":"1700 Jackson Keller Rd, San Antonio, TX 78213",
+        "mobileNumber":"2092920733","email":"user5@gmail.com","firstName":"userfn-5","lastName":"userln-5","userRating":4.1,
+        "ridesTaken":32,"photo":"photoURL","userCurrentLocation":[-98.5222518,29.5109657]
+    },
+    {
+        "savedAddress":"18130 Talavera Ridge, San Antonio, TX 78257","defaultAddress":"18130 Talavera Ridge, San Antonio, TX 78257",
+        "mobileNumber":"2092920734","email":"user6@gmail.com","firstName":"userfn-6","lastName":"userln-6","userRating":4.8,
+        "ridesTaken":26,"photo":"photoURL","userCurrentLocation":[-98.5992901,29.6160007]
+    },
+    {
+        "savedAddress":"1700 Jackson Keller Rd, San Antonio, TX 78213","defaultAddress":"1700 Jackson Keller Rd, San Antonio, TX 78213",
+        "mobileNumber":"2092920735","email":"user7@gmail.com","firstName":"userfn-7","lastName":"userln-7","userRating":4.0,
+        "ridesTaken":30,"photo":"photoURL","userCurrentLocation":[-98.5222518,29.5109657]
+    },
+    {
+        "savedAddress":"3631 Callaghan Rd, San Antonio, TX 78228","defaultAddress":"3631 Callaghan Rd, San Antonio, TX 78228",
+        "mobileNumber":"2092920736","email":"user8@gmail.com","firstName":"userfn-8","lastName":"userln-8","userRating":4.9,
+        "ridesTaken":5,"photo":"photoURL","userCurrentLocation":[-98.5222518,29.5109657]
+    },
+    {
+        "savedAddress":"5420 Callaghan Rd, San Antonio, TX 78228","defaultAddress":"5420 Callaghan Rd, San Antonio, TX 78228",
+        "mobileNumber":"2092920737","email":"user9@gmail.com","firstName":"userfn-9","lastName":"userln-9","userRating":3.8,
+        "ridesTaken":45,"photo":"photoURL","userCurrentLocation":[-98.5828357,29.4802428]
+    },
+    {
+        "savedAddress":"7810 Callaghan Rd, San Antonio, TX 78228","defaultAddress":"7810 Callaghan Rd, San Antonio, TX 78228",
+        "mobileNumber":"2092920738","email":"user10@gmail.com","firstName":"userfn-10","lastName":"userln-11","userRating":3.6,
+        "ridesTaken":61,"photo":"photoURL","userCurrentLocation":[-98.5536362,29.5080824]
+    }
+]

@@ -1,0 +1,116 @@
+Mongo DB Crud Operations:
+------------------------------------------------
+
+CRUD Operations : Create - db.collectionName.insert()
+				  Read - db.collectionName.find()
+				  Update - db.collectionName.update()
+				  Delete - db.collectionName.remove()
+	--> CRUD Concepts: 
+		. Write Operations - Data Creation and updation operation, behavior and performance	
+		. Read Operations -	 Data RetreivalQueries, their behavior and performance
+	
+	--> Read Operations : 
+		. Cursors - Queries that retirn iterable objects and holds the full result set
+					If the returned cursor is not assigned to any variable , sursor will iterate upto 20 times
+					db.collection.find() - queries a collection and returns cursor to returning documents
+					db.server.status() returns cursor information like no of cursors open , timed out cursors etc.
+					
+		. Query Optimisation - used to analyse and improve query performance
+					Indexes - improves efficiency of the read operations by reducing the amount of data query needs to process
+					Query Selectivity - refers to the effieciency of query predicate to exclude  or filter out the documents in a collection. This helpsm to detemine if we can use index or not
+					Covered Query - A Query that can be satisfied entirely by using an index.
+		. Distributed Queries - used to understand how sharded clusters and sets affects the performance of read opearions
+					If a query doesnt include Shard Key , mongos will direct the Query to all shards
+		
+	---> Write Operations :
+		. Write Concern - describes the gaurantee in which mongo DB describes the update is success.
+					Levels: Acknowledged - Client waits for response o/p, unacknowledged - client wont waits for response , Journaled -  Acknowledges after comminting data to jounrla
+					and Replica Acknowledged - 
+		. Distributed Write operators - write operations to sharded clsuters , mongo uses cluster metadata from config data base to route the write to specific shard
+		. Write Operation Performance - 
+		. Bulk Inserts - 
+		
+	-->  Sample Queries :
+		
+		db.collectionName.update({"age":{$gte:18}},{$set: {"Status":"A"}},{multi:true})
+
+		. OR Query and In Query Usage:
+		--------------------------------
+		--> db.products.find({
+			$or:[{price:"799$"},{price:"899$"}]
+		})
+		same as 
+		db.products.find({price:{$in: ["799$","899$"]}})
+
+		. $ exists - prints the documents which had price feild
+		--------------------------------------
+		--> db.prodcuts.find({
+			price: {$exists:true}
+		})
+
+		-->db.prodcuts.find({
+			price: {$exists:true,$eq:"799$"}
+		})
+
+		.$ type - Returns the list of documents having price match String
+		---------------------------------------------------------------------
+		--> db.prodcuts.find({
+			price: {$type:""string""}
+		})
+					
+		.$size - matches the size of the feild array size value:
+		-----------------------------------------------------------------
+		--> db.prodcuts.find({
+			$or:[{price: {$size:2}},{price: {$size:1}}]
+		})
+
+		.$elemMatch - used to compare feild Array value
+		--------------------------------------------------------
+		--> db.prodcuts.find({
+			storage:{
+				$elemMatch:{
+					$lte:128
+				}
+			}
+		})
+
+		. Sort - sort the results be feild, 1 - Ascending order -1 - Descending order
+		-----------------------------------------------------------------------------
+		db.prodcuts.find({
+			storage:{
+				$elemMatch:{
+					$lte:128
+				}
+			}
+		}).sort({storage:1,price:-1})
+
+		. limit - used to return number fo records
+		------------------------------------------------------
+		--> db.prodcuts.find({
+				storage:{
+					$elemMatch:{
+						$lte:128
+					}
+				}
+			}).sort({price:-1}).limit(1)
+
+		. order by - same as sort
+		---------------------------------------------------------
+		db.pets.find( { $query: {}, $orderBy: { weight: -1 } } )
+
+		. $unwind, $match
+		----------------------------------------------------------
+		db.posts.aggregate([
+    		{$unwind: "$comments"},
+    		{$match: {"title": "Coffee please.", "comments.description": "Cold"}},
+   			 {$project: {
+        		"title": 1,
+	    		 "comments.comment": 1
+    		}}
+		]).pretty();
+
+		. explain() - This gives the time execution
+		------------------------------------------------------------------------
+		db.products.find({ price: { $lt: 1000 } }).sort( { price: -1 } ).explain("executionStats");
+
+

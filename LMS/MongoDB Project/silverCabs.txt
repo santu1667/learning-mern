@@ -1,0 +1,362 @@
+--> Description :
+    SilverCabs is a taxi booking Service and allows users to request taxis from Mobile App
+
+    Requirements of mongo DB:
+    ----------------------------------------
+    * Store Information of users and Drivers
+    * Users and Drivers rate themselves from scale of 1-5
+    * System should be able to handle multiple cab Types
+    * Users can request cabs based on different Categories
+    * Users should get taxis with in 5 miles of range when request for cab
+    * user Information includes 
+        saved Address, Default Address, Mobile, email, first name and last name, Rating, Rides taken, Photograph
+    * Drivers Information should includes
+        saved Address, Default Address, Mobile, email, firstName and last Name, Rating, Photograph, VehicleInformation, Trips,
+        CurrentGeoLocation
+
+        Solution: 
+        --------------------------------------------------------------------------------
+    
+    --> We can create a common collection for users and drivers by adding additional paramter userType which differs as "Rider" and "Driver"
+        and use a common collection but as it is suggested to have seperate users and drivers collection i am creating 2 collections
+
+        1. Create DB silverCabsSystem  - use silverCabsSystem
+        2. Create Collections usersInformation and driversInformation - 
+            db.createCollection("usersInformation")
+            db.createCollection("driversInformation")
+            ----- result: 
+                            use silverCabsSystem
+                            switched to db silverCabsSystem
+                            >  db.createCollection("usersInformation")
+                            { "ok" : 1 }
+                            > db.createCollection("driversInformation")
+                            { "ok" : 1 }
+
+        3. Insert documents into UsersInformation - usersInformation
+            db.usersInformation.insert({
+                "savedAddress":"9835 Fredericksburg Rd,San Antonio,TX,78240",
+                "defaultAddress":"9835 Fredericksburg Rd,San Antonio,TX,78240",
+                "mobileNumber":"2092920729",
+                "email":"usersantosh@gmail.com",
+                "firstName":"Santosh",
+                "lastName":"Guntuku",
+                "userRating":4.9,
+                "ridesTaken":15,
+                "photo":"photoURL",
+                "userCurrentLocation":[-98.576850,29.531810]
+            })
+            --------- Result: WriteResult({ "nInserted" : 1 })
+
+        ---> Insert many user documents
+             db.usersInformation.insertMany(refer users.json)
+             ----- Result :{
+                            "acknowledged" : true,
+                            "insertedIds" : [
+                                    ObjectId("62a6008a843f3bf7db786d39"),
+                                    ObjectId("62a6008a843f3bf7db786d3a"),
+                                    ObjectId("62a6008a843f3bf7db786d3b"),
+                                    ObjectId("62a6008a843f3bf7db786d3c"),
+                                    ObjectId("62a6008a843f3bf7db786d3d"),
+                                    ObjectId("62a6008a843f3bf7db786d3e"),
+                                    ObjectId("62a6008a843f3bf7db786d3f"),
+                                    ObjectId("62a6008a843f3bf7db786d40"),
+                                    ObjectId("62a6008a843f3bf7db786d41"),
+                                    ObjectId("62a6008a843f3bf7db786d42")
+                            ]
+                        }
+
+        4. Insert documents into driversInformation
+            db.driversInformation.insert({
+                "savedAddress":"4822 Gus Eckert Rd, San Antonio, TX  78240",
+                "defaultAddress":"4822 Gus Eckert Rd, San Antonio, TX  78240",
+                "mobileNumber":"2092920123",
+                "email":"driversantoh@gmail.com",
+                "firstName":"Santosh",
+                "lastName":"Kumar",
+                "Rating":4.9,
+                "trips":18,
+                "photo":"photoURL",
+                "driverCurrentLocation":[-98.579263,29.531091],
+                "vehicleInformation":{
+                        "vehicleName":"Audi etron GT",
+                        "vehicleCategory":"Sedan",
+                        "vehicleNumberPlate":"KYH1111",
+                        "vehicleColor":"red",
+                        "Optionals":["baby carseat","luggage carrier"]
+                 }
+            })
+            ---- Result : WriteResult({ "nInserted" : 1 })
+
+        ---> Insert many driver documents
+             db.driversInformation.insertMany(refer drivers.json)
+             --- Result :{
+                        "acknowledged" : true,
+                        "insertedIds" : [
+                                ObjectId("62a601d8843f3bf7db786d44"),
+                                ObjectId("62a601d8843f3bf7db786d45"),
+                                ObjectId("62a601d8843f3bf7db786d46"),
+                                ObjectId("62a601d8843f3bf7db786d47"),
+                                ObjectId("62a601d8843f3bf7db786d48"),
+                                ObjectId("62a601d8843f3bf7db786d49"),
+                                ObjectId("62a601d8843f3bf7db786d4a"),
+                                ObjectId("62a601d8843f3bf7db786d4b"),
+                                ObjectId("62a601d8843f3bf7db786d4c"),
+                                ObjectId("62a601d8843f3bf7db786d4d")
+                        ]
+                     }
+
+        5. System should be able to handle multiple Cab types/category : 
+
+            retreive the various cab types - pass this to frop down in UI- 
+            db.driversInformation.distinct("vehicleInformation.vehicleCategory")
+                --Result :
+                            [
+                                    "Hatchback",
+                                    "MiniVan",
+                                    "SUV",
+                                    "Sedan",
+                                    "Sports",
+                                    "Super Car",
+                                    "Truck"
+                            ]
+
+            On select of particular value from dropdown pass that to DB Query, if suppose user selects "Sedan".
+            This Query gives all drivers upto count 5 but wont consider any distance
+
+            db.driversInformation.find({"vehicleInformation.vehicleCategory":"Sedan"},
+                                                {_id:0, firstName:1, lastName:1, driverRating:1, 
+                                                    vehicleInformation : {vehicleName:1, color:1,vehicleNumberPlate:1}}).limit(5)
+            ---------------- Result:
+            { "firstName" : "Santosh", "lastName" : "Kumar", "vehicleInformation" : { "vehicleName" : "Audi etron GT", 
+            "vehicleNumberPlate" : "KYH1111" } }
+            { "firstName" : "driverfn-1", "lastName" : "driverln-1", "driverRating" : 4.9, "vehicleInformation" : 
+            { "vehicleName" : "Honda Civic", "vehicleNumberPlate" : "KYH1235" } }
+            { "firstName" : "driverfn-5", "lastName" : "driverln-5", "driverRating" : 4.1, "vehicleInformation" : 
+            { "vehicleName" : "Chevrolet Malibu LS", "vehicleNumberPlate" : "KYH2135" } }
+            { "firstName" : "driverfn-8", "lastName" : "driverln-8", "driverRating" : 4.9, "vehicleInformation" : 
+            { "vehicleName" : "Honda Accord", "vehicleNumberPlate" : "KYH7894" } }
+
+            
+
+        6. To get Cabs with in 5 miles of range 
+
+            We need to create index on driverCurrentLocation
+
+            db.driversInformation.createIndex( { driverCurrentLocation: "2dsphere" } )
+            ---Result:
+                    {
+                        "numIndexesBefore" : 1,
+                        "numIndexesAfter" : 2,
+                        "createdCollectionAutomatically" : false,
+                        "ok" : 1
+                    }
+            --> Retreiving Sedan Vehicle types with in 5 miles from user location, passed user 3 coordinates in near
+            db.driversInformation.aggregate([
+                {
+                    $geoNear: {
+                        near: {coordinates: [-98.585430,29.533490] },
+                        distanceField: "dist.calculated",
+                        maxDistance: 5000,
+                        query: { "vehicleInformation.vehicleCategory": "Sedan" },
+                        includeLocs: "dist.driverCurrentLocation",
+                        spherical: true
+                    }
+                }
+            ])
+            --------------------Result:
+            {
+        "_id" : ObjectId("62a60180843f3bf7db786d43"),
+        "savedAddress" : "4822 Gus Eckert Rd, San Antonio, TX  78240",
+        "defaultAddress" : "4822 Gus Eckert Rd, San Antonio, TX  78240",
+        "mobileNumber" : "2092920123",
+        "email" : "driversantoh@gmail.com",
+        "firstName" : "Santosh",
+        "lastName" : "Kumar",
+        "Rating" : 4.9,
+        "trips" : 18,
+        "photo" : "photoURL",
+        "driverCurrentLocation" : [
+                -98.579263,
+                29.531091
+        ],
+        "vehicleInformation" : {
+                "vehicleName" : "Audi etron GT",
+                "vehicleCategory" : "Sedan",
+                "vehicleNumberPlate" : "KYH1111",
+                "vehicleColor" : "red",
+                "Optionals" : [
+                        "baby carseat",
+                        "luggage carrier"
+                ]
+        },
+        "dist" : {
+                "calculated" : 654.2925731161477,
+                "driverCurrentLocation" : [
+                        -98.579263,
+                        29.531091
+                ]
+        }
+}
+{
+        "_id" : ObjectId("62a601d8843f3bf7db786d44"),
+        "savedAddress" : "9835 Fredericksburg Rd,San Antonio,TX,78240",
+        "defaultAddress" : "9835 Fredericksburg Rd,San Antonio,TX,78240",
+        "mobileNumber" : "2102920729",
+        "email" : "driver1@gmail.com",
+        "firstName" : "driverfn-1",
+        "lastName" : "driverln-1",
+        "driverRating" : 4.9,
+        "trips" : 15,
+        "photo" : "photoURL",
+        "driverCurrentLocation" : [
+                -98.57685,
+                29.53181
+        ],
+        "vehicleInformation" : {
+                "vehicleName" : "Honda Civic",
+                "vehicleCategory" : "Sedan",
+                "vehicleNumberPlate" : "KYH1235",
+                "vehicleColor" : "red",
+                "Optionals" : "baby carseat"
+        },
+        "dist" : {
+                "calculated" : 851.8056171448582,
+                "driverCurrentLocation" : [
+                        -98.57685,
+                        29.53181
+                ]
+        }
+    }
+
+
+            ---> Retreivning all vehicle types which in 5 miles range for user 3, passing just empty Query instead of 
+                     "vehicleInformation.vehicleCategory": "Sedan" 
+                db.driversInformation.aggregate([
+                {
+                    $geoNear: {
+                        near: {coordinates: [-98.585430,29.533490] },
+                        distanceField: "dist.calculated",
+                        maxDistance: 5000,
+                        query: {},
+                        includeLocs: "dist.driverCurrentLocation",
+                        spherical: true
+                    }
+                }
+            ])
+            -----Result :Retreived 5 records with in 5 miles
+
+            { "_id" : ObjectId("62a601d8843f3bf7db786d46"), "savedAddress" : "5100 Usaa Blvd, San Antonio, TX 78240", 
+            "defaultAddress" : "5100 Usaa Blvd, San Antonio, TX 78240", "mobileNumber" : "2102920731", "email" : "driver3@gmail.com", 
+            "firstName" : "driverfn-3", "lastName" : "driverln-3", "driverRating" : 4.4, "trips" : 22, "photo" : "photoURL", 
+            "driverCurrentLocation" : [ -98.58543, 29.53349 ], "vehicleInformation" : 
+            { "vehicleName" : "Chrysler Pacifia", "vehicleCategory" : "MiniVan", "vehicleNumberPlate" : "KYH3655", 
+            "vehicleColor" : "gray", "Optionals" : [ "baby carseat", "luggage carrier" ] },
+             "dist" : { "calculated" : 0, "driverCurrentLocation" : [ -98.58543, 29.53349 ] } }
+           
+            { "_id" : ObjectId("62a60180843f3bf7db786d43"), "savedAddress" : "4822 Gus Eckert Rd, San Antonio, TX  78240", 
+            "defaultAddress" : "4822 Gus Eckert Rd, San Antonio, TX  78240", "mobileNumber" : "2092920123",
+             "email" : "driversantoh@gmail.com", "firstName" : "Santosh", "lastName" : "Kumar", "Rating" : 4.9, "trips" : 18, 
+             "photo" : "photoURL", "driverCurrentLocation" : [ -98.579263, 29.531091 ], "vehicleInformation" :
+              { "vehicleName" : "Audi etron GT", "vehicleCategory" : "Sedan", "vehicleNumberPlate" : "KYH1111", "vehicleColor" : "red",
+               "Optionals" : [ "baby carseat", "luggage carrier" ] }, "dist" : { "calculated" : 654.2925731161477, 
+               "driverCurrentLocation" : [ -98.579263, 29.531091 ] } }
+
+            { "_id" : ObjectId("62a601d8843f3bf7db786d45"), "savedAddress" : "9840 Fredericksburg Rd,San Antonio,TX,78240",
+             "defaultAddress" : "9840 Fredericksburg Rd,San Antonio,TX,78240", "mobileNumber" : "2102920730", 
+             "email" : "driver2@gmail.com", "firstName" : "driverfn-2", "lastName" : "driverln-2", "driverRating" : 4.3, "trips" : 60,
+              "photo" : "photoURL", "driverCurrentLocation" : [ -98.57697, 29.53489 ], "vehicleInformation" :
+               { "vehicleName" : "Toyota Rav4 XSE", "vehicleCategory" : "SUV", "vehicleNumberPlate" : "KYH3621", 
+               "vehicleColor" : "silver", "Optionals" : "luggage carrier" }, "dist" : { "calculated" : 834.07629235797, 
+               "driverCurrentLocation" : [ -98.57697, 29.53489 ] } }
+
+            { "_id" : ObjectId("62a601d8843f3bf7db786d44"), "savedAddress" : "9835 Fredericksburg Rd,San Antonio,TX,78240", 
+            "defaultAddress" : "9835 Fredericksburg Rd,San Antonio,TX,78240", "mobileNumber" : "2102920729", 
+            "email" : "driver1@gmail.com", "firstName" : "driverfn-1", "lastName" : "driverln-1", "driverRating" : 4.9, "trips" : 15,
+             "photo" : "photoURL", "driverCurrentLocation" : [ -98.57685, 29.53181 ], "vehicleInformation" : 
+             { "vehicleName" : "Honda Civic", "vehicleCategory" : "Sedan", "vehicleNumberPlate" : "KYH1235", "vehicleColor" : "red",
+              "Optionals" : "baby carseat" }, "dist" : { "calculated" : 851.8056171448582,
+               "driverCurrentLocation" : [ -98.57685, 29.53181 ] } }
+
+            { "_id" : ObjectId("62a601d8843f3bf7db786d4d"), "savedAddress" : "7810 Callaghan Rd, San Antonio, TX 78228", 
+            "defaultAddress" : "7810 Callaghan Rd, San Antonio, TX 78228", "mobileNumber" : "2102920738", 
+            "email" : "driver10@gmail.com", "firstName" : "driverfn-10", "lastName" : "driverln-11", "driverRating" : 3.6, 
+            "trips" : 61, "photo" : "photoURL", "driverCurrentLocation" : [ -98.5536362, 29.5080824 ], "vehicleInformation" : 
+            { "vehicleName" : "Honda E", "vehicleCategory" : "Hatchback", "vehicleNumberPlate" : "KYH0000", "vehicleColor" : "black" },
+             "dist" : { "calculated" : 4181.451407809777, "driverCurrentLocation" : [ -98.5536362, 29.5080824 ] } }
+
+
+        7. Custom Task given by Akash 
+        ---------------------------------------------------------------------------
+        
+        i. Create index for user and driver on several feilds
+
+        SingleFeild index example - db.driversInformation.createIndex( { driverCurrentLocation: "2dsphere" } )
+                                    ---- Result : Already created while doing aggregation
+                                                     {
+                                                        "numIndexesBefore" : 1,
+                                                        "numIndexesAfter" : 2,
+                                                        "createdCollectionAutomatically" : false,
+                                                        "ok" : 1
+                                                    }
+
+        Multifeild Index example - 
+        1. Drivers -  db.driversInformation.createIndex({firstName:1, lastName:1, driverRating:1,
+                                        driverCurrentLocation: "2dsphere","vehicleInformation.vehicleName":1, 
+                                        "vehicleInformation.color":1,
+                                       "vehicleInformation.vehicleNumberPlate":1})
+                        -- Result : {
+                                        "numIndexesBefore" : 2,
+                                        "numIndexesAfter" : 3,
+                                        "createdCollectionAutomatically" : false,
+                                        "ok" : 1
+                                     }
+
+        
+        2.users - db.usersInformation.createIndex({firstName:1, lastName:1, driverRating:1,rating:1})
+
+                --- result : {
+                                "numIndexesBefore" : 1,
+                                "numIndexesAfter" : 2,
+                                "createdCollectionAutomatically" : false,
+                                "ok" : 1
+                              }
+
+        --->  Verifying Indexes created
+        ----------------------------------------------------------------------------------------------------------
+            1.  db.driversInformation.getIndexes()
+                [
+                        {
+                                "v" : 2,
+                                "key" : {
+                                        "_id" : 1
+                                },
+                                "name" : "_id_"
+                        },
+                        {
+                                "v" : 2,
+                                "key" : {
+                                        "driverCurrentLocation" : "2dsphere"
+                                },
+                                "name" : "driverCurrentLocation_2dsphere",
+                                "2dsphereIndexVersion" : 3
+                        },
+                        {
+                                "v" : 2,
+                                "key" : {
+                                        "firstName" : 1,
+                                        "lastName" : 1,
+                                        "driverRating" : 1,
+                                        "driverCurrentLocation" : "2dsphere",
+                                        "vehicleInformation.vehicleName" : 1,
+                                        "vehicleInformation.color" : 1,
+                                        "vehicleInformation.vehicleNumberPlate" : 1
+                                },
+                                "name" : "firstName_1_lastName_1_driverRating_1_driverCurrentLocation_2dsphere_vehicleInformation.vehicleName_1_vehicleInformation.color_1_vehicleInformation.vehicleNumberPlate_1",
+                                "2dsphereIndexVersion" : 3
+                        }
+                ]
+
+
+
+
+

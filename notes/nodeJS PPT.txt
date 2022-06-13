@@ -1,0 +1,180 @@
+---> Client Server Architecture:
+                                                    Request
+        Users ()    --------->      Application    -------->      Server          <------->          Data base 
+                    interacts                       <--------
+                                                    Response
+        ----------------------------------------                -----------------------------------------------
+                    Frontend                                                Backend
+
+    1. Front end development :
+
+        Html - Content of web pages
+        CSS -  Style , layout of the web pages
+        JS -   To program behavior of the web pages
+    
+    2. Backend development:
+
+        Server side Application which handles business login , Security inorder to ensure application is operational.
+        (Server side technologies - Ruby, Node JS, PHP, Python)
+
+        Why Node jS : same JS language in frontend and backend which makes seamless client-server communication.It is fast, scalable and 
+                      has large ecosystem of open source library which makes it ideal for real time applications.
+
+        Case Study - Paypal moved from Java to node JS and had below advantages :
+        --------------------------------------------------------------------------
+        1. Can be built 2 times faster with less number of resources 
+        2. Lesser code and files compared to Java Application
+        3. No need to wait for server side modifications for a particular server side developer
+        4. Average response time improves a lot.
+
+        Node JS :
+
+        i.  Javascript runtime built on chrome's v8 Javascript engine , uses event driven , non blocking I/o model makes it lightweight 
+            and more efficient.
+        ii. single threaded , non- blocking and Asynchronous manner.
+
+        Installation of Node JS and VS Code 
+        -------------------------------------------------------------------
+
+        Module --> Functionlaity which is organised in sinlge or multiple JS file and can be used throughout the node JS Application
+            Syntax:  import {module} from 'module_name'  or var module= require('module_name')
+            Types of Modules :
+            ----------------
+            . Core Modules : These are inbuilt modules and will come by default and no need to install them seperately
+                1. fs - Handles the file systmes
+                        const fs = require('fs');
+                        fs.writeFileInSync('app.txt', 'This is a test file')
+                2. path - Handles paths and directories
+                        var path= require('path');
+                        var p= 'C:\Learning\MERN\learning-mern\LMS\CRUD\Case Study I\users-case study.txt';
+                        console.log(path.dirname(p) +'   ' +path.basenme('p')+ '   '+ path.extname('p')+ '   '+path.isAbsoulte('p'))
+                        o/p: C:\Learning\MERN\learning-mern\LMS\CRUD\Case Study I   users-case study.txt     txt   true
+                3. buffer - Handles binary Data
+                        var buffer1 = Buffer.from('123456789');
+                        var buffer2 = Buffer.from('HELLO');
+                        buffer2.copy(buffer1,2);
+                        console.log(buffer1.toString()); - 12HELLO89
+                        console.log(Buffer.concat([buffer1,buffer2]).toString()); - 12HELLO89HELLO
+                        console.log(buffer1.equals(buffer2)); - false
+                        console.log(Buffer.compare(buffer1,buffer2)); : -1
+                4.http - This makes Node JS acts like http server
+                        var http = require('http');
+                        http.createServer(function(req,res);
+                        {
+                            res.writeHead(200, {Content-Type:'text/plain'});
+                            res.write('Hello World');
+                            res.end();
+                        }).listen(8080);
+                5. url - parses url Strings
+                        var url = require('url')
+                        var adr= 'http://localhost:8080/default.htm?year=2022&month=June';
+                        var q=url.parse(adr,true);
+                        console.log(q.host); - localhost:8080
+                        console.log(q.pathname); /default.htm
+                        console.log(q.search)  ?year=2022&month=June
+                6. util - used to access the Utility functions
+                        var util = require('util')
+                        var txt= 'Congratulations %s on his %dth birthday! ';
+                        var result= util.format(txt, 'Santosh', 34) - COngratulate Santosh on his 34th birthday
+                7. os - Helps getting information about operating sysytem
+                        var os=require('os');
+                        console.log('Platform' : os.platform()); - Win11
+                        console.log('Architecture' : os.arch()); - X64
+            . Node Package Manager : These include a group of Modules or packages, developed by other developers which can be used by
+                                    installing them
+                        npm init - this command will create a file named package.json, file contains metadata(identifying metadata, functional
+                                metadata)
+                        npm install <packagename> - npm install chalk@2.42 - install chalk package version 2.4.2
+                            When we run npm install , Package manager uses package.json file as reference and installs all the listed 
+                            modules from npm server.
+
+                            npm_modules folder in your application would contain all the codes for dependencies which we installed
+
+                            package-lock.json contian extra information version of depedency and where it is fetched format
+
+                            To install locally, use require('packagename') to load dependencies from node module
+
+                            chalk = require('chalk');
+                            console.log(chalk.green('This is Santosh')+
+                                    chalk.blue.underline.bold(' trying the npm module ')+ 'with chalk module')
+                        
+                        npm Local Packages vs Global Packages - 
+                        Installed in directory where u run npm install  vs Placed in single folder of system
+                        (npm install <packagename>   vs npm install -g <packagename>)
+
+                        can have different versions in different applicaitons vs can have single version of same package
+
+                        easy to handle when there is upgrade of package        vs        Difficult to handle
+
+                        Occupied more memory     VS        Less memory
+
+                        use it to execute any commands     VS only shell commands
+
+                        Global Package - nodemon - restarts node application Automatically after detecting changes
+
+
+            . User Defined Modules: These are created by individuals.
+                   create date.js which gives sysytem dat whenever called
+                            Console.log('Entering into User Defined Module');
+                            var currentDateTime = function(){
+                                return Date
+                            }
+                            module.exports = currentDateTime;
+                    How to use this in other files
+                            var date = require('./date.js');
+                            Console.log("Current Date and Time: "+ date);
+
+
+        ----> Git Hub : version control system that documents the changes to a file or set of files. Allows multiple users 
+                to manage multiple revisions of same information.
+
+
+        ----> FileSystem Module and Express JS :
+            
+            . Command Line Arguments - helps to receive user inputs in node JS (Arguments is the data passed by user via command line prompt)
+                process.argv(argumentvalue) - returns list of values passed by user
+
+                Calculator Application using command line Arguments:
+                    var a =parsetInt(process.argv[2])
+                    var b = process.argv[3]
+                    var c = parseInt(process.argv[4])
+                    if(b='+') {answer = a+c}else if()....
+                    console.log('The Answer of ' a +' ' +b+' '+c+ ' is: '+answer);
+
+                    nodemon calcualtor.js 5 - 2
+
+                Yargs Package helps to build interactive command line tools by parsing arguments and generate rich user interface
+                -  pass multiple arguments 
+                (npm i yargs@12.0.2; console.log(yargs.argv))
+
+                To Store the data we read , File System module helps
+                (var fs= require('fs') - fs helps to retreive files from storage medium and had synchronous and Asynchronous forms
+                Synchronous - waits for one task to complete , Sync key word, Least preferred, fs.readFileSync('input'))
+                Asynchronous - doesnt blok the execution , uses call back function, fs.readFile('input',function(err,data)
+                Flags used for Read - r, r+,rs, rs+   write - w,wx,w+,wx+  Append - a , ax, a+ , ax+
+                Operations Associated with File Sysytem Module:
+                ------------------------------------------------=
+                Open - Open an existing file - fs.open(path, flags,[mode],callback)
+                Get - Get Information realted to the file - fs.stat(path, callback)
+                Write - writes data into file -  fs.writeFile(filename,data,[mode],callback)              
+                Read - This method used a file descriptor to read the file - fs.readFile(file[options],callback)
+                Rename - Rename the file - fs.rename(filename, new name,[options], callback)
+                Append - fs.appendFile(filename,(data to be entered), [options], callback)
+                Delete - used to delte existing file - fs.unlink(filename, callback)
+                )
+
+            .Data Storage Using JSON:
+            -----------------------------------------
+                JSON (Java Script Object notation - trasmit data between web and server. JS had internal functions to convert the JSOn string
+                    to JS objects
+                    Data - String, Anothe JSON Object, boolean, number, array, null
+                    Syntax Rules - Key-value pairs , {} - Objects , [] - Arrays
+                    Example : const seriesJSON = JSON.stringify(series<jsonkey>) - seriesJSON is entire value JSON in key value
+                              const parseData = JSON.parse(seriesJSON) - parseData.title
+                              fs.writeFile(jsonfileName, seriesJSON, callback)
+                    )
+
+                
+
+            
+                     

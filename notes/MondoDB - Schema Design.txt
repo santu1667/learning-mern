@@ -1,0 +1,28 @@
+Schema Design And Data Modelling - Mongo DB :
+
+--> There are important factors/facets of Application that cannot be estimated properly without data modelling.
+	. Scalability : Collecitons , Documents and entities needs to be created based on the current and future demand of the Application
+	. Performance : Data Model helps in understand read and write needs of an application and improves performance if designed correctly during update
+	. Application needs : Applications might need different data in different scenarios which can be correctly estimated with data modelling
+    . Consisitency : Helps in reducing redundant data and helps in understanding data dependencies
+    . Capacity : Data model helps in creation of optimised documents and reduce redundant data in each document.
+
+--> Data Modelling Approaches :
+    . Top DOwn Approach : An over view of system is formulated with first level of sub systems. Each sub- system will be furtir refined
+     to sub - systems until the base elements level.
+    . Bottom up Approach: In this Approach the base elements are combined into larger components and are linked to form a complete system.
+	
+--> Perspectives of Data Modelling :
+	. Conceptual : Describes the meaning of software applications at high level including structure models, functional models, user modals
+	. Logical : Based on business requirements
+	. Physical : includes all the DB tables , indexing and all small level details from DB perspective
+	. ER Modelling: graphical approach to database design uses entiy relationship to describe real world objects
+	. Dimensional : uses to build data warehouses which mainly uses two tables to store data namely Fact and Dimension tables
+	
+	Types of Data Models:
+	--> Flat -consists of a single 2D array of data elemts
+		Star Schema - Data is organised in facts and dimesnsions
+		Hierarchial - organises data in form of tree and each record represents parent or root
+		Relational - sorts data into tables known as relations
+		Object -relational - Allows desingers to incorporate objects into familiar table structure
+      

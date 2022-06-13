@@ -1,0 +1,81 @@
+Case Study: 
+-------------
+Need to implement CRUD on Product Collection , Get Product by category, Get product by brand, Get Product by Seller Code
+
+Solution:
+--------------
+    . Create DB "store", Create Collection "prodcutDetails"
+    --> use store
+    --> db.createCollection("productDetails")
+    . Insert document into the productDetails Collection
+    --> db.productDetails.insert({
+        "pogId":"1",
+        "Supc":"1234",
+        "Brand":"Samsung",
+        "Description":"Samsung Note 22 Ultra",
+        "size":"6.6 inches",
+        "category":"Electronis",
+        "subCategory":"Mobiles",
+        "price":"1199$",
+        "quanitity":"10",
+        "country":"USA",
+        "sellerCode":"1",
+        "Creation time": ISODate("2022-06-02"),
+        "stock":"In Stock"
+    })
+    . Insert many documents in single Execution - Creation
+    --> db.productDetails.insertMany([
+		{"pogId":"11","Supc":"1234","Brand":"Santosh","Description":"Santosh Fatafat","size":"6.0 inches",
+        "category":"Electronis","subCategory":"Mobiles","price":"220$","quanitity":"8000","country":"USA","sellerCode":"11","Creation time": ISODate("1960-06-30"),
+        "stock":"In Stock"},
+		{"pogId":"2","Supc":"1235","Brand":"Apple","Description":"IPhone 13 Pro","size":"6.7 inches",
+        "category":"Electronis","subCategory":"Mobiles","price":"1300$","quanitity":"200","country":"USA","sellerCode":"2","Creation time": ISODate("1950-10-23"),
+        "stock":"Out of Stock"},
+		{"pogId":"3","Supc":"1236","Brand":"Motorola","Description":"Moto G Stylus","size":"6.3 inches",
+        "category":"Electronis","subCategory":"Mobiles","price":"680$","quanitity":"500","country":"USA","sellerCode":"3","Creation time": ISODate("1975-11-01"),
+        "stock":"Coming Soon"},
+		{"pogId":"4","Supc":"1237","Brand":"Lenovo","Description":"Lenovo K8 Note","size":"5.4 inches",
+        "category":"Electronis","subCategory":"Mobiles","price":"280$","quanitity":"480","country":"USA","sellerCode":"4","Creation time": ISODate("1978-12-03"),
+        "stock":"In Stock"},
+		{"pogId":"5","Supc":"1238","Brand":"One Plus","Description":"One Plus 11 Pro","size":"6.6 inches",
+        "category":"Electronis","subCategory":"Mobiles","price":"799$","quanitity":"600","country":"USA","sellerCode":"5","Creation time": ISODate("1979-01-04"),
+        "stock":"Out of Stock"},
+		{"pogId":"5","Supc":"1239","Brand":"Xiami","Description":"Redmi 11","size":"6.2 inches",
+        "category":"Electronis","subCategory":"Mobiles","price":"290$","quanitity":"800","country":"USA","sellerCode":"6","Creation time": ISODate("1980-02-05"),
+        "stock":"In Stock"},
+		{"pogId":"6","Supc":"1240","Brand":"Huaweii","Description":"Huaweii Pro","size":"6.1 inches",
+        "category":"Electronis","subCategory":"Mobiles","price":"499$","quanitity":"1000","country":"USA","sellerCode":"7","Creation time": ISODate("1981-03-06"),
+        "stock":"Out of Stock"},
+		{"pogId":"7","Supc":"1241","Brand":"Google","Description":"Google Plus 10","size":"6.6 inches",
+        "category":"Electronis","subCategory":"Mobiles","price":"899$","quanitity":"600","country":"USA","sellerCode":"8","Creation time": ISODate("1982-04-09"),
+        "stock":"In Stock"},
+		{"pogId":"8","Supc":"1242","Brand":"OPPO","Description":"OPPO Verna","size":"6.6 inches",
+        "category":"Electronis","subCategory":"Mobiles","price":"220$","quanitity":"3000","country":"USA","sellerCode":"9","Creation time": ISODate("1983-04-08"),
+        "stock":"In Stock"},
+		{"pogId":"9","Supc":"1243","Brand":"Sony","Description":"Sony Xperia 13","size":"6.6 inches",
+        "category":"Electronis","subCategory":"Mobiles","price":"999$","quanitity":"490","country":"USA","sellerCode":"10","Creation time": ISODate("1984-05-10"),
+        "stock":"Coming Soon"}
+		])
+		
+		
+		Read -- Operation
+		-----------------------------------------------------------------
+		--> db.productDetails.find()
+			db.productDetails.find({price:{$in: ["799$","899$"]}})
+
+		Update -- Operation
+		------------------------------------------------------------------------
+		--> db.productDetails.update({"pogId":"9"},{$set: {quantity:"400",stock:"In Stock"}})
+		
+		Delete -- Operation
+		-----------------------------------------------------------------------------
+		--> db.productDetails.delete({pogId:"1"})
+			db.productDetails.delete({price:"1199$"})
+        
+		find products by Category, Brand, Seller Code:
+		------------------------------------------------------------------------------------
+		--> db.productDetails.find({"category":"Mobiles"}).sort({category:1})
+			db.productDetails.find({"category" :"Electronis"}).sort({category:1})
+			db.productDetails.find({Brand:"Sony"}).sort({Brand:1})
+			db.productDetails.find({Brand:{$in:["Samsung","Apple"]}}).sort({Brand:1})
+			db.productDetails.find({sellerCode:{$in:["1","11","10","2"]}}).sort({sellerCode:1})

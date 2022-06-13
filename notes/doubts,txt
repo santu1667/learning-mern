@@ -1,0 +1,3 @@
+dropIndex:
+
+ db.usersInformation.dropIndex("name of the Index in doublke Quotes")

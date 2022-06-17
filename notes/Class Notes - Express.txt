@@ -1,0 +1,118 @@
+Install mongo DB - npm install mongoose
+
+Import and connect to DB from app.js
+
+var mongoose = require('mongoose');
+var mongoDb = "mongoDB://127.0.0.1/local_library";
+mongoose.connect(mongoDb,{useNewUrlParser:true, useUnifiedTopology:true});
+var db =mongoose.connection();
+db.on("error",console.error.bind(console,"MondoDB Connection Error: "))
+
+Define a schema :  var  schema = mongoose.schema()
+Create Schema for collection in system:
+var someModelSchema=  new Schema({"feildName":type, "feildName":type})
+please see image under notes/images - sampleschema.png
+
+var someModel = mongoose.model('someModel',someModelSchema)
+                                CollectionName , Schema Vaidations
+
+
+Example:
+-------------------
+  Schema Structure:    var breakfastSchema = new Schema({
+                                eggs:{
+    create Schema                   type:number,
+                                    min:[6,'Less Eggs, Take More'],
+                                    max:12,
+                                    required:[true,'Take some Eggs']
+                                },
+                                drink:{
+                                    type:Strtig;
+                                    enum:['coffee','Tea','Water']
+                                }
+                                   })
+
+Define Schema : var breakfastModel = mongoose.model('breakfastCollection',breakfastSchema);
+(The above statement creates collection breakfastCollection with rules under breakfastSchema )
+
+
+// CRUD Operations
+--------------------------------------
+
+1. Creation of a instance of Model:  
+            Syntax: var instance = new <modalName>({creationSchema});
+                        instance.save(function(err)
+                        {
+                            if(err){}else{}
+                        })
+
+                        Or
+                    <ModelName>.create({InserCollectionSchema},function(err, <instanceNameHowItisSaved>)
+                    {
+                            if(err){}else{};
+                    })
+
+    Read : instanceNameHowItisSaved.<variableName> -- > instance.feildName
+
+           Create Model for which we need to read the 
+            var breakfastModel = mongoose.model('breakfastCollection',breakfastSchema);
+            //find all documents where drink is Coffee
+            breakfastModel.find({drink:'Coffee'},"eggs drink",function(error,results){
+                if(err){}else{}
+            })
+
+            format 2 : var query = breakfastModel.find({drink:'Coffee'});
+                       query.select("eggs drink");
+                       query.limit(5);
+                       query.exec(function(err,results){if(error){}else{}})
+
+    Update: instanceNameHowItisSaved.feildName ='newValue';
+            instanceNameHowItisSaved.save(funtion(err){})
+
+    Remove : 
+            
+
+Case Study:
+
+var bookSchema = new Schema(){
+                    title:String,
+                    autor:{type:Schema.Types.ObjectId,ref:'Author'},
+                    summary:String,
+                    ISBN:String,
+                    url:String,
+                    genre:{type:Schema.Types.ObjectId,ref:'Genre'},
+                    bookInstance:{type:Schema.Types.ObjectId,ref:'BookInstance'}
+                    }
+
+                    var autorSchema = new Schmea({
+                        name:String,
+                        lifeSpan:String,
+                        url:String,
+                        books:[{
+                            type: Schmea.Types.ObjectId, ref:'Book'
+                        }]
+                    })
+
+                    var GenreSchema = new Schema({
+                        name:String,
+                        url:String
+                    })
+
+                    var bookInstanceSchema = new Schema({
+                        book:{type:Schema.Types.ObjectId,ref:'Book'},
+                        imprint:String,
+                        status:{type:String,enum:['Pending','Available'],
+                        dueDate:{type:Date},
+
+                    })
+
+            var Book = mongoose.model('booksCollection',bookSchema);
+            var Author = mongoose.model('authorCollecton',authorSchema);
+            var Genre = mongoose.model('genreCollection',genreSchema);
+            var BookInstance = mongoose.model('genreCollection',genreSchema);
+
+            Book.findOne({title:'Harry Potter'}).
+                populate('author'). - this populates the author details instaed of author Id
+                exec(function(err,bookResult){
+                            if(err){}else{}
+                });

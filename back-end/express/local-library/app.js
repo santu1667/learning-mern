@@ -3,11 +3,15 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var mongoose = require('mongoose');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
+var mongoDb = "mongoDB://127.0.01/local_library";
+mongoose.connect(mongoDb,{useNewUrlParser:true, useUnifiedTopology:true});
+var db =mongoose.connection();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

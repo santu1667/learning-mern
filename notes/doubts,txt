@@ -1,3 +1,6 @@
 dropIndex:
 
  db.usersInformation.dropIndex("name of the Index in doublke Quotes")
+
+
+ index will be created on non existing feilds so need to be careful while creating index

@@ -74,7 +74,7 @@ Define Schema : var breakfastModel = mongoose.model('breakfastCollection',breakf
 
 Case Study:
 
-var bookSchema = new Schema(){
+var bookSchema = new Schema({
                     title:String,
                     autor:{type:Schema.Types.ObjectId,ref:'Author'},
                     summary:String,
@@ -82,7 +82,7 @@ var bookSchema = new Schema(){
                     url:String,
                     genre:{type:Schema.Types.ObjectId,ref:'Genre'},
                     bookInstance:{type:Schema.Types.ObjectId,ref:'BookInstance'}
-                    }
+                    })
 
                     var autorSchema = new Schmea({
                         name:String,
@@ -102,17 +102,78 @@ var bookSchema = new Schema(){
                         book:{type:Schema.Types.ObjectId,ref:'Book'},
                         imprint:String,
                         status:{type:String,enum:['Pending','Available'],
-                        dueDate:{type:Date},
-
+                        dueDate:{type:Date}
                     })
 
             var Book = mongoose.model('booksCollection',bookSchema);
             var Author = mongoose.model('authorCollecton',authorSchema);
             var Genre = mongoose.model('genreCollection',genreSchema);
-            var BookInstance = mongoose.model('genreCollection',genreSchema);
+            var BookInstance = mongoose.model('booksInstanceCollection',bookInstanceSchema);
 
-            Book.findOne({title:'Harry Potter'}).
+            //Create Document
+           
+
+            Genre.create({
+                        name:"non-fiction",
+                        url:"https://book1/HarryPotter"
+                    })                
+            },function(err,genre1)
+                    {
+                            if(err){}else{};
+                    })
+            
+
+              BookInstance.create({
+                        book:{type:Schema.Types.ObjectId,ref:'Book'},
+                        imprint:"1",
+                        status:"Available",
+                        dueDate:new ISODate("2022-06-16")
+            },function(err,bookInstance1)
+                    {
+                            if(err){}else{};
+                    })
+
+                Author.create({
+                        name:"Santosh",
+                        lifeSpan:"33",
+                        url:"https://bookURL",
+                        books:[book2,book3,book4]]
+                ,function(err,author1)
+                    {
+                            if(err){}else{};
+                    })
+                )
+
+                Book.create({
+                    title:"Harry Potter",
+                    autor:author1,
+                    summary:"Fantasy Stoy",
+                    ISBN:"1",
+                    url:"https://harrypotter",
+                    genre:"fiction",
+                    bookInstance:bookInstance1,
+                    },function(err,bookInstance1)
+                    {
+                            if(err){}else{};
+                    })
+
+                //Read Document
+
+                    Book.findOne({title:'Harry Potter'}).
                 populate('author'). - this populates the author details instaed of author Id
                 exec(function(err,bookResult){
                             if(err){}else{}
                 });
+
+                //
+
+                Book.update({ author: 'John Doe' },
+                                    { summary: "do more" }, function (err, docs) {
+                                        if (err) {
+                                        console.log(err)
+                                        }
+                                        else {
+                                        console.log(docs);
+                                        }
+                                    });
+

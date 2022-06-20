@@ -1,0 +1,41 @@
+under express create folder for AUthenticaton
+
+
+
+router.post(
+  "/login",
+  [
+    check("email", "Email cannot be empty").not().isEmpty(),
+    check("password", "Password Cannot be empty").not().isEmpty(),
+    check("email", "Please Enter a Valid Email").isEmail(),
+    check("password", "Please Enter a Valid Password").isLength({
+      min: 6,
+    }),
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        errors: errors.array(),
+      });
+    }
+
+    const { email, password } = req.body;
+
+    try {
+      let user = await User.findOne({
+        email,password
+      });
+      if (user) {
+        return res.status(200).json({
+          msg: "Login Success",
+        });
+      }
+      else
+      {
+        return res.status(400).json({
+          msg: "Login Failed",
+        });
+      }
+  }
+);

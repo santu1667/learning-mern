@@ -1,0 +1,79 @@
+----> User Authentication :
+       1. Authentication is process of identifying the entity seeking access to information kept on server is verfied
+        2. Basic Authentication requires just user name and password to form a single value and passed it across http
+           header called Authorization
+        3. Server looks at Authorization header and checks for credentials stored , if didnt match send back 401
+
+    Authentcation vs Authorization:
+        Verifies if the person is correct person or not 
+        Decides what permission the user had 
+    
+    Types : Session based Authentication and Token based Authentication
+            Session Base Authentication : 
+                Server will create session for user after login and session_id is stored on a cookie in user browser
+                While user says logged in and doin more activity on oage session_id will be sent along with user req
+                Server compares session_id in cookie against one in memory to verify user's identity
+            Token Based Authentication : 
+                Most of Application uses JWT(Json web token)
+                Server create JWT with a secret and sends JWT to client
+                Client stores JWT and include JWT in header with every request
+                Server validates the JWT with every request from client and sends response.
+    
+    Sessions vs Tokens : Sessions are stored in server memory so with many users log into application slows down 
+                         system. There is no issue in Scaling because token is stored on client side
+    
+    JWT - JSON Web Tokens : JSOn object defined in RFC 7519 as safeway to send information between 2 parties and 
+                            Authenticate
+            Syntax : var token = jwt.sign(payload,SecretOrPrivateKey,[options,callback])
+                     To make JWT efficient following options are used iss(issuer), sub(subject), aud(audience), 
+                     exp(expiration time),iat(issues at), jti(JWT id)
+            Output: Header - Information about how JWT signature is computed {alg:"HS256",type:"JWT"}
+                    Payload - Consistes of data to be transfereed and some attributes 
+                    Signature - Encoded header and Payload using base64UrlEncode is jpined together with period(.) 
+                    and resulted data is hased with secret key using hashing alogorithm to produce signature
+        
+        Bcrypt : Secured way to store passwords in database 
+                 Generates random bytes and combined with password with the help of unique hadh function
+                 Even if 2 users had same passowrd , they will not have same hash password
+                 Original passwords are not stored on hardware
+                 For validation hash of user pwd is validated against hash of their real password
+                    brcypt.hashSync(password,8); whatFeildToHash and How many times
+                    bcrypt.compareSync(Given_Password,password);
+
+        Web Storage : Data Stored in user browser is called web storage and cannot be accessed by server
+            Types - Local Storage : No expiration , data persisit even after browser closure
+                    Session Strogae : Data wil be cleared after browser closure
+                To Access the webstorage from server , install node-localstorage -  npm install node-localstorage
+    
+    Demo Application using JWT
+    ----------------------------------------------------
+    1. Start the Server 
+        a. Create folder named LoginApp and create package.json file
+            run npm init to create a package.json file and run 
+            npm init bcryptjs body-parser express jsonwebtoken mongoose ejs to install required modules 
+            ejs(create templates)
+        b. Create folder Sturcture auth(for Authentication), user(to define user functions), app.js(to Create routes),
+            config.js(Store your secret), db.js(Connect to DB), server.js(Start the server)
+        c. Create front end application using express and ejs
+    2. Connect to Database -
+        a. in db.js write mongoose connect to connect to DB
+        b. in users.js write code to connect to collection users
+    3. Create a secret key
+        a. In config.js type a secret which in return used to create a Token 
+            module.exports={'secret':'supersecret'};
+    4. register Users:
+        a. Import necessary packages under AuthController.js
+    5. Create Routes:
+        a. In App.js , create the required routes and update it in server.js
+        b. test the routes through postmanmod
+    6. Check the data entering into DB 
+        a. router to get all Users
+    7. Type the Code to Logi user
+    8. Connect backend and frontend
+    9. Create a Profile Page
+    10. 
+    
+    
+    
+               
+            

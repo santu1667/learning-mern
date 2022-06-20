@@ -1,0 +1,303 @@
+----> REST API :
+    Application Program Interface : Code which govenrs the access point of Applicatoin to communicate with other
+                                    Applications in a agreed way(Request and Response)
+
+    REST : Representational State Transfer - API that allows you to access or manipulate the resources using a set of 
+            pre defined operations thorugh http protocols
+
+        REST API's are used in most of applications as the requests are based on http protocol and returns the JSON format 
+        which most of programmable languages can read or understand
+
+        Representation of Data: Exampe : can used to store, read, update and delete data base data
+        State Transfer : State has been transferred from server to client as server doesnt store any state about client 
+                         session
+                         Example : A client request must contain all the details to process the request, server just process
+                                   request and returns the Output
+        
+        ----> Express Rest API:
+                    Express is framework but provides Rest API to access the resources
+                    1. Get user requests to our application and sends response back to client
+                    2. Access data from front end and back end
+
+                End Point: is the URL used to make request,same endpoint can return different responses based on 
+                            params passed
+                    Http Methods :
+                        Create - POST
+                        Read - GET
+                        Update - PUT:id or PATCH:id
+                        Delete - DELETE:id
+        
+        ----> POSTMAN - is an Appliation used to test the API , this helps in communication for sending request and getting
+                        response back and show on POSTMAN
+
+                        Request - Things Needed for valid request - Valid URL , Method, Header, body
+                        Response - Status Code , Header, body
+
+                        Resource : data set that is returned by the request. Same resource can be accessed via different 
+                                   endpoints 
+        
+        ----> Mongo DB Driver : Mongo DB node JS driver provides java script API which implements the network protocol
+                                required to read and write data from MongoDB
+
+                                Db.js is JS module to create a route to mongo DB which in return uses MONGO DB driver to 
+                                connect and work with it
+                   
+                    Demo for working on Mongo DB API:
+                    --------------------------------------------
+                    1. Create an endpoint with Express
+
+                        const express = require('express');
+                        create app= express();
+                        const port =6500;
+
+                        app.get('/', function(req,res){
+                            res.send('API is working')
+                        });
+
+                        app.listen(port,()=> {
+                            console.log(`API is running on ${port}`);
+                        })
+
+                    2. Connect to database:
+
+                        const mongoClient = require('mongoDB').MongoClient;
+                        const mongoURL = 'mongodb://127.0.01';
+                        MongoClient.connect(mongoURL,{useNewUrlParser: true},function(err,client){
+                            if(err){throw err;}
+                            else db=client.db('userName');
+                        })
+                        app.listen(port,()=> {
+                             console.log(`API is running on ${port}`); 
+                        })
+
+                    3. Create - To Insert Data, we need to read data from request and for that we need body-parser 
+                                install package body parser - npm install body-parser
+                                
+                                const bodyParser = require('body-parser');
+                                app.use(bodyParser.urlencoded({extended:tru})); - parses text urlencoded and resulting req.body
+                                app.use(bodyParser.json());
+
+                                app.post('/user',function(req,res){
+                                    db.collection('collectionName')
+                                        .insert(req.body,(err,result)=> {
+                                            if(err) throw err;
+                                            else res.send('Data inserted');
+                                        })
+                                })
+
+                    4. Read - Red data which we insterted into DB 
+
+                                Model.find.toArray(function(err,<randomNametoSaveData>))
+
+                                app.get('/getUser',function(req,res){
+                                    db.collection('collectionName').find().toArray(function(err,result){
+                                         if(err) throw err;
+                                            else res.send(result);
+                                    })
+                                })
+                    
+                    5. Update - Update the data
+
+                                Model.findOneAndUpdate(conditions, update, otpions,function(error,doc){})
+
+                                app.put('/update_user',function(req,res){
+                                    db.collectionName('collectionName').findOneAndUpdate(
+                                        {'name':req.body.name},
+                                        {$set:{name:req.body.name.city:req.body.city}},
+                                        {upsert:true},
+                                        function(err,result){
+                                            if(err) throw err;
+                                            else res.send(result);
+                                        }
+                                    )
+                                })
+
+                    6. Delete Data  - Delete the data
+
+                                Model.findOneAndDelete(filter,options and callback)
+
+                                app.delete('/deleteUser',function(req,res){
+                                     db.collectionName('collectionName').findOneAndDelete(
+                                        {'name':req.body.name},
+                                        function(err,result){
+                                            if(err) throw err;
+                                            else res.send({message:success}});
+                                        }
+                                    )
+                                })
+
+        ----> Having too many routes makes file complicated , so we can use Express router 
+            
+                Express Router : helps to seperate the routes from regular main app this can be  able to handle multiple 
+                                 route handlers , hence can be defined as mini-app
+
+                    Example:    var express = require('express');
+                        app.js: var app = express();
+                                const port = 5000;
+                                var birds = require('./birds');
+
+                                app.use('/birds',birds);   ----> This calls birds router with /birds route
+                                app.listen(port,function(err){
+                                    if(error) throw err;
+                                    else console.log(`API is running over the {$port}`);
+                                })
+
+                        bird.js: var express = require('express');
+                                 var router =express.Router();
+                                 router.use(function timeLog(req,res,next){
+                                    console.log('Time: '+Date.now()) 
+                                    next()
+                                 })
+
+                                 router.get('/',function(req,res){
+                                    res.send('Birds home Page')
+                                 })
+
+                                  router.get('/about',function(req,res){
+                                    res.send('About Birds')
+                                 })
+
+                                 module.exports = router
+
+        ----> Mongoose - Mongo DB object modelling tool provides schema based solution to model application data
+                         
+                         Object Model is a model that treats data sets as objects by assigning the properties and 
+                         values to them
+
+                         Schema maps to Mongo DB collection and defines structure of documents in that collection
+
+                Advantages over direct native driver:
+
+                        1. We can use Validators diretly by using Mongoose
+                        2. Query or updating is little complex on native 
+                        3. Mapping is difficult because of Schema less nature as we have different set of data
+                        4. Difficult to define hooks or custom functionalities
+
+                Refer class notes for more details of working on insert, read, update and delete
+
+        -----> Graph QL : QL for API and a runtime for fulfilling those queries with your existing data
+                          No overfetching and under fetching
+                          Single endpoint
+                          Validates the query with in GRAPHQL type system before execution
+
+                    Disadvanatges of rest API over Graph QL:
+
+                        Multiple rounds to fetch realted resources
+                        Based on the we need to create multiple end points
+                        Slow front end development
+                        No way to limite the response
+                        Using Query params gets difficult and API gets complex
+                    
+                    Design : GraphQL is used in front end to send data to backend
+                             Gives logic to process request and give desired Output
+                             One single endpoint
+                             Only one method - POST/GraphQL
+                             Post method contains query expression like PUT or GET inside request of body
+                             Type Definition - used to define various data Types
+                             Query Defintion - used to read or fetch 
+                             Mutation - Insert, Update or delete
+                             Request body will be parsed by server , processed and returns the result
+                             Result will contain only desired Output
+                    
+                    Structure : Query { (describes operation to perform)
+                                         user{(operation end point)
+                                                Name: (feild we need to extract)
+                                                Phone
+                                            }
+                                        }
+                             
+                    Demo using graphQL: 
+                    1. Add graphQL in Middleware
+                        const express = require("express");
+                        const app = express();
+                        const expressGraphQL = require("express-graphql");
+                        const port =3000;
+                        
+                        app.use('/graphql', expressGraphQL({   ---> Allows Middleware to route to GraphQL playground
+                                    graphql:true
+                        }))
+
+                         app.listen(port,function(err){
+                                    if(error) throw err;
+                                    else console.log(`API is running over the {$port}`);
+                                })
+
+                    2. Schema - describes the functionality that is avaiable to clients when connects to it
+                                Has ability to create realtionships between Types
+                                Defines which data fetching and mutations needs to be executed
+                            
+                            const schema = require ('./schemas/schema')
+                            app.use('/graphql', expressGraphQL({   ---> Allows Middleware to route to GraphQL playground
+                                    schema,
+                                    graphql:true
+                        }))
+                             
+                        schema.js file : 
+
+                            const graphql = require('graphql'); - Package needed for building schema and serve queries
+                            const _ = require('lodash')  - package needed to load an array
+
+                            const{
+                                GraphQLObjectType,
+                                GraphQLString,
+                                GraphQlInt,
+                                GraphQLSchema
+                            } = graphql,
+
+                    3. Query : In graphQL all the possible entries or queries into GraphQL API is called root type or
+                                quert type
+                                
+                                Syntax:
+                                const rootQuery = new GraphQLObjectType({
+                                    name: rootQueryType, -    feild on basis of which we will get query
+                                    feilds:{ -                specify the feild we want to search for
+                                        user:{
+                                            type:UserType
+                                            args:{id:{GraphQLString}},
+                                            resolve(parentValue,args){
+                                                return _.find(users,{id:args.id}) - Return the value asked for
+                                            }
+                                        }
+                                    }
+                                })
+
+                        4. Calling an API: To get the data from the API we need to install axios.fetch
+                                           npm install axios
+
+                                 const rootQuery = new GraphQLObjectType({
+                                    name: rootQueryType, -    feild on basis of which we will get query
+                                    feilds:{ -                specify the feild we want to search for
+                                        user:{
+                                            type:UserType
+                                            args:{id:{GraphQLString}},
+                                            resolve(parentValue,args){
+                                                return axios.get(`http://localost:8900/users/${args.id}`)
+                                                            .then(resp => resp.data)
+                                            }
+                                        }
+                                    }
+                                })
+                            Also to create an API in localhost npm install json-server
+                                json-server --watch db.json --port 8900
+
+                        5.Mutation - are operations to create, update and delete data
+
+                             const mutation = new GraphQLObjectType({
+                                    name: Mutation, -    feild on basis of which we will get query
+                                    feilds:{ -                specify the feild we want to search for
+                                        addUser:{
+                                            type:UserType
+                                            args:{
+                                                firstName:{type:new GraphQLNonNull(GraphQLString)},
+                                                age:{type:new GraphQLNonNull(GraphQLInt)},
+                                                company:{type: GraphQLString}
+                                            },
+                                            resolve(parentValue,{firstName,age})){
+                                                return axios.post(`http://localost:8900/users`,{firstName,age})
+                                                            .then(resp => resp.data)
+                                            }
+                                        }
+                                    }
+                                })
+                GraphQL Playground - is a graphical , intercative , in-browser GraphQL ideal
+                Refer images/GraphQL PLayground

@@ -129,50 +129,7 @@
                 to manage multiple revisions of same information.
 
 
-        ----> FileSystem Module and Express JS :
-            
-            . Command Line Arguments - helps to receive user inputs in node JS (Arguments is the data passed by user via command line prompt)
-                process.argv(argumentvalue) - returns list of values passed by user
-
-                Calculator Application using command line Arguments:
-                    var a =parsetInt(process.argv[2])
-                    var b = process.argv[3]
-                    var c = parseInt(process.argv[4])
-                    if(b='+') {answer = a+c}else if()....
-                    console.log('The Answer of ' a +' ' +b+' '+c+ ' is: '+answer);
-
-                    nodemon calcualtor.js 5 - 2
-
-                Yargs Package helps to build interactive command line tools by parsing arguments and generate rich user interface
-                -  pass multiple arguments 
-                (npm i yargs@12.0.2; console.log(yargs.argv))
-
-                To Store the data we read , File System module helps
-                (var fs= require('fs') - fs helps to retreive files from storage medium and had synchronous and Asynchronous forms
-                Synchronous - waits for one task to complete , Sync key word, Least preferred, fs.readFileSync('input'))
-                Asynchronous - doesnt blok the execution , uses call back function, fs.readFile('input',function(err,data)
-                Flags used for Read - r, r+,rs, rs+   write - w,wx,w+,wx+  Append - a , ax, a+ , ax+
-                Operations Associated with File Sysytem Module:
-                ------------------------------------------------=
-                Open - Open an existing file - fs.open(path, flags,[mode],callback)
-                Get - Get Information realted to the file - fs.stat(path, callback)
-                Write - writes data into file -  fs.writeFile(filename,data,[mode],callback)              
-                Read - This method used a file descriptor to read the file - fs.readFile(file[options],callback)
-                Rename - Rename the file - fs.rename(filename, new name,[options], callback)
-                Append - fs.appendFile(filename,(data to be entered), [options], callback)
-                Delete - used to delte existing file - fs.unlink(filename, callback)
-                )
-
-            .Data Storage Using JSON:
-            -----------------------------------------
-                JSON (Java Script Object notation - trasmit data between web and server. JS had internal functions to convert the JSOn string
-                    to JS objects
-                    Data - String, Anothe JSON Object, boolean, number, array, null
-                    Syntax Rules - Key-value pairs , {} - Objects , [] - Arrays
-                    Example : const seriesJSON = JSON.stringify(series<jsonkey>) - seriesJSON is entire value JSON in key value
-                              const parseData = JSON.parse(seriesJSON) - parseData.title
-                              fs.writeFile(jsonfileName, seriesJSON, callback)
-                    )
+       
 
                 
 

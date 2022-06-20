@@ -1,0 +1,189 @@
+ ----> FileSystem Module and Express JS :
+            
+            . Command Line Arguments - helps to receive user inputs in node JS (Arguments is the data passed by user via command line prompt)
+                process.argv(argumentvalue) - returns list of values passed by user
+
+                Calculator Application using command line Arguments:
+                    var a =parsetInt(process.argv[2])
+                    var b = process.argv[3]
+                    var c = parseInt(process.argv[4])
+                    if(b='+') {answer = a+c}else if()....
+                    console.log('Answer is '+answer);
+
+                    nodemon calcualtor.js 5 - 2
+
+                Yargs Package helps to build interactive command line tools by parsing arguments and generate rich user interface
+                -  pass multiple arguments 
+                (npm i yargs@12.0.2; console.log(yargs.argv))
+
+                To Store the data we read , File System module helps
+                (var fs= require('fs') - fs helps to retreive files from storage medium and had synchronous and Asynchronous forms
+                Synchronous - waits for one task to complete , Sync key word, Least preferred, fs.readFileSync('input'))
+                Asynchronous - doesnt blok the execution , uses call back function, fs.readFile('input',function(err,data)
+                Flags used for Read - r, r+,rs, rs+   write - w,wx,w+,wx+  Append - a , ax, a+ , ax+
+                Operations Associated with File Sysytem Module:
+                ------------------------------------------------=
+                Open - Open an existing file - fs.open(path, flags,[mode],callback)
+                Get - Get Information realted to the file - fs.stat(path, callback)
+                Write - writes data into file -  fs.writeFile(filename,data,[mode],callback)              
+                Read - This method used a file descriptor to read the file - fs.readFile(file[options],callback)
+                Rename - Rename the file - fs.rename(filename, new name,[options], callback)
+                Append - fs.appendFile(filename,(data to be entered), [options], callback)
+                Delete - used to delte existing file - fs.unlink(filename, callback)
+                )
+
+            .Data Storage Using JSON:
+            -----------------------------------------
+                JSON (Java Script Object notation - trasmit data between web and server. JS had internal functions to convert the JSOn string
+                    to JS objects
+                    Data - String, Anothe JSON Object, boolean, number, array, null
+                    Syntax Rules - Key-value pairs , {} - Objects , [] - Arrays
+                    Example : json1.js file
+                    const series={
+                        title:"Harry Potter and Goblet of Fire",
+                        author:"J.K.Rowling"
+                    }
+
+                    const seriesJSON = JSON.stringify(series);
+                    console.log(seriesJSON); -- prints {title:"Harry Potter and Goblet of Fire",author:"J.K.Rowling"}
+
+                    const parsedData = JSON.parse(series);
+                    console.log(parsedData.author) -- prints J.K.Rowling
+
+                //write file 
+                    const data =   JSON.stringify(series);    
+                    fs.writeFile('json1.json',data,function(err,data){//error handling })      
+
+                //Read file
+                    cons fs= require("fs");
+                    fs.readFile('json1.json',function(err,data){if(error) else out=JSON.parse(data)})
+                
+                //Edit file
+
+                    const dataBuffer =(fs.readFileSync('json1.json').toString());
+                    con info=JSON.parse(dataBuffer);
+                    info.title ='Harry Potter and Chamber of Secrets';
+                    const newInfoJSON = JSON.stringify(info);
+                    fs.wirteFileSync('json1.json',infoJSON);
+
+                Output : New json1.json :
+                         const series={
+                        title:"Harry Potter and Chamber of Secrets",
+                        author:"J.K.Rowling"
+                    }
+
+    ------------------------------------------------------------------------------------------------------------------------
+
+    ----> Express in node JS: Express is a web framework which behaves like middleware to help manage servers and routes
+        ---------------------
+                1. Web Framework : helps to perform tasks like accepting http requestes from browser and send back html
+                                   response from server to browser
+                2. Express Application uses a call back fundtion whose params are request and response objects.
+                3. Uses Routing table to perform different action based on URL which helps to navigate to different html
+                   templates based on URL
+
+            Installation : npm install express
+            sample code : const express = require('express');
+                          const app=express();
+                          const port =6500;
+
+                          app.listen(port, function(err){
+                                    if(err){}
+                                    else console.log(`Server is running on ${port}`);                                                            
+                        })
+                
+                Routing:Routing comes into picture when u have different pages and you want to route based on URL
+                        Syntax - app.method(path,handler)
+                                METHOD will be either post or Get
+                                app.get('/',function(req,res){
+                                        res.send('App i running on port'+port);
+                                })
+                            GET : request param can be appended in URL, can be cached and bookmarked , never use while dealing
+                                  with sensitive data, Max URL - 2048 characters
+                            POST : carries request param in body , cannot be cached , no data length restrictions, little safer
+                                   while dealing with senstive data compared to get
+                    
+            Define Express Applicaton using Routing:
+
+                     const express = require('express');
+                          const app=express();
+                          const port =6500;
+
+                        app.get('/',function(req,res){
+                                        res.send('Welcome to Express JS using Routing');
+                                })
+                        
+                        app.get('/getMovies',function(re,res){
+                                fs.readFile('./data/db.json',function(err,result){
+                                    if(err){}else {
+                                       var moviesData =  JSON.parse(result);
+                                       res.send(moviesData);
+                                    }
+                                })
+                        })
+
+                          app.listen(port, function(err){
+                                    if(err){}
+                                    else console.log(`Server is running on ${port}`);                                                            
+                        })     
+
+            Application development using Nginx:
+            -----------------------------------------------------------------------------------------  
+                WebServer is a computer which delivers requested web pages and each page is associated with IP Address 
+                and domain name
+
+                To make our computer work like server we need to install server software and connect machine to 
+                internet(server software: Apache, Nginx,Tornado,Caddy)
+
+                Ngnix helps us to reduce the page load time.
+                Advantages: Open source and provided http server capabilities
+                            Mainly used for reverse proxying, caching and load balancing
+                            Designed for maximum performance and stability
+                            uses a non thread and event driven architecture
+                Architecture: Master- Slave architecture by supporting event driven , asynchronous and non blocking module
+                              MASTER - responsible for reading and validating configurations and starting and stopping of 
+                                       worker processing
+                              WORKER - responsible for accepting and processing the requestes
+                              CACHE LOADER: Cache loader is responsible for checking disk cache items and populate engine
+                                            in memory database with cache metadata
+                                CACHE MANAGER : responsible for cache expiration and invalidation
+---------------------------------------------------------------------------------------------------------------------------
+                                                            Master 
+                                                              |
+                                                              |
+                                                              v
+                                    -------------------------------------------------------
+                                    |   Worker              Worker              Worker     |
+                                    --------------------------------------------------------
+
+                                    --------------------------------------------------------
+                                    |  Proxy Cahce         Proxy Cache         Proxy Cache |
+                                    ---------------------------------------------------------
+
+                                                Cache Loader                    Cache Manager                      
+                                                              
+--------------------------------------------------------------------------------------------------------------------------
+
+        ---> How to conifgure Nginx and configure server :
+
+                Steps: Install Nginx , Adjust Firewall, Check Your Server, Manage Nginx.
+                PM2 - Production Process Manager for node JS applications comes in with inbuilt load balancer. Mainly helps
+                      to keep Application operational
+                      -> Install PM2 - npm install pm2 -g
+                      -> Helps to deploy and manage Application in Production Deployment
+                      -> use Pm2 - start <filename>
+
+                Demo forBuilding an API with fileSystem and Express , using PM2 and Nginx:
+                -------------------------------------------------------------------------
+
+                --> create file db.json and also app.js
+                --> usinf fs.readFile() read data from db.json
+                --> using fs.appendFile append new data in same file
+                --> Now start server with express and define routes
+                --> Run app over Ngnix and achieve reverse proxying
+                --> install pm2 to keep your application always run in background
+                --> Edit Ngnix.conf file and server key , add path of running application over PM2 and provide path over which
+                    we want to run in reverse proxy.
+                    
+
+

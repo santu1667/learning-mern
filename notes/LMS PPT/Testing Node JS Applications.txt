@@ -1,0 +1,62 @@
+---> Automates Testing : helps in testing applications whenever new changes are pushed and will helps to determine the 
+                         existing functionality working with new code
+                Types: 
+                   --->  Unit Testing: Helps in testing small peice of code 
+                                  Code should not have external DB or network connections
+                                  Prevent regrerssions(bugs that occur repeatedly)
+                                  Easy to pinpoint and fix the problem
+                                  If test case taken more time to execute , code under test case is written in complex
+                                  Mocha is popular tool for unit Testing
+                                  Example - verifying a value and returns true or false
+                    
+                    ---> Functional Testing: Made against combination of many units
+                                             We can use any number of external systems
+                                             Takes longer time than unit test
+                                             Functionlaity change represents major change
+                                             Example - user login - validating user name and button click and so on
+
+                    Integration Testing: Ensures entire application is working fine or not
+                                         It can be executed only under realistic environment like real databases, servers
+                                            and other systems like production environment
+                                         Complex to written
+                                         A functionlaity can test ability of ideal system to open a help dialog box but 
+                                            when integrated with new version or browser we need Integration testing
+            
+        Native Testing and Debugging :
+                Writing to Console: Console.log is used commonly got testing and Debugging
+                                    Helps to provide a quick way to see what is happening at someoint in script
+                
+                Assert Module: This Module was internally built in node JS to test whether we get desired output ot not
+                    Syntax: assert.operation(value1,value2,message);
+                            Operations: equal, notEqual, strictEqual, ok, ifError, functionality
+
+        Advance testing setup:
+                Test Runner : Executes tests and summarize results (Ex: Mocha)
+                Assertion Library : Defines testing logic conditions( Ex: Chai)
+                Headless browser : Simulates browser Interaction (Ex: Puppeteer)
+
+                Mocha: JS framework test runner that runs on node js as well as browser. It doesnt concern itself with 
+                       test assertions themselves
+
+                       npm install mocha -get
+
+                       npm install --save-dev mocha
+
+                       Mocha used to run sync and sync code 
+                       Mocha uses describe and it operators to organise and run tests
+                       describe("TestClass",function(){
+                        it("should return a date function",function(){//test functionality})
+                       }) 
+                Hooks in Mocha : beforeEach, afterEach, before , afterEach
+
+                Chai : Chai Assertion library gives more expressive syntax than existing native assertion library makes it 
+                       more reason to choose like expect, should and assert
+
+                       Chai is Behavior Driven Development/ test Driven development assertion library for node offering 
+                       so many assertion styles
+
+                       Assertion Styles : 
+                            Assert Style - is exposed through assert interface
+                            Expect Style - Just says the explanation of function 
+                            Should Style - extension of expect providing the function to be executed
+

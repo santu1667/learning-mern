@@ -1,0 +1,24 @@
+Postman - content-type 
+applicaton/json
+
+use this instead of depricated generator in routes
+const { check, validationResult } = require("express-validator");
+
+{
+    "userName":"santu1667",
+    "email":"santu@test.com",
+    "password":"santu1667"
+}
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjJiMDlkMTNkZDVjNjQwOTc1YTA2ZGE3In0sImlhdCI6MTY1NTc0MTcxNSwiZXhwIjoxNjU1NzUxNzE1fQ.9vc9maxLamHLs1ogLjloHaNoSha2WADnaRwPE_87ayA"
+}
+
+{
+    "userName":"santu1668",
+    "email":"santu@test1.com",
+    "password":"santu1668"
+}
+{
+    "message": "User Creates=d Successfully",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjJiMDlkYjYzODAxNzZkMDMzZmI1MWFlIn0sImlhdCI6MTY1NTc0MTg3OSwiZXhwIjoxNjU1NzUxODc5fQ.5Yd2coK05pEzzc7XMa1zQkfLIuEoBX8Fs06zDDYYTW8"
+}

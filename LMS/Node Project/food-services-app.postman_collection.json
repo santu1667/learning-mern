@@ -1,0 +1,197 @@
+{
+	"info": {
+		"_postman_id": "ad8a689b-f0c7-4f02-955d-d6e23dbea562",
+		"name": "food-services-app",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21551274"
+	},
+	"item": [
+		{
+			"name": "food-services-app/userlogin",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"abcdef\",\r\n    \"password\":\"12345678\"\r\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/api/v1/login",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "food-services-app/userRegister",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"abcdef\",\r\n    \"password\":\"12345678\",\r\n    \"email\":\"abc@example.com\"\r\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/api/v1/register",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "food-services-app/allusers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/api/v1/users",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "food-services-app/OrderProduct",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"abcdef\",\r\n    \"name\":\"Laptop\",\r\n    \"price\": 1000,\r\n    \"description\":\"Laptop description\"\r\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/api/v1/orderProduct",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"orderProduct"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "food-services-app/getProducts",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjJiMGQ5ZmM5ZmRiZGM2MTc0MTIwZGYyIn0sImlhdCI6MTY1NTc2ODQ4MywiZXhwIjoxNjU1Nzc4NDgzfQ.RsTbUZpxowLqR6xzcRPFFfJqt-j149SHh7sL4Ddt1E8",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:3000/api/v1/prodcuts",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"prodcuts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "food-services-app/retreiveusertoken",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"abcdef\"\r\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/api/v1/user",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"user"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

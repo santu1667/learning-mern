@@ -1,0 +1,85 @@
+1. localhost:3000/api/v1/register
+        Request:
+        {
+            "username":"abcdef",
+            "password":"12345678",
+            "email":"abc@example.com"
+        }
+        Response:
+        {
+            "Status": "User Created Successfully"
+        }
+
+
+2. localhost:3000/api/v1/login
+        request
+        {
+            "username":"abcdef",
+            "password":"12345678"
+        }
+        response
+        {
+            "userid": "62b0d9fc9fdbdc6174120df2",
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjJiMGQ5ZmM5ZmRiZGM2MTc0MTIwZGYyIn0sImlhdCI6MTY1NTc1NzM1OCwiZXhwIjoxNjU1NzY3MzU4fQ.C71sgsYvmY69Jd063S2QQOYLCfTRS6jqlQMhD8DzRps"
+        }
+
+3. localhost:3000/api/v1/users - Get All users
+    [
+    {
+        "_id": "62b0d50f2d57aaff64ba820c",
+        "username": "santu1667"
+    },
+    {
+        "_id": "62b0d64af7f44beb74a07133",
+        "username": "santu1669"
+    },
+    {
+        "_id": "62b0d856bd2d3c4e72adbb4d",
+        "username": "santu1770"
+    },
+    {
+        "_id": "62b0d915bd2d3c4e72adbb52",
+        "username": "santu1661"
+    },
+    {
+        "_id": "62b0d9260fb86c377ac84d59",
+        "username": "santu1660"
+    },
+    {
+        "_id": "62b0d99a9fdbdc6174120dec",
+        "username": "santu16"
+    },
+    {
+        "_id": "62b0d9fc9fdbdc6174120df2",
+        "username": "abcdef"
+    }
+]
+
+4. localhost:3000/api/v1/orderProduct
+
+    request : 
+    {
+    "username":"abcdef",
+    "name":"Laptop",
+    "price": 1000,
+    "description":"Laptop description"
+}
+
+response:
+{
+    "Status": "Order Created Successfully",
+    "order": "62b0fb2535043f9db1816959"
+}
+
+5. localhost:3000/api/v1/prodcuts
+    Token in header : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjJiMGQ5ZmM5ZmRiZGM2MTc0MTIwZGYyIn0sImlhdCI6MTY1NTc1NzM1OCwiZXhwIjoxNjU1NzY3MzU4fQ.C71sgsYvmY69Jd063S2QQOYLCfTRS6jqlQMhD8DzRps
+
+    response:
+    [
+    {
+        "_id": "62b0fb2535043f9db1816959",
+        "name": "Laptop",
+        "price": 1000,
+        "description": "Laptop description"
+    }
+]

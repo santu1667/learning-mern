@@ -1,0 +1,18 @@
+npm install body-parser config express mongoose morgan --save 
+
+dev dependencies npm install chai chai-http mocha eslint --save-dev
+
+update package.json 
+
+"main":"server.js"
+"start" : "SET NODE_ENV=dev && node server.js",
+"test" : "mocha timeout -10000"
+
+create a folder config --> dev.json, default.json, test.json
+
+{
+    "DBHost" : "mongodb://127.0.0.1/testing-express-app"
+}
+
+create mocha-chai-test db and mocha-chai-dev db's and give these test ad dev json files default goes with dev
+

@@ -1,0 +1,4 @@
+run npm install -g create-react-app
+run npx create-react-app todolist
+navigate to cd todolist
+npm start , starts at default port

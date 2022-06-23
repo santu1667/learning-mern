@@ -1,0 +1,13 @@
+Create Folder Structure 
+order-managemnet --> auth(middleware), config(db), model, views, route app.js server.js
+
+run - npm init  on terminal by navigating to order-management - creates package.json
+
+run - npm install express body-parser bcryptjs jsonwebtoken mongoose ejs - install required modules - creates node_modules
+check in package.json dependencies if the above modules installed or not
+
+run - npm install eslint --save-dev - install eslint as local development library
+
+updated package.json scripts with - this helps in npm start of server and npm run dev
+"start" : "node server.js",
+"dev" : "nodemon server.js"

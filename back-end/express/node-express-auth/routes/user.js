@@ -41,6 +41,7 @@ router.post(
                     email
                 });
                 if(user){
+                    console.log(user);
                     return res.status(200).json({message:" User Already Exists."});
                 }
                 user = new User({

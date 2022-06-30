@@ -1,0 +1,15 @@
+---> State of Component:
+        Each component is react had its own state and is responsible to manage its state
+        For this react had inbuilt lib 'useState' basically called as "hook"
+        
+        import React.{useState} from 'react';
+        callign useState gives a new state variable and a function that can call to alter its value 
+
+        Hook: functions which are linked to state and life cycle of components
+        useState - hook to manage state
+        useEffect - hook to access components life cycle - will be passed as a funciton when we use this hook. The fucntion
+                will be run by react when the component first rendered and also runs on every subsequent re-render/update
+
+        Props : Intial values passed on to a function
+
+

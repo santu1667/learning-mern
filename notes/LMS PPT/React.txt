@@ -1,0 +1,108 @@
+-----> Building Blocks of Web Application :
+        1. Creation of Application program invovled in creation of servers and users interface.
+        2. Web Application Development consists of
+            a. Front end and b. Backend
+                User    Application   Database Server
+            --> Front end Development : includes in developing What users see when they load web application, 
+                the content,design and how you interact with interact(HTML, JS, CSS)
+            --> Backend Development: refers to server side of an application, where we develop a business logic to 
+                manage content, securityand structure inorder to assume application remains operational
+        3. Ways of Developing Web Application:
+            Multi Page Application and Single Page Application
+            a. Multi-Page Application: Each time when user clicks a link a new page will be downloaded from server and
+               rendered in web browser(goIbibo)
+            b. Single Paged Application : Application works inside browser and doesnt require page reloading every time.
+               SPA is faster, resposive, sompact and easy to develop and deploy(gmail)
+        4. Web Application Architecture Patterns:
+            Layered, Client-Server, Master Slave, Pipe Filter, Broker, Peer to Peer, Event-bus, MVC Pattern,Black board
+            Interpreter Patterns
+
+            MVC Pattern : MVC is standard pattern which divides app into Model, view and Controller
+            Model : represents Application data, Retreives, Stores and maintain data of Application
+            View : View is the front end what user can see
+            Controller : software code that controls interactions between model and view
+        
+    ---> React : JS Library to build the user interfaces and is positioned in the view portion of MVC.
+                 * React is used in development of single page web application or mobile application as it is very 
+                   optimal and and helps in fetching the rapidly changing data which needs to be loaded
+                --> Elements of react: JSX, Components, Props, Virtual DOM, States, Event Handling
+                Why we need React :
+                * Low Learning Curve as most of its part includes HTML, JSX
+                * smaller code size, easy development and rich user interface
+            Npm Libraries needed for React : Babel (used for Es6 to ES5 version of JS)
+                                             React (functionality necessary for react components)
+                                             react-dom (serves entry point to DOM)
+                                             webpack (it is a module bundler, bundle JS files so usage in browser)
+                                             react-scripts (inlcudes scripts and configurations used by create-react-app)
+                a. create-react-app :npm package and easiest way to setup react application
+                        provides testing environment with Jest and allows to build react Application
+                        Development server with quick reloading
+                        Ready for ES6 syntax
+                        Bundles all JS and assets
+                        comes with CSS autoprefixer, SASS and CSS module support
+
+                    npm create-react-app <react application name>
+                
+            --> JSX : JavaScript XML  lets write HTML code inside JS
+                      . Extension of JS syntax language, type-safe as most of errors can be caught during compilation,
+                      . Makes use of render function to return single HTML element at a time
+                      . JS + HTML = JSX
+                      . JSX is passed to babel which will convert JSX to JS format which is recognised by browser
+                    
+                Example Syntax :        var styles ={backgroundcolor :"skyblue"}
+                                        var myComponent=React.createClass({
+                                            render: function(){
+                                                <div style={styles}>
+                                                <h1>Hello Santosh</h1>
+                                                <p>This is React Learning First Page</p>
+                                                <section> we are addind 2 and 4 :{2+4}</section>
+                                            }
+                                        });
+                
+                ---> Document Object Model : Standard Logic representation of web page
+                            * DOM is tree like structure contains all elements, properties as its nodes
+                            * with DOM, programmers can create and build documents
+                            * DOM provides language neutral interface allows accessing and update of content of any 
+                              element of web page.
+
+                    Most of JS frameworks, when there is a change in the nth element of DOM , they will go through loading
+                        of entire DOM list again which leads in slow loading of application.
+                    
+                    To address above issue, React had a support of virtual DOM 
+
+                --> Virtual DOM : VDOM is concept of cirtual representaiton of UI in memory and will be compared to actual
+                                  DOM and synced whever had a change by library called ReactDOM
+                    Features:
+                        1. Element Rendering - When we render JSX element , every Virtual DOM element gets updated. This consumes very less time
+                            because of updation done of virtual DOM
+                        2. DOM Comparision - Once virtual DOM is updated, comparision will be done b/w virtual and a snapshot
+                             of virtual DOM before the update.
+                        3. DOM Update: Process of finding out exactly which elements changed by comparision of Virtual DOm's is 
+                             called "Driffing". After finding out What DOM changed, Reat updates only those onjects on real DOM
+                        4. Improve Performance : As entire page is not loaded , React helps in play efficient role regarding Performance
+
+                ------> ECMA SCript: JS is standardised by ECMA Script to foster multiple independent implementations.
+                                     As of today all browsers support ES5 but ES6 comes with wide variety of features
+                            ECMA Script Variables - are the defined spaces in memory to store values in program.
+                                    JS uses dynamic typing where majority if variables declared before using
+                                    Var , let , const are few ECMA script variables
+                                * Var : has function scope, can be declared more than once and value can be re-assigned anytime
+                                * Let and Const : comes with ES6 defines the block scope with in if , switch , {}
+                                    Let allows you to re-assign value but cannot be decalred more than once
+                                * Const : Value assigned to const is immutable
+                    * ES5 vs ES6 : Arrow Function, Template literal, Object Manipulation and Module Exports and Imports
+                Arrow Function: functions where we no need to represent {} and also function key word
+                    Examples: function getNumber(){ return 5;}  ---->  const getNumber = () => 5
+                Template Literal: `` Key besides Number 1 left, alternative syntax for defining string
+                    Example : var x=1 console.log('value of x' +x); ----> console.log(`value of x is ${x}`)
+                Object Manipulation: ES5 Object.manipulation ES6 Spread operational
+                    Example : var obj1 ={a:1,b:2} var obj2 ={c:3,d:4}
+                        var obj3 =Object.assign(obj1,obj2)  ---> var obj3 ={..obj1,..obj2}
+                Module Exports and Imports: ES6 comes with keyword export default
+                        var test={a:1} ES5 : module.exports=test ES6 : export default test;
+                        var test=require("./test")                     imprt test from './test'
+                
+                
+        
+
+        

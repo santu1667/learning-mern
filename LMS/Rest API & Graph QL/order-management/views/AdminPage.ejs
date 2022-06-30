@@ -1,0 +1,22 @@
+<script>
+    function loadOrders(){
+        alert("inside load Orders");
+        console.log("Hi this is testing********");
+        fetch("http://localhost:3000/api/retreiveOrders")
+   .then(response => response.json())
+   .then(orders => showOrders(orders));
+   alert('orders'+orders);
+    }
+    function showOrders(orders)
+    {
+        alert('inside showOrders'+orders[1][0]);
+    }
+    window.onload = function(){
+        loadOrders();
+    }
+  </script>
+  </head>
+  <body>
+    <div id="orderInfo"> </div>
+  </body>
+</html>

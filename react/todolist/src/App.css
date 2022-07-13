@@ -1,5 +1,27 @@
 .App {
   text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-style: groove;
+}
+
+.checked-item,
+.item-not-checked {
+  margin-left: 10px;
+}
+.checked-item {
+  text-decoration: line-through;
+}
+li {
+  text-align: left;
+}
+
+button{
+  margin-left: 12px;
+}
+
+ul {
+  display: inline-block;
 }
 
 .App-logo {

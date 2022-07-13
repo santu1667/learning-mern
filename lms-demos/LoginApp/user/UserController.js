@@ -20,8 +20,6 @@ router.get('/', function (req, res) {
     });
 });
 
-
-
 // GETS A SINGLE USER FROM THE DATABASE
     router.get('/profile', function (req, res) {
         var token = localStorage.getItem('authtoken')

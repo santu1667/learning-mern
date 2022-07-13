@@ -4,7 +4,6 @@ const port = process.env.PORT || 3000;
 const user = require("./route/UserController");
 const bodyParser = require("body-parser");
 const initiateMongoServer = require("./config/db");
-const { application } = require('express');
 initiateMongoServer();
 
 app.use(bodyParser.urlencoded({extended: false}));

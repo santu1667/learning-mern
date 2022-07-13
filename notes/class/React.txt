@@ -1,15 +1,108 @@
----> State of Component:
-        Each component is react had its own state and is responsible to manage its state
-        For this react had inbuilt lib 'useState' basically called as "hook"
+---> npm install -g create-react-app - Allows to create react App quickly
+     npx create-react-app <applicationName> - used to create base react app 
+     -- npx used to fectch the package and do the work and remove the package from cache or 
+        system
+
+----> React JS :
+        . Used to refer as library as it doesnt consist of all the componenets(batteries) needed to develop
+          full front end app unlike Angular.
+        . As react is library we can choose tools of our own to build application.
+          (Example - Form library (validations and other actions associated with form - React Hook Form or
+                Formic packages)
+                Testing React Application - React Testing Library or Jest or both
+                For Making Network Requests we can use Fetch API or AXIOS)
+        React Components : Similar to function whih takes input and renders HTML components. 
+                Each and every HTML page can be divided into components(Refer Video 15 2:00:00)
+        Virtual DOM : DOM is an interface helps script languages to read adn manipulate the components
+                of HTML. When a HTML is loaded in browser a corresponding DOM is created for that page.
+                Every time Real DOM changes browser needs to be refreshed to render the updated component.
+                (recalculate CSS , run layout and repaint web page)
+
+                -> As the name indicates Virtual DOM is virtual representation od real DOM. Uses strategy to
+                update DOM without redraw all web elements. This helps the actual DOM receives onyl necessary
+                components to replaint instead of all components
+                When a new element is added to UI , virtual DOM is created. Is the state of element 
+                changes again React will recreate the Virtual DOM again second time and compare it with
+                previous versionto detect which virtual DOM object changes. Then React will update only
+                the object which is needed to Real DOM
+        . JSX : Writing JS/react code to describe what the UI look like(JS version of HTML)
+                JSX code is being transalated to regular JS at runtime since browsers can understand only
+                JS(This conversion will be done by Babel - JS compiler, Babel also helps in coversion of ES6
+                features to ES5 which can be understand by older browsers).
+
+                . We can use valid JS expressions using curly braces.
+                . in JSX, element attributes and event handlers are always in camelCase
+
+
+
+----> Managing State in React - State of Component:
+        Each component in react had its own state and is responsible to manage its state
+        State is set of data managed by Component. For this react had inbuilt lib 'useState' basically 
+        called as "hook"(is ability to tap into existing events)
         
         import React.{useState} from 'react';
-        callign useState gives a new state variable and a function that can call to alter its value 
+        calling useState gives a new state variable and a function that can call to alter its value 
 
         Hook: functions which are linked to state and life cycle of components
-        useState - hook to manage state
+        useState - hook(function) to manage state
         useEffect - hook to access components life cycle - will be passed as a funciton when we use this hook. The fucntion
                 will be run by react when the component first rendered and also runs on every subsequent re-render/update
 
-        Props : Intial values passed on to a function
+---> Props : Intial values passed on to a function.
+        . Can be passed as attributes to the components in JSX.(Refer welcome.js file and index.js)
+        . We receive the props as arguemnts inside the component and is common to use object destructing to
+        get props by name({} used for destructing object)
+        . Passing Props to components is great way to pass values around Application
+        . We can send even functions as props so child component can call the function in parent comp
+        --> Special Prop - Children 
+            This contains the value of anything passed between open and closed tags of component
+            (Ex: <Welcome> This is Welcome Message </Welcome>)
+            . We can access the value inside using children prop
+            (function Welcome({children}){
+                 return <p>{children}</p>
+            })
 
+
+ ---> Data Flow in React Application:
+        . Parent Component --> Child Component (Data flow happens via Props)
+          <Welcome myprop={"value"}>
+        . Child Component --> Parent Component (Data Flow happens via State)
+           (If we pass a function to child component From parent we can change state of Parent from
+           Child
+           Ex: const [count,setCount] = useState(0);
+               <Counter setCount ={setCount}/>)
+               In the Child Counter Component
+               function Counter({setCount})
+               {
+                //setCount
+               }
+
+----> Handling userEvents in React:
+        . React makes it easy to manage events fired from DOM elements like Clicks and Form events
+        1. Click : OnClick attribute(<button onClick={(event) => {//handle event}}>Test</button>)
+                        const handleClickEvent = (event) => {//handle Event}
+                        function App(){return <button onClick=(handleClickEvent)></button>} 
+        2. onKeyUp, onFocus, onChange are other Events of React
+
+-----> Life Cycle Events in a React Component:
+        . useState - This hook can be used to manage state
+        . useEffect - This hook can be used to manage Life Cycle events of component
+                . When we call useEffect , You pass it as function and this funciton will be called on 
+                first render and also on each update/re-render
+                . React first updates DOM and calls any function passed to useEffect
+                . All the above can be done by react without blocking the UI rendering
+                
+        ---> Todolist example:
+                React Keys : React needs to keep track of each and every item in the list and will have
+                        spacial prop called Key in react is available for this.
+
+-----> React Router :
+        . React router is used to keep track of current URL and render different views as it changes.
+        . 3rd party Library
+        . Routing can be done either on client side or server side rendering
+        . Need to install react-router-dom in our project.
+
+        Usage : The first change we need to implement is to wrap the top level app in router.
+                
+                
 

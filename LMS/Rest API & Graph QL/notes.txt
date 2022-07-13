@@ -11,3 +11,6 @@ run - npm install eslint --save-dev - install eslint as local development librar
 updated package.json scripts with - this helps in npm start of server and npm run dev
 "start" : "node server.js",
 "dev" : "nodemon server.js"
+
+rest API :
+

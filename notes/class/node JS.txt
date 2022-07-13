@@ -24,7 +24,7 @@ Installation:
 https://github.com/coreybutler/nvm-windows 
 
 Download setup.exe
-npm install latest - intall latest version of node js
-npm use <version> to switch to latest version
+nvm install latest - intall latest version of node js
+nvm use <version> to switch to latest version
 
 Check node JS Version after installation -- > node -v this comes with npm installer npm -v

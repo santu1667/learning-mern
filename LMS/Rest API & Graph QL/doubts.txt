@@ -1,0 +1,1 @@
+ onSubmit=alert('email sent to ${persons[i].email}');

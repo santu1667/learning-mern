@@ -1,0 +1,14 @@
+Users -POST - localhost:3002/api/v1/register
+
+{
+    "username":"abcdef",
+    "password":"12345678",
+    "email":"abcdef@test.com"
+}
+
+{
+    "username":"santosh",
+    "password":"santosh@1",
+    "email":"abcdef@test.com",
+    "userType":"Admin"
+}

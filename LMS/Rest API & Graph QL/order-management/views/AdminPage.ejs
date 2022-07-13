@@ -1,22 +1,131 @@
-<script>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+  crossorigin="anonymous"
+/>
+<link rel="stylesheet" type="text/css"href="/css/App.css">
+  <title>Order Managment System</title>
+  <script>
+    var baseURL="http://localhost:3000/api";
     function loadOrders(){
-        alert("inside load Orders");
-        console.log("Hi this is testing********");
-        fetch("http://localhost:3000/api/retreiveOrders")
-   .then(response => response.json())
-   .then(orders => showOrders(orders));
-   alert('orders'+orders);
-    }
-    function showOrders(orders)
-    {
-        alert('inside showOrders'+orders[1][0]);
+      var xmlhttp = new XMLHttpRequest();
+      xmlhttp.open("GET",baseURL+"/retreiveOrders",true);
+      xmlhttp.onreadystatechange = () =>{
+        if(xmlhttp.readyState ===4 && xmlhttp.status===200)
+        {
+          var persons = JSON.parse(xmlhttp.responseText);
+          console.log(persons);
+        }
+        if(persons === null || persons ===''){
+          var information ="<p>There are no orders in the system at this time</p>";
+          document.getElementById("orderInformation").innerHTML=information;
+        }
+        else{
+          var tbltop = `<table>
+			      <tr>
+              <th class="sendEmail"></th>
+              <th>Name</th>
+              <th>Address</th>
+              <th>Items Purchased</th>
+              <th>Status</th>
+              <th>Email</th>
+            </tr>`;
+            //main table content we fill from data from the rest call
+             var main ="";
+             var sendEmailDiv="";
+             for (i = 0; i < persons.length; i++){
+              console.log('')
+               main += "<tr>"+
+                `<td> <button type=submit name="sendEmailButton" value=${persons[i].email}>
+                        Send Email</button> </td>`+
+                "<td>"+persons[i].name+"</td>"+
+                "<td>"+getAddress(persons[i].address)+"</td>"+
+                "<td>"+getShoppingItems(persons[i].shoppingItems)+"</td>"+
+                "<td>"+getStatus(persons[i].shoppingDate)+"</td>"+
+                "<td>"+persons[i].email+"</td>"+
+                +"</tr>";
+             }
+            var tblbottom = "</table>";
+            var tbl = tbltop + main + tblbottom;
+            document.getElementById("orderInformation").innerHTML=tbl;
+            var pressedButton = document.getElementsByName("sendEmailButton");
+            pressedButton.addEventListener("click", function (event) {
+                alert("You have pressed the button..........")})
+        }
+      }
+      xmlhttp.send();
     }
     window.onload = function(){
-        loadOrders();
-    }
+      loadOrders();}
+
+      function getAddress(address)
+      {
+        var addressInformation = null;
+        if(address!= null)
+        addressInformation = address.streetAdress1+ ',<br/>'+address.streetAdress2
+                                +', '+address.zip+', '+address.country;
+        return addressInformation;
+      }
+
+      function getShoppingItems(shoppingItemList){
+        let shoppedItems = '';
+        if(shoppingItemList!=null){
+          for(j=0;j<shoppingItemList.length;j++){
+             shoppedItems += shoppingItemList[j]+'<br/>'; 
+          }
+        }
+        return shoppedItems;
+      }
+
+      function getStatus(date){
+        var status = "Unkown";
+        var date1 = new Date();
+        var date2 = new Date(date);
+        const diffTime = Math.abs(date2 - date1);
+        const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24)); 
+        if(diffDays === 0)
+        {
+          status = "In Progress";
+        }
+        if(diffDays === 1)
+        {
+          status = "Dispatched";
+        }
+        if(diffDays === 2)
+        {
+          status = "Delivered";
+        }
+        return status;
+      }
+        
   </script>
-  </head>
-  <body>
-    <div id="orderInfo"> </div>
-  </body>
+</head>
+<body>
+    <h3>Welcome Admin</h3>
+    <p>Order Mangement System</p>
+    <div id="orderInformation"></div>
+    <script
+    src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"
+  ></script>
+</body>
 </html>

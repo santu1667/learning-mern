@@ -1,18 +1,16 @@
-  form {
-    padding-top: 10px;
-     display: inline-block;
-     border-style: inset;
-     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#999897), color-stop(40%,#757473), color-stop(100%,gray));
-    }
-
     table, td, th {
-      border: 1px solid black;
+      border: opx solid black;
     }
     
     table {
       border-collapse: collapse;
       width: 80%;
       margin: 0 auto;
+    }
+
+    .loginuser {
+      padding-left: 100px;
+  
     }
     
     th {
@@ -22,12 +20,15 @@
   body{
     padding-top: 50px;
     text-align: center;
+    
   }
 
-  div {
-    padding-top: 2px;
-    padding-bottom: 2px;
+  div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
+
   
   input{
     

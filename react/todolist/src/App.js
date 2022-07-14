@@ -4,6 +4,7 @@ import React,{useState} from "react";
 import {Routes,Route} from "react-router-dom";
 import TodoList from './TodoList';
 import AddTodo from './AddTodo';
+import Example from './Example';
 import CounterWithNameandEffect from './CounterWithNameandEffect';
 import SearchFilterDemo from './SearchFilterDemo';
 import Checklist from './Checklist';
@@ -12,6 +13,7 @@ function App() {
   console.log('test');
   const [count,setCount] = useState(0);
   //const [a,setA] = useState(0);
+  const [animals,setAnimals]=useState(["dog","cat","horse","meow"]);
   const [todos, setTodoList]= useState([
     {id:1, text:"Wake up at 6 AM", done:true},
     {id:2, text:"Get Ready by 6.30 AM", done:false},
@@ -44,6 +46,15 @@ function App() {
           element={<CounterWithNameandEffect user={"Santosh"} />}
         />
 
+<Route exact
+          path="/customcomponent"
+          element={
+            <>
+              <Example animals={animals} setAnimals={setAnimals}/>
+            </>
+          }
+        ></Route>
+
         <Route exact
           path="/todolist"
           element={
@@ -56,16 +67,7 @@ function App() {
 
       <Route  exact path="/checkList" element={<Checklist/>}/>
       </Routes>
-       {/* <TodoList/> */}
-       {/* <p>Hello World ! I started learning React </p>
-       <p>Button Test Me was clicked {count} times</p>
-       <button onClick={()=>setCount(count+1)}>Test Me</button>
-       <p>Multiplication of {a}*{b} -- >{a*b}</p>
-       <button onClick={()=>setA(a+1)}>Click Me</button>
-       <hr/>
-       <TodoList todos={(todos)}  setTodoList={setTodoList}/>
-       <AddTodo setTodoList= {(setTodoList)}/>
-       <TodoList/> */}
+       
     </div>
   );
 }

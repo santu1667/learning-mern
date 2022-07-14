@@ -28,6 +28,7 @@ if(x>1)
 }
 console.log(`Input : ${x} Answer : ${answer}`);
 
+
 //Ternary Multiple If's
 
 answer = (x>10) ? (x===5) ? "X value is 5":'' :'';

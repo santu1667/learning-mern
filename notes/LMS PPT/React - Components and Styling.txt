@@ -1,0 +1,130 @@
+-----> React Elements :
+        . React Element is describing DOM node and its desired properties
+        . React elements can be converted to DOM elements using render functions
+           Syntax: React.createElement("h1",null,"Edureka");
+                (typeofElement, properties,Text to be printed or child component)
+        
+        Render Function : is process of transforming the react elements to DOM elements
+            .React renders a react element using React.render
+            . React DOM is the package used for this rendeing which can be imported
+              from 'react-dom'
+            . ReactDOM.render([reactELements], document.getElementById("root"));
+                        (elements to be displayed, html element id where u want react elements )
+        
+        Components : Components are independent and reusable bits of code, which returns 
+                React elements that describes how a UI looks like
+                . Every part of react application is a component which helps in split of 
+                  UI to independent reusable Components
+                . Each independent section is processed sepretayl
+                . We cna easily change or update each component without disturbing other 
+                    compoenents.
+                . Components must be written in Upper case to avoid ambiguity with html
+                    tags
+            There are 2 ways we can define a component.
+            Class Component : A class component is defined using a class and every class
+                component extens React.Component
+                Ex: import React from 'react';
+                    impoer ReactDOM from 'react-dom';
+                    class App extends React.Component{
+                    render ()   {return <h1>Wlcome</h1>}
+                }
+                ReactDOM.render (<App/>, document.getElementById("root"));
+            . Import statements can be also written as (ways of defining Component Class)
+                import React, {component} from 'react';
+                Class App extends Component
+            . Use of Constructor in class :
+                - A constructor is a member function of a class which had same name as class
+                - This is automatically called while creating the instance of Class
+                - We need to call super in React.Component constructor before any statement.
+                - If our component doesnt have any state or Props , there is no need of 
+                defining the Constructor in components.
+            
+            Function Component : Functional components are Java script functions which takes 
+                in props and returns React element.
+                Syntax : const App(){
+                    return(<h1>Welcome</h1)
+                }
+                ReactDOM.render(<App/>, document.getElementbyId("root"));
+
+            . It is a good way to maintain folder names components when u had multiple components
+
+        Props and State :
+            React Components are controlled by prop and state.
+
+            Props : are arguments passed to React Components
+                - usually passed via HTML attributes to components and can be used by both
+                functional and class components
+                - They are used to render data from parent to child and is unidirectional
+                - Props are immutable and their value cannot be changed.
+                Syntax : <ReactComponent myProp= "Hello">
+            Props can be accessed in 
+                Class component as : this.props.propName
+                Functional Comp as : Functional components accepts them as params and can \
+                    be accessed directly 
+            - Props are useful when we recieve data from Parent in cae if we need to receive 
+            data from API we need state
+
+            State : is an observable object which observes the changes made to a component
+                and guide the component to behave accordingly
+                - Variables declared in class component whose value can be altered
+                - They are generally updated by event handlers and can be set useing setState
+                   function
+                
+        -----> React Components Life Cycle(LifeCyle hook) :
+            - Every React Component  follows a life cycle , where a series of methods are 
+              invoked in different stages. Stages are 
+              Mouting : is the stage where elements are added to DOM. There are four 
+                        inbuilt methods called during mounting
+                    - constructor: When a component is intiaited COnstructor is called to   
+                        set the Props and States
+                    - getDerivedStateFromProps : This Method is called before sending element 
+                        to DOM. It task inout Props and return new object with change in
+                        state.
+                    - render : used to tranform React element into DOM
+                    - componentDidMount : this is called when component is rendered to 
+                        DOM. It confirms whether the component is placed in DOM or not
+              
+              Updating : Updating is Phase where the states and props are updated bcz
+                         of some user events like button click, onkey up
+                         Methods called while updating the component
+                    - getDerivedStateFromProps : This Method is called before sending element 
+                        to DOM. It task inout Props and return new object with change in
+                        state.
+                    - render : used to tranform React element into DOM
+                    - shouldComponentUpdate : returns a boolean which helps to determine 
+                        if component needs update or not
+                    - getSnapshotBeforeUpdate : lets you check the values before update.
+                        This should be inlcuded with componentDidUpdate() to avoid 
+                        error notification.           
+
+              Unmounting : unmounting is the phase where component needs to be removed
+                            from DOM
+                    - componentWillUnmount() is the only method that will be called
+                    - React.unmountComponentAtNode(containerName)
+
+-------> React Events : Similar to HTML, React executes actions based on the user events
+                    like click, change,mouseover and many more.
+                - React events are written in cameCase and event handlers are written
+                  inside curly braces
+                  Syntax : <button onClick={this.click}> CLick here </button>
+                - Using JSX we pass a function as the event hanlder in place of String
+                - It is good practice to put event handler as method in component
+                  class
+
+        React Forms: React forms let users interact with a web page. Different activities
+                associated with React forms are :
+
+                - Adding Forms : This is justa regular form as in HTML 
+                - Handling Forms: Associated with managing data on submission or when the
+                    value is changed
+                - Conditional Rendring: Preferred to display data after user interaction
+                    like form submission
+                - Submitting Form: On Click of submit button
+                - Multiple Input Feilds : different feilds in the form
+                - Validating Input :M2 demo document L3
+                - Text Area:
+                - Select :
+
+
+
+

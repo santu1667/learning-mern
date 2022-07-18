@@ -1,10 +1,11 @@
 import './App.css';
 import data from './tabledata.json';
 import BootStrapTable from 'react-bootstrap-table-next';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import cellEditFactory from 'react-bootstrap-table2-editor';
 import filterFactory from 'react-bootstrap-table2-filter';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import "bootstrap/dist/css/bootstrap.min.css";
+import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css"
 
 
 function App() {
@@ -43,7 +44,8 @@ function App() {
       <input placeholder='Search table' name="userValue" id="userValue"
         onChange={filterTableData}></input>
      </div>
-     <BootStrapTable keyField="id" 
+     <BootStrapTable bootstrap4
+              keyField="id" 
               data={tabledata} columns={columns} 
               striped hover condensed
               cellEdit={cellEditFactory({

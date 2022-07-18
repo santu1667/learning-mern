@@ -5,8 +5,7 @@ import cellEditFactory from 'react-bootstrap-table2-editor';
 import filterFactory from 'react-bootstrap-table2-filter';
 import { useState } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
-import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css"
-
+import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 
 function App() {
 
@@ -14,6 +13,7 @@ function App() {
 
   function filterTableData(event){
     console.log(event.target.value);
+    var input = event.target.value;
     if(event.target.value==='')
         {
           console.log(tabledata);
@@ -21,9 +21,17 @@ function App() {
             return;
         }  
         console.log(tabledata);
-        const filterData =  data.filter(o=>Object.keys(o).some(k=> 
-          String(o[k]).toLowerCase().includes(event.target.value)));
-          console.log(filterData);
+        var filterData =  [];
+        for(let key of data){
+          if(key.first_name.toLowerCase().includes(input.toString().toLowerCase()) ||
+          key.last_name.toString().toLowerCase().includes(input.toString().toLowerCase()) ||
+             key.age.toString().toLowerCase().includes(input.toString().toLowerCase()) || 
+             key.address.toString().toLowerCase().includes(input.toString().toLowerCase())||
+             key.salary.toString().toLowerCase().includes(input.toString().toLowerCase()))
+              {
+              filterData.push(key)
+              }
+          }
           if(filterData!=null)
           {
             setTableData(filterData);

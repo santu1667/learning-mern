@@ -7,10 +7,6 @@
 
 # testing
 /coverage
-/src
-package.json
-package-lock.json
-ReadMe.md
 
 # production
 /build

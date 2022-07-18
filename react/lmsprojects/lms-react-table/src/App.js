@@ -9,24 +9,25 @@ import { useEffect, useState } from 'react';
 
 function App() {
 
-  const [tabledata, setTableData] = useState([]);
+  const [tabledata, setTableData] = useState(data);
 
   function filterTableData(event){
-      if(event.target.value !='')
-      {
-        const filterData =  tabledata.filter(o=>Object.keys(o).some(k=> 
+    console.log(event.target.value);
+    if(event.target.value==='')
+        {
+          console.log(tabledata);
+          setTableData(data);
+            return;
+        }  
+        console.log(tabledata);
+        const filterData =  data.filter(o=>Object.keys(o).some(k=> 
           String(o[k]).toLowerCase().includes(event.target.value)));
           console.log(filterData);
           if(filterData!=null)
           {
             setTableData(filterData);
           }
-      }
   }
-  useEffect(()=>{
-      setTableData(data);
-  },[])
-
     const columns =[
     {dataField:"id", text:"Id",sort:true},
     {dataField:"first_name", text:"First Name",sort:true},

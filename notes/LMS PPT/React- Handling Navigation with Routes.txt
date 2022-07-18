@@ -1,0 +1,54 @@
+----> Routing :
+        - Process of mapping from the URL to rendered content.
+        - It helps user to move to different parts of Application when he enters URL or
+           clicks an element with in the Application.
+        - To define the route we need the exact URL and component to be rendered
+
+        - react-route is the library used to integrate routes in react Application.
+        - react-route split into react-router-dom (web Applications)and 
+          react-router-native (Native Applications)
+
+          Syntax to install - npm install react-router-dom
+
+    ----> Features :
+        - Navigating backward and forward in the Application restoring the state and maintain
+          the history of Application
+        - Rendering Appropriate components as per the URL.
+        - Redirecting user from one route to another.
+        - Rendering a 404 page when the URL doesnt had any proper route component to render
+
+        React routers had number of routes and depending on requirements an dPlatform we cna use
+        the corresponding
+        Browser routes : by dynamic webnsites to route to different URL's
+        Hash Route : used by static websites to resppond the requests of its files
+        Memory Route : used to store the hostiry of URL, used by non browser applications like
+                        react native applications.
+
+        404 Not found : Switch statement used to display Not found incase if no routes found
+
+        ---> Dynamic Routes : URL Params are the parameters which are used to set dynamically
+                in page URL.
+                Nested Routing concept of route under another route
+              - Nav links are used to add style attributes 
+
+        ----> API - Code that governs the access point of your application to communicate with 
+                other applications in agreed way like request and response
+                - Rest Api allows us to access and manipulate resources using HTTP protocols
+                - REST API prefereed in most of Applications as this returns the JSON response
+                  undersatnd by most of Applications
+
+                - To create a rest PI temporarily we can use json-server. We need to install
+                  json server 
+                  npm install -g json-server
+                  create a file with mock response data
+                  start json server using json-server --watch <jsonfileName> --port <portNumber>
+
+                - How to consume API created in React Application:
+                ** Promises used to handle asynchronous operations in java script and provides better
+                   error handling than callback and event functions
+
+                   Promise functions takes only one call back function.
+                   var promise = new Promise(function(resolve,reject))
+
+                   fetch method used to call API , wher we resolve promise to get data and use it to 
+                   render on UI.

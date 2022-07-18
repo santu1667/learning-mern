@@ -1,0 +1,70 @@
+------> Redux is pattern and library for managing and  updating the Application state 
+        using events called actions.
+       - helps us manage global state-state that is needed across many parts of your 
+         Application
+    ----> Redux is not needed in all the application.
+        - Large amounts of application - state updates needed
+        - Code base of entire front end is pretty large
+         Redux makes the Application complex, so try to manage the usge of redux as much 
+         as possible
+
+    ---> Redux Terms and Concepts :
+
+        - State Managment : Using global variable or repo outside component we will hanlde state
+        - Immutable : cannot be changed or destroyed
+                      Redus expects all state updated to be done immutably.
+        
+        --> Terminologies used for Redux :
+
+            Action : Plain JS Object that has type feild. Event that describes something that happened
+                     in the Application.
+                     - Type feild should be a string that gives this action descriptive name like todos/
+                     todoAdded(Syntax : domain/eventName)
+                     - An action object can have other feilds with additional information about what 
+                     happened . By convention, we put that info in payload
+
+                     const addTodoAction{
+                        type: 'todos/todoAdded',
+                        payload:'Buy Milk'
+                     } 
+            
+            Action Creators : An action creator is a function that crestes and returns an action object.
+                    If we use these, we dont have to write the action object everytime.
+
+                    const addTodo = text = > {
+                        return {
+                             type: 'todos/todoAdded',
+                             payload:'Buy Milk'
+                        }
+                    }
+            
+            Reducer : Function that receives the current state  and an action object decides how to update
+                    state if necessary and returns the new state (state,action) =>new State
+                    - Acts as event listners
+                    - Few rules follwed by Reducers :
+                        1. calculate the new state value based on state and action arguments
+                        2. Reducers not allowed to modify existing state , instead they copy current state and 
+                        making changes to copied values
+                        3. Reducers must not do any asynchronous logic.
+
+                    The login inisde Reducer functions typically follow the same series of steps 
+                    - Check to see if reducer cares about the action. If so make a copy of state, update it with
+                      new values and return it, else return the existing state unchanged.
+            
+            Store : Current state of redux application state lives in object called Store
+                    - Store is created by passing in a reducer and has a method called getState that
+                      returns the current state value
+
+            Dispatch : Redux store has a method called Dispatch and the only way to update the store is to
+                        call the dispatch method and pass in an action object.
+                       - Store will run its reducer function and save the new state value inside and we can 
+                        get new value by calling the getState method
+
+            Selectors : Selectors are functions that know how to extract specofoc piece of information from 
+                        store-state value
+                        - As Application grows bigger , this can help avoiding repaeating logic as difrnt
+                        parts of App reads same data
+                        - 
+             
+
+

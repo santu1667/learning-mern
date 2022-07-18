@@ -1,0 +1,60 @@
+{
+  "products":[
+      {
+          "id":1,
+          "name":"Grand Piano",
+          "price":44500,
+          "type":"manual",
+          "description":"Grand piano is great for beginner or adult. It adopted the famous French dream series, its sound source has stable, clearer sound and more vivid expression of the performance of the player.What’s more, keyboard material upgrade, and this piano features multi functions, so you can learn piano more easily and happily!",
+          "img":"https://i.ibb.co/wc6qzwW/piano.png"
+      },
+      {
+          "id":2,
+          "name":"Electric Guitar",
+          "price":11337,
+          "type":"Electric",
+          "description":" This acoustic guitar is built with great sound quality, high durability and increased ease of use for both beginners as well as professionals. The 39 inch stature makes it easy to handle and carry around without compromising on the sound quality. The selected Body woods allows high fidelity resonating hollow chamber and the rosewood fretboard makes is very durable with great sound carrying capabilities. If you are looking for a great quality acoustic guitar then this is a perfect choice",
+          "img":"https://i.ibb.co/JsbJrBB/electricguitar.png"
+      },
+      {
+          "id":3,
+          "name":"Acoustic Drum Set",
+          "price":22599,
+          "type":"Acoustic",
+          "description":"Set the stage on fire with this Acoustic Drum set from the house of Havana. It is an excellent drum kit delivering great specifications",
+          "img":"https://i.ibb.co/9gTfdfX/drum.png"
+      },
+      {
+          "id":4,
+          "name":"Cutaway Acoustic Guitar",
+          "price":6949,
+          "type":"Acoustic",
+          "description":"This acoustic guitar is built with great sound quality, high durability and increased ease of use for both beginners as well as professionals. The 39 inch stature makes it easy to handle and carry around without compromising on the sound quality. The selected Body woods allows high fidelity resonating hollow chamber and the rosewood fretboard makes is very durable with great sound carrying capabilities. If you are looking for a great quality acoustic guitar then this is a perfect choice.",
+          "img":"https://i.ibb.co/pvHhW8w/acousticguitar.png"
+      },
+      {
+          "id":5,
+          "name":"Electronic Mesh Drum Kit",
+          "price":41999,
+          "type":"Electric",
+          "description":"High-end nine-piece electronic drum set with dual-zone mesh drum heads that deliver a realistic feel.",
+          "img":"https://i.ibb.co/yfhWNn1/electricdrum.png"
+      },
+      {
+          "id":6,
+          "name":"Violin",
+          "price":5799,
+          "type":"Acoustic",
+          "description":"Violin Paint Flamed Back of Solid Maple. Select Spruce Solid Top",
+          "img":"https://i.ibb.co/Yf7FCks/violin.png"
+      },
+      {
+          "id":7,
+          "name":"Tenor Saxophone",
+          "price":40199,
+          "type":"Acoustic",
+          "description":"Tenor Saxophone is a highly versatile instrument with Standard Gold Laquer body enabling perfect resonance",
+          "img":"https://i.ibb.co/xYt3th1/saxophone.png"
+      }
+  ]
+}

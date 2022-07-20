@@ -1,0 +1,25 @@
+{
+"products":[
+            {
+                "id":1,
+                "name":"Grand Piano",
+                "price":44500,
+                "type":"manual",
+                "description":"This is a larger baby-grand piano with fuller sound due to its bigger size and longer strings"
+            },
+            {
+                "id":2,
+                "name":"Electric Guitar",
+                "price":11337,
+                "type":"Electric",
+                "description":"The Bullet Strat With Tremolo HSS is a simple, affordable and practical guitar designed for beginning players and students."
+            },
+            {
+                "id":3,
+                "name":"Acoustic Drum Set",
+                "price":22599,
+                "type":"Acoustic",
+                "description":"Set the stage on fire with this Acoustic Drum set from the house of Havana. It is an excellent drum kit delivering great specifications"
+            }
+    ]
+}

@@ -1,0 +1,102 @@
+---->Problems with React: 
+        - As Application grows bigger and bigger , it becones hard to determine the state of
+          application and difficult to track some updates.
+        - Data sharing across multiple child components becomes difficult.
+    --> Redux: With Redux, all the components of state application is collected in single place 
+               called "Store"
+               - Components will dispatch state changes to Store
+               - Components which need to aware of state changes can subscribe to store.
+               - Redux supports the communcation between components in above way.
+
+            ** Redux is predictable state container for Javascript Apps and has 4 parts
+              - Action : described changes in state of Application
+              - Reducer : carry out state transition depending on action
+              - Store : Store holds state of App
+              - View : represents state changes and application in browser.
+
+              Redux commonly used as state managment library as it makes state mutation predictably
+              by imposing certain restrictions on how and when updates should happen.
+
+    --> Redux Architecture: Redux feature undi-directional data flow and enforces a single store,
+                which mantains the state of while application.
+
+                View -------- Actions ---------- Dispatcher ------Root Reducer ---- state---|
+                |     (events)                   ----------Store----------------            |     
+                |___________________________________________________________________________|
+            
+            - View represents user interface of an Application. When user clicks/changes input
+            events are generated. Events carry information to be performed and these events furthur
+            lead into actions.
+
+            - Action are plain JS objects and had "type" property that indicates the action to be 
+            performed. The "type" property is defined as string constants. These actions get dispatch
+            to reducer.
+                Syntax: Function Food(){
+                            return{
+                                type: BUY_FOOD,
+                            }
+                        }
+
+            - Reducer is a function that takes an action and current application state and returns
+            new state of Application.
+            {previousState, action => newState}
+            . Root reducer then called with current state and disptached action. Root reducer may 
+            delegate work to smaller reducer functions and finally returns to new state.
+                Syntax: const initialState={
+                            numberOfItems: 10
+                                }
+                        const reducer = (state = initialstate,action)=>
+                        {
+                            switch(action.type)
+                            {
+                                case BUY_FOOD : return{
+                                    numberOfItems : state.numberOfItems-1
+                                }
+                                default : return state
+                            }
+                        }
+            - Store : is the object that brings actions and reducers together. Store holds the
+                application state data and handles all updates. 
+                . Store handles state updates by passing the current state and an action through 
+                a reducer
+                . Store had a dispatch method and takes action as arguments. When action is disptached
+                thorugh Store , action is sent  thorught the reducers and state is updated.
+                . Store had 3 important methods :
+                - getState() - helps to retreive current state of your redux store.
+                            (Syntax : store.getState())
+                - dispatch() - Allows you to disptach an action to change the state in your application
+                            (Syntax : store.dispatch({type:'ITEMS_REQUEST'}))
+                - subscribe() - helps register a call back that redux store will call when an action 
+                                has been disptached. As soon as redux state is updated, view updates
+                                automatically
+                        store.subscribe(()=> {console.log(store.getState());})
+                    subscribe function always returns a function for unsuscribe 
+                        const unsubscribe = store.unsubscribe(()=> {console.log(store.getState())})
+                        unsubscribe();
+        ---> Priciples of Redux: 
+                * Single source of truth: State of complete application stored in an object tree 
+                    with in single store
+                * State is read-only : Only wat to change state is triggering an action
+                * Chnage are made with oure functions : To specify how state tree is transformed
+                    by actions , we write pure reducers.
+
+        ----> Adavantages : Easy data sharing , maintainance, Testing easiness, easy debugging and 
+                Faster access to components.
+
+
+        -------------------------------------------------------------------------------------------
+        -->Libraries and installation:
+                npm i react ; npm i redux ; 
+                npm i react-redux - This had Provider which allows components of application
+                    to take data from store
+                Syntax: import {Provider, createStore} from 'react-redux','react';
+                        const store = createStore(rootReducer);
+                        ReactDOM.render (
+                            <Provider, store={store}>
+                            <App/>
+                            </Provider, document.getElementById('root'));
+                        )
+                - Connect() - This helps components to connect to store
+                    Syntax: import {connect} from react-redux;
+                            export default connect (mapStateToProps,mapDispatchToProps)(<Component>)
+

@@ -132,7 +132,9 @@ jwt.sign(
     },
     function(err,token){
         if (err) throw err;
-        res.render('shoppingcart',{user})
+        if(user.userType==="Admin")
+        res.render('AdminPage',{user});
+        res.render('shoppingcart',{user});
     })
 }
 catch(exception){
@@ -149,7 +151,7 @@ catch(exception){
  * @description - This Method helps in retreiving all Users in the Mongo DB 
  */
 router.get("/v1/users",async (req,res)=>{
-        User.find({},'username email',function(err,userArray){
+        User.find({},'username email userType',function(err,userArray){
             if(err)
             {
                 res.status(500).json({message:"Error occured while retreiving users"},

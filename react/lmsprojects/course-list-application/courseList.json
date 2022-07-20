@@ -1,0 +1,51 @@
+{
+	"courses": [{
+			"id": 1,
+			"course_title": "Java",
+			"course_provider": "Santosh",
+			"course_duration": 60,
+			"course_fee": 100
+		}, {
+			"id": 2,
+			"course_title": "React",
+			"course_provider": "Kunal",
+			"course_duration": 120,
+			"course_fee": 150
+		}, {
+			"id": 3,
+			"course_title": "Splunk",
+			"course_provider": "Krishna",
+			"course_duration": 150,
+			"course_fee": 100
+		}, {
+			"id": 4,
+			"course_title": "Kibana",
+			"course_provider": "Robert",
+			"course_duration": 100,
+			"course_fee": 200
+		}, {
+			"id": 5,
+			"course_title": "Front-end",
+			"course_provider": "Spencer",
+			"course_duration": 120,
+			"course_fee": 300
+		}, {
+			"id": 6,
+			"course_title": "Web Development",
+			"course_provider": "Luke",
+			"course_duration": 200,
+			"course_fee": 500
+		}, {
+			"id": 7,
+			"course_title": "MERN",
+			"course_provider": "Akash",
+			"course_duration": 500,
+			"course_fee": 1000
+		}, {
+			"id": 8,
+			"course_title": "Angular",
+			"course_provider": "Abhay",
+			"course_duration": 120,
+			"course_fee": 200
+		}]
+}

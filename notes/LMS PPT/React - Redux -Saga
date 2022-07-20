@@ -1,0 +1,45 @@
+----> Asynchronous Programming with Saga Middleware :
+
+        Need for Asynchronous Operations :
+        - Flow of data in Redux is synchronous where the actions dispatched are received by reducers which later via stroe updates the view
+        - This is not a flexible approach in case if an App needs to call external API or
+        fetch data from remote server, local storage.
+        - Because of above reasons we need asynchronous calls with synchronous redux flow.
+
+        - Async Operation mainly use Promises to manage async actions.
+    ----> Asynchronous Work FLow:
+        When User Clicks on button , user activity is notified to *Action Creators* (Refer Page 9 of Slide PPT) via events
+        -Action Creators dispatch *Promise* which is executed by *Middleware* to fetch data from
+        API. Until the data is recived a pending action is dispatched to inform UI to display
+        Spinner.
+        -Once API sends response as payload , Action Creator is triggered by Middleware to dispatch
+        the next action and so spinner is hided in view section.
+        -Action triggered id received by Reducer and will process state based on action and updates final state to Store.
+        - Store later updates the data to View. API data is displayed by Screen.
+
+        - Action Creators : encapsulates the process of creating objects
+                - holds the details of how an action is created , where we cna implement logic to create communication with backend API's.4
+                - bindActionCreators() used to bind multiple action creators with dispatch function.
+                 ****Installation*** - npm install action-creators
+
+        - Middleware : Software that connects network based requests made by front end to back-end
+                data client is requesting
+                -In Redux, Middleware is a function  that lets tap into the what is happening inside Redux.
+                - It sits between action dispatched and store processing the action.
+                - Middleware can inspect action and state , modify action , dispatch other actions,
+                stopr action from reaching reducer.
+                - applyMiddleware() mthos from redux library is used for Middleware use.
+        ----> Redux-saga: Allows you to express complex application logic as functions called   sagas.
+                - This can be started, paused, cancelled by using normal redux actions.
+                - Sagas are implemented through special functions called generator.
+                - Redux-Saga is implemented for better control on actions being dispatched and
+                better management of complex Applications.
+                - npm install redux-saga
+
+            Generator - is a function that produces sequence of results instead os single value
+                Syntax : function*name(params){statements}
+                Most common methods of saga
+                - takeLatest () - will stop the previous call and picks latest
+                - takeEvery () - allows multiple saga instances to run
+                - put(action) - creates effect that instructs middleware to schedule the dispatch
+                acrtion to store.

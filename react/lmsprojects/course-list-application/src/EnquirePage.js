@@ -1,8 +1,16 @@
 import './App.css';
 import'bootstrap/dist/css/bootstrap.css';
 
+
 function EnquirePage(props) {
-    const course =props.course;  
+  
+  const course =props.course;
+
+  function saveData(){
+    alert('Saving data to JSON file')
+    
+  }
+      
   return (
     <div className="App">
         <h4>Enquiry Page</h4>
@@ -21,13 +29,12 @@ function EnquirePage(props) {
             </form>
         <p>User Forum</p>
             <form id="userDetails">
-              <label>User Name: </label><input type="text" placeholder='Enter Name'></input>
-              <label>User Ph#: </label><input type="text" placeholder='Enter Phone Number'></input>
-              <br></br>
-              <label>User Address: </label><input type="text" placeholder='Enter Address'></input>
+              <span>User Name: </span><input type="text" placeholder='Enter Name'></input>
+              <span>User Ph#: </span><input type="text" placeholder='Enter Phone Number'></input>
+              <span>User Address: </span><input type="text" placeholder='Enter Address'></input>
             </form>
         </div>
-        <button> Submit Form</button>
+        <button onClick={saveData}> Submit Form</button>
     </div>
   );
 }

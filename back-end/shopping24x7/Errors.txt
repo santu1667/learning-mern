@@ -1,0 +1,15 @@
+
+Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+    at new NodeError (node:internal/errors:388:5)
+    at ServerResponse.setHeader (node:_http_outgoing:603:11)
+    at ServerResponse.header (D:\Learning\learning-mern\back-end\shopping24x7\node_modules\express\lib\response.js:794:10)
+    at ServerResponse.send (D:\Learning\learning-mern\back-end\shopping24x7\node_modules\express\lib\response.js:174:12)
+    at ServerResponse.json (D:\Learning\learning-mern\back-end\shopping24x7\node_modules\express\lib\response.js:278:15)
+    at D:\Learning\learning-mern\back-end\shopping24x7\routes\UserController.js:239:45
+    at D:\Learning\learning-mern\back-end\shopping24x7\node_modules\mongoose\lib\model.js:4953:18
+    at process.processTicksAndRejections (node:internal/process/task_queues:77:11)
+Emitted 'error' event on Function instance at:
+    at D:\Learning\learning-mern\back-end\shopping24x7\node_modules\mongoose\lib\model.js:4955:15
+    at process.processTicksAndRejections (node:internal/process/task_queues:77:11) {
+  code: 'ERR_HTTP_HEADERS_SENT'
+}

@@ -1,0 +1,20 @@
+.cartContainer{
+    margin-left: 20%;
+    margin-right: 15%;
+}
+
+.cartItems{
+    display: flex;
+}
+
+.cartDescription{
+    display: grid;
+}
+
+.cartPrice,.cartCheckout p{
+    margin-left: 65%;
+}
+
+.cartCheckout button{
+    margin-left:70%
+}

@@ -1,0 +1,284 @@
+const express= require("express");
+const { check, validationResult } = require("express-validator");
+const bcrypt = require("bcryptjs");
+const jwt =  require("jsonwebtoken");
+const User = require("../model/User");
+const router = express.Router();
+const fs = require('fs');
+var multer = require('multer');
+var Storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'uploads')
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.originalname+'_'+Date.now())
+    }
+});
+var upload = multer({ storage: Storage });
+
+/**
+ * @method - POST
+ * @param - /users/register
+ * @description - This Method helps in Creating User If user already exists with input username
+ *                Error Message will be sent
+ */
+router.post(
+    "/users/register",
+    [
+        check("firstName","First Name cannot be Empty").not().isEmpty(),
+        check("lastName","Last Name cannot be Empty").not().isEmpty(),
+        check("password","Password cannot be Empty").not().isEmpty(),
+        check("password","Password Must contain minimum 6 chracters").isLength({min:6}),
+    ],
+    async (req,res) => {
+        const errors = validationResult(req);
+        if(!errors.isEmpty()){
+            return res.status(400).json({
+                errors: errors.array()
+            })
+            }
+            const { firstName,lastName,password,email } = req.body;
+
+            try{
+                
+                let user = await User.findOne({
+                    email
+                });
+                if(user){
+                    return res.status(200).json({message:" User Already Exists."});
+                }
+                user = new User({
+                    firstName,
+                    lastName,
+                    password,
+                    email
+                });
+
+                const salt = await bcrypt.genSalt(10);
+                user.password = await bcrypt.hash(password,salt);
+
+                await user.save();
+
+                const payload ={
+                    user:{
+                        id:user.id
+                    }
+                }
+                jwt.sign(
+                    payload,
+                    "randomString",{
+                        expiresIn:10000
+                    },
+                    function(err,token){
+                        if (err) throw err;
+                        res.status(200).json({status:"success",
+                            message: "User Created Successfully"
+                        })
+                    })
+
+            }
+            catch(e)
+            {
+                console.log(e.message);
+                res.status(500).send({message:"Error in Saving User"});
+            }
+    });
+
+/**
+ * @method - POST
+ * @param - /users/login
+ * @description - This Method helps in Verifying User and allows user to login
+ */
+router.post("/users/login",
+[
+    check("username","Email cannot be Empty").not().isEmpty(),
+    check("password","Password cannot be Empty").not().isEmpty(),
+    check("password","Password Must contain minimum 6 chracters").isLength({min:6})
+],
+async (req,res) =>{
+const { username, password } = req.body;
+console.log(username);
+//validating inout request
+const errors = validationResult(req);
+if (!errors.isEmpty()) {
+return res.status(400).json({
+errors: errors.array(),
+});
+}
+
+try{
+let user = await User.findOne({
+email:username
+},{profile:0});
+if (!user)
+return res.status(400).json({
+    message: "User does not exist! Please register."
+});
+
+const isMatch = await bcrypt.compare(password, user.password);
+
+if (!isMatch) {
+    return res.status(400).json({
+    message: "Incorrect Password!",
+    });
+  }
+
+  const payload ={
+    user:{
+        id:user.id
+    }
+}
+
+jwt.sign(
+    payload,
+    "randomString",{
+        expiresIn:10000
+    },
+    function(err,token){
+        if (err) throw err;
+        res.status(200).json({status:"success",
+            message:"user logged in successfully",
+            accesstoken:token
+        })
+    })
+}
+catch(exception){
+    console.log(exception.message);
+    res.status(500).json({message:"Error Occured! Please try again"});
+}
+
+}
+)
+
+/**
+ * @method - GET
+ * @param - /profile
+ * @description - This Method helps in Verifying User and allows user to login
+ */
+router.get('/profile', function(req, res) {
+    var token = req.headers['token'];
+    console.log('token in profile: '+token)
+    if (!token) return res.status(401).send({ auth: false, message: 'No token provided.' });
+    const decoded = jwt.verify(token, "randomString");
+    User.findOne(decoded.id,{password:0,_id:0,__v:0}, function (err, user) {
+        if (err) return res.status(500).send("There was a problem finding the user.");
+        if (!user) return res.status(404).send("No user found.");
+        res.status(200).json({status:"success",
+                profile:user});
+    });
+    });
+
+    
+/**
+ * @method - PATCH
+ * @param - /profile/address
+ * @description - This Method helps in Verifying User and allows user to login
+ */
+router.patch('/profile/address', 
+        [
+            check("streetAddress","StreetAddress cannot be Empty").not().isEmpty(),
+            check("city","City cannot be Empty").not().isEmpty(),
+            check("zipcode","Zip Code cannot be Empty").not().isEmpty(),
+            check("state","Zip Code cannot be Empty").not().isEmpty(),
+        ],
+        async (req,res) => {
+                if(!req.body || !req.body.profile || !req.body.profile.address){
+                    return res.status(400).json({
+                        message: 'req body cannot be empty',
+                    });
+                }
+            const errors = validationResult(req.body.profile.address);
+            if(!errors.isEmpty()){
+                return res.status(400).json({
+                    errors: errors.array()
+                })
+            }
+            const { streetAddress,city,zipcode,state } = req.body.profile.address;
+            const email = req.body.profile.email;
+            var address = {
+                address:{
+                    streetAddress: streetAddress,
+                    city:city,
+                    zipcode:zipcode,
+                    state:state
+                }}
+            await User.updateOne({email :email},address,
+                (err, result)=>{
+                    console.log(err);
+                    if(err) { console.log('Error Occured'); 
+                return  res.status(500).json({message:"Error Occured! Please try again"})}
+                    console.log('Sending response')
+                    return res.status(200).json({status:"success",
+                                message:"Profile Updated Successfully"}); 
+                    }).clone()
+                    .catch((err)=> console.log('Error update address'+err));
+        });
+
+
+/**
+ * @method - PATCH
+ * @param - /profile/image
+ * @description - This Method helps in updating profile Image
+ */
+router.patch("/profile/image",
+            upload.single("profileImage"), 
+            async (req, res) => {
+                const email = req.body.email;
+                const saveImage = {
+                    profileImage: {
+                        data: fs.readFileSync("uploads/" + req.file.filename),
+                        contentType: req.file.mimetype,
+                        fileName : req.file.filename
+                    }
+                };
+                try{
+                    await User.updateOne({email:email},saveImage, (err, result)=>{
+                            if(err) { console.log('Error Occured');throw err;}
+                            res.status(200).json({status:"success",
+                                        message:"Profile Image Updated Successfully"}); 
+                            }).clone();
+                        }
+                catch(err) {
+                    console.log(err.message);
+                }
+                
+    });
+
+/**
+ * @method - DELETE
+ * @param - /profile/image
+ * @description - This Method helps in updating profile Image
+ */
+router.delete('/profile/image',
+        async (req,res) =>{
+        const email = req.body.email;
+        let user = await User.findOne({
+                email:email
+                });
+        if (user){
+            console.log(user);
+            var file_name = user.profileImage.fileName;
+            console.log('****file_name******'+file_name)
+            await User.updateOne({email:email},{profileImage:null},
+                (err,result)=>{
+                    if(err){console.log('Error Occured');throw err;}
+                    else{
+                        console.log(result);
+                        fs.unlink('uploads/'+file_name, (err)=>{
+                            if(err){
+                                console.log('Error Occured while deleting the File')
+                                console.log(err);
+                            }
+                            else {
+                                console.log('File deleting Successfully');
+                            }
+                        });
+                    res.status(200).json({status:"success",
+                        message:"Profile Image deleted Successfully"});
+                }
+            }).clone();
+        }                
+    })
+
+
+module.exports=router;

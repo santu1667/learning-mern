@@ -8,7 +8,7 @@ import axios from 'axios';
 function Profile() {
   const [isAddressDisplayable, setIsAddressDisplayable] = useState(true);
   const [isUserLogged,setUserLogged] = useState('');
-  const [streetAddress, setStreestAddr] =useState('No Address');
+  const [streetAddress, setStreetAddr] =useState('No Address');
   const [zipcode, setZipCode] = useState('');
   const [state,setState] = useState('');
   const [city,setCity] =useState('');
@@ -16,36 +16,75 @@ function Profile() {
   const [errMsg, setErrMsg] = useState(null);
   const errRef = useRef();
   const hiddenFileInput = useRef(null);
+  const [imageSrc,setImageSrc] = useState('./images/profile/avatar.jpeg');
 
-  function onImageChange(){
-    alert('You are uploading a new Image')
+  async function onImageChange(event){
+    if(event.target.files[0]){
+      try{
+        var formData = new FormData();
+        formData.append('email',user.email);
+        formData.append('profileImage',event.target.files[0]);
+        var response =  await axios.patch('http://localhost:8080/api/v1/profile/image'
+            , formData);
+          if(response.status === 200){
+            var createupdatedURL = URL.createObjectURL(event.target.files[0]);
+            setImageSrc(createupdatedURL);
+          }
+      }
+      catch(exception){
+        console.log('Exception Occured while updating Image'+exception.message);
+      }
+  }
   }
 
   function displayAddressForm(){
+    setErrMsg('');
     setIsAddressDisplayable(!isAddressDisplayable);
   }
 
   const saveAddressDetails = async ()=>{
     setErrMsg('');
+    if(validateRequest("Address")){
     try{
-        var req= {streetAddress:streetAddress,city:city,zipcode:zipcode,state:state}
-      //var response =  await axios.get('http://localhost:8080/api/v1/profile', req)
-        console.log(req);
-        setIsAddressDisplayable(!isAddressDisplayable);
-        console.log(user);
-        var address = streetAddress +', '+city+', '+state+', '+zipcode;
-        user.address = address;
-        setUser(user);
+        var req= {
+          profile:
+          {email:user.email,
+          address: {streetAddress:streetAddress,city:city,zipcode:zipcode,state:state}
+          }};
+          console.log('req');
+          console.log(req);
+        var response =  await axios.patch('http://localhost:8080/api/v1/profile/address', 
+                  req);
+          console.log(response);
+        if(response.status === 200){
+          console.log('Address Updated Successfully');
+          setIsAddressDisplayable(!isAddressDisplayable);
+          var address = streetAddress +', '+city+', '+state+', '+zipcode;
+          user.address = address;
+          setUser(user); setErrMsg('');setStreetAddr('');setState('');setZipCode('')
+        }
       }
       catch(exception){
-        console.log('Exception  happened while retreving user details');
-      }
-    
-    
+        console.log('Exception  happened while updating address details');
+        console.log(exception.message);
+        return;
+      }   
+    }
   }
+
+  function validateRequest(input){
+    if(input === 'Address'){
+      if(!streetAddress || !city  || !zipcode || !state){
+          setErrMsg('Address Feilds cannot be empty');
+          return false;
+      }
+      return true;
+  }
+}
 
   useEffect( () => {
     console.log('inside useEffect');
+    setErrMsg('');
     var token = sessionStorage.getItem("auth-token");
     if(token != null && token !== ''){
       setUserLogged(true);
@@ -56,12 +95,31 @@ function Profile() {
     }
   },[])
 
-  const handleClick = event => {
-    hiddenFileInput.current.click();
+  const handleClick = (event) => {
+    if(window.confirm('Do you want to Upload Profile Pic?')){
+      event.preventDefault();
+      hiddenFileInput.current.click();
+    }
   };
 
-  const handleDelete = event => {
-    hiddenFileInput.current.click();
+  const handleDelete = async () => {
+    if(window.confirm('Do you want to delete Profile Pic?')){
+      try{
+        console.log('inside handleDelete');
+      var request = {email:user.email}
+      console.log(request);
+      var response =  await axios.delete('http://localhost:8080/api/v1/profile/image',
+      {data:request});
+      console.log(response);
+      if(response.status === 200){
+        setImageSrc('./images/profile/avatar.jpeg');
+      }
+    }
+      catch(exception){
+        console.log('Exception  happened while deleting Image');
+        return;
+      }
+    }
   };
 
   async function getUserDetails(token){
@@ -77,23 +135,26 @@ function Profile() {
             lastName : profile.lastName,
             email : profile.email,
             role : profile.role,
+            imageURL : profile.profileImage.imageURL?
+                      profile.profileImage.imageURL:'./images/profile/avatar.jpeg',
             phoneNumber : profile.phoneNumber ? profile.PhoneNumber:"No Record",
             address : profile.address ? profile.address.streetAddress+', '
                                 + profile.address.city+', '
                                 + profile.address.state+', '
                                 + profile.address.zipcode :"No Address Available",
           })
+          setImageSrc(profile.profileImage.imageURL?
+            profile.profileImage.imageURL:'./images/profile/avatar.jpeg');
           sessionStorage.setItem('user',JSON.stringify(profile));
           sessionStorage.setItem("role",user.role);
         }
     catch(exception){
       console.log('Exception  happened while retreving user details');
+      console.log(exception.message);
       setErrMsg("Error Occured While retreiving Profile");
       return;
-    }
-    
+    }  
   }
-  
 
   return (
     <>
@@ -103,7 +164,7 @@ function Profile() {
         <Container>
           <Row>
             <Col xs={3}>
-              <img id="profile-image" src='https://picsum.photos/200' alt="" /><br/>
+              <img id="profile-image" src={imageSrc} alt="" /><br/>
               <div className="imageButtons">
               <button className="btn btn-warning" id="delete-image" onClick={handleDelete}> Delete</button>
               <button className="btn btn-primary" id="upload-image" onClick={handleClick}> Upload</button>
@@ -167,7 +228,7 @@ function Profile() {
               </Row>}
               {!isAddressDisplayable &&
               <Row>
-                <form className="updateAddressForm">
+                <form className="updateAddressForm" onClick={(event)=>event.preventDefault()}>
                 <Row></Row>
                 <Row>
                 <Col><span>Update Address</span></Col>
@@ -176,7 +237,7 @@ function Profile() {
                 <Row>
                 <Col xs={2}><label>Street Address</label></Col>
                 <Col xs={7}><input type="text" className="form-control"
-                    onChange={(e)=>setStreestAddr(e.target.value)}></input></Col>
+                    onChange={(e)=>setStreetAddr(e.target.value)}></input></Col>
                 </Row>
                 <Row>
                 <Col xs={2}><label>City</label></Col>
@@ -192,10 +253,15 @@ function Profile() {
                 <Col xs={2}><label>Zip</label></Col>
                 <Col xs={7}><input type="text" className="form-control"
                   onChange={(e)=>setZipCode(e.target.value)}></input></Col>
-                <Col><button type="button" className="btn btn-primary" 
-                onClick={saveAddressDetails}>   Save</button></Col>
-                </Row>
                 
+                
+                </Row>
+                <Row className="imageButtons">
+                <Col><button type="button" className="btn btn-primary" 
+                onClick={saveAddressDetails}>   Save</button>
+                <button type="button" className="btn btn-primary" 
+                onClick={displayAddressForm}> Cancel</button></Col>
+                </Row>
                 </form>
               </Row>}
             </Col>
@@ -211,8 +277,6 @@ function Profile() {
           </div>
         }
         </>
-);
-} 
-  
+)}
 
 export default Profile;

@@ -37,9 +37,8 @@ const userSchema = mongoose.Schema(
             }
         },
         profileImage:{
-            data:Buffer,
-            contentType: String,
-            fileName: String
+            imageLocation: String,
+            imageURL : String,
         }
     }
 )

@@ -4,14 +4,15 @@ const bcrypt = require("bcryptjs");
 const jwt =  require("jsonwebtoken");
 const User = require("../model/User");
 const router = express.Router();
+const file_store_base_location ="D:\\Learning\\learning-mern\\react\\lmsprojects\\shopping24x7\\public\\images\\profile\\";
 const fs = require('fs');
 var multer = require('multer');
 var Storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'uploads')
+        cb(null, 'D:\\Learning\\learning-mern\\react\\lmsprojects\\shopping24x7\\public\\images\\profile')
     },
     filename: (req, file, cb) => {
-        cb(null, file.originalname+'_'+Date.now())
+        cb(null, file.originalname)
     }
 });
 var upload = multer({ storage: Storage });
@@ -182,11 +183,7 @@ router.patch('/profile/address',
             check("state","Zip Code cannot be Empty").not().isEmpty(),
         ],
         async (req,res) => {
-                if(!req.body || !req.body.profile || !req.body.profile.address){
-                    return res.status(400).json({
-                        message: 'req body cannot be empty',
-                    });
-                }
+            console.log(req.body);
             const errors = validationResult(req.body.profile.address);
             if(!errors.isEmpty()){
                 return res.status(400).json({
@@ -221,26 +218,50 @@ router.patch('/profile/address',
  * @description - This Method helps in updating profile Image
  */
 router.patch("/profile/image",
-            upload.single("profileImage"), 
-            async (req, res) => {
-                const email = req.body.email;
-                const saveImage = {
-                    profileImage: {
-                        data: fs.readFileSync("uploads/" + req.file.filename),
-                        contentType: req.file.mimetype,
-                        fileName : req.file.filename
-                    }
-                };
-                try{
-                    await User.updateOne({email:email},saveImage, (err, result)=>{
-                            if(err) { console.log('Error Occured');throw err;}
-                            res.status(200).json({status:"success",
-                                        message:"Profile Image Updated Successfully"}); 
-                            }).clone();
+    upload.single("profileImage"), 
+    async (req, res) => {
+        if(!req.body.email || !req.file || !req.file.originalname){
+            return res.status(400).json({status:"Mandatory Inputs are missing"})
+        }
+        const email = req.body.email;
+        let oldFileLocation = null;
+        console.log(req.body);
+        console.log(req.file);
+        let newImageLocation = file_store_base_location+req.file.originalname;
+        const newimageURL = "./images/profile/"+req.file.originalname;
+        const saveImage = {
+            profileImage: {
+                imageLocation: newImageLocation,
+                imageURL: newimageURL,
+            }
+        };
+        try{
+            let user = await User.findOne({email:email})
+            if(user){
+            console.log('***user***'+user)
+            oldFileLocation = Object.keys(user).includes("profileImage") ? 
+                        user.profileImage.imageLocation : null;
+            console.log('****oldFileLocation***'+oldFileLocation)
+            await User.updateOne({email:email},saveImage, (err, result)=>{
+                    if(err) { console.log('Error Occured');
+                        return res.status(500).json({status:"failure",
+                        message:"Error Occured while updating Profile Image"});}
+                    else{
+                        if(oldFileLocation){
+                            fs.unlink(oldFileLocation, (err)=>{
+                                if(err){
+                                    console.log('Error Occured while deleting the File')
+                                }
+                            });
                         }
-                catch(err) {
-                    console.log(err.message);
+                        return res.status(200).json({status:"success",
+                                message:"Profile Image Updated Successfully"}); 
+                    }}).clone();
                 }
+            }
+        catch(err) {
+            console.log(err.message);
+        }
                 
     });
 
@@ -251,28 +272,32 @@ router.patch("/profile/image",
  */
 router.delete('/profile/image',
         async (req,res) =>{
+        console.log(req.body);
         const email = req.body.email;
         let user = await User.findOne({
                 email:email
                 });
+                const saveImage = {
+                    profileImage: {
+                        imageLocation: null,
+                        imageURL: null,
+                    }
+                };
+        console.log('Inside Delete'+user)
         if (user){
-            console.log(user);
-            var file_name = user.profileImage.fileName;
-            console.log('****file_name******'+file_name)
-            await User.updateOne({email:email},{profileImage:null},
+            var oldFileLocation = user.profileImage ? user.profileImage.imageLocation : null;
+            await User.updateOne({email:email},saveImage,
                 (err,result)=>{
                     if(err){console.log('Error Occured');throw err;}
                     else{
                         console.log(result);
-                        fs.unlink('uploads/'+file_name, (err)=>{
-                            if(err){
-                                console.log('Error Occured while deleting the File')
-                                console.log(err);
-                            }
-                            else {
-                                console.log('File deleting Successfully');
-                            }
-                        });
+                        if(oldFileLocation){
+                            fs.unlink(oldFileLocation, (err)=>{
+                                if(err){
+                                    console.log('Error Occured while deleting the File')
+                                }
+                            });
+                        }
                     res.status(200).json({status:"success",
                         message:"Profile Image deleted Successfully"});
                 }

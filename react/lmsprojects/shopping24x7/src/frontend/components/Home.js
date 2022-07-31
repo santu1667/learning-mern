@@ -11,6 +11,16 @@ function Home() {
         <div>
           <Categories/>
         </div>
+        <div>
+          <Carousel/>
+        </div>
+        <div>
+          <Carousel/>
+        </div>
+        <div>
+          <Carousel/>
+        </div>
+        <br/><br/><br/>
       </div>
     )}
 

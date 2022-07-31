@@ -8,7 +8,7 @@ function UploadImage(){
 const [selectedFile, setselectedFile] = useState('');
 const hiddenFileInput = useRef(null);
 const [imageSrc,setImageSrc] = useState('./images/avatar.jpeg');
-const [name,setName] = useState('');
+
 
 useEffect(() => {
     axios
@@ -18,15 +18,12 @@ useEffect(() => {
 },[]);
 
 function getImageURL(response){
+    console.log(response)
     if(response!=null){
-        console.log('Inside response');
-            const base64String = btoa(
-                String.fromCharCode(...new Uint8Array(response.images[0].image.data.data)));
-                setName(response.images[0].name)
-                console.log(`data:image/png;base64,${base64String}`);
-            return `data:image/png;base64,${base64String}`;
+        console.log('Inside response'+response.images[0].imageURL);
+        var url = response.images[0].imageURL ? response.images[0].imageURL: './images/avatar.jpeg';
+        return url;
     }
-    return './images/avatar.jpeg';
 }
 
 const  handleDelete= ()=> {
@@ -47,17 +44,6 @@ const onImageUpload = (event)=>{
         console.log(selectedFile);
         setImageSrc(URL.createObjectURL(event.target.files[0]));
     }
-    // try{
-    //     var request ={name :name,testImage: selectedFile}
-    //     var response = axios.patch('http://localhost:5000/api/v1/profile/image',
-    //         request)
-    //     console.log(response);
-    //     }
-    // catch(exception)
-    // {
-    //     console.log(exception);
-    //     if(exception.response.status === 400){console.log('Error Occured'); }
-    // }
 }
 
 return (
@@ -74,14 +60,8 @@ return (
                 <input type="file"  ref={hiddenFileInput} multiple accept="image/*" 
                     style={{display: 'none'}} onChange={onImageUpload} /></Col>
             </Row>
-            <Row>
-                <Col xs={3}>
-                    <img src={require('C:/Users/gsant/Desktop/testImage.png')} alt="test"></img>
-                </Col>
-            </Row>
     </Container>
     </div>
 );
 }
-
 export default UploadImage;

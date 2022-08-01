@@ -93,7 +93,7 @@ function Profile() {
     else{
       setUserLogged(false);
     }
-  },[])
+  },[]);
 
   const handleClick = (event) => {
     if(window.confirm('Do you want to Upload Profile Pic?')){

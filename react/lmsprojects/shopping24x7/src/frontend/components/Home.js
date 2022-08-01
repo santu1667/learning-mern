@@ -1,6 +1,7 @@
 import '../css/Home.css';
 import Carousel from './Carousel';
 import Categories from './Categories';
+import Products from './Products';
 
 function Home() {
   return (
@@ -12,13 +13,7 @@ function Home() {
           <Categories/>
         </div>
         <div>
-          <Carousel/>
-        </div>
-        <div>
-          <Carousel/>
-        </div>
-        <div>
-          <Carousel/>
+          <Products/>
         </div>
         <br/><br/><br/>
       </div>

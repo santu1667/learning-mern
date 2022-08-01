@@ -13,13 +13,13 @@ function Carousel(){
     },
     {
         id: 2,
-        src:"https://thumbs.dreamstime.com/b/apple-computer-logo-16497803.jpg",
+        src:"https://www.mkt-jcpenney.com/prod/mkt/images/semi-annual-jewelry-sale-up-to-70-off-after-extra-30-off-with-jcpenney-credit-card-coupon-select-styles-90fabe63-0f7d-4d8e-ae2a-60c36666ab85.jpeg",
         alt: "Apple"
     },
     { 
         id: 3,
         src:
-        "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=751&q=80",
+        "https://target.scene7.com/is/image/Target/GUEST_f97d1f67-4f3b-4b39-a389-3750048a895c?wid=2160&qlt=80&fmt=webp",
         alt: "Laptop"
     }
 ];

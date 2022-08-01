@@ -160,14 +160,14 @@ function Profile() {
     <>
     {isUserLogged &&
       <div className="profileContainer">
-        <p ref={errRef} className={errMsg ? "errmsg" : ""}>{errMsg}</p>
+        <p ref={errRef} className={errMsg ? "errorMessage" : ""}>{errMsg}</p>
         <Container>
           <Row>
             <Col xs={3}>
               <img id="profile-image" src={imageSrc} alt="" /><br/>
               <div className="imageButtons">
-              <button className="btn btn-warning" id="delete-image" onClick={handleDelete}> Delete</button>
-              <button className="btn btn-primary" id="upload-image" onClick={handleClick}> Upload</button>
+              <button className="btn btn-warning" id="“profile-delete-button" onClick={handleDelete}> Delete Image</button>
+              <button className="btn btn-primary" id="profile-upload-button" onClick={handleClick}> Upload</button>
               </div>
               <input type="file"  ref={hiddenFileInput} multiple accept="image/*" 
                 style={{display: 'none'}} onChange={onImageChange} />

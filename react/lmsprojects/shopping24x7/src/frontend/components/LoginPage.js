@@ -23,51 +23,51 @@ function LoginPage(props) {
                   
  //Calling API After Input Validations
   const  loginUser =async () =>{
-    validateInput();
+    if(validateInput()){
     let req={username:user,password:pwd};
     if(errMsg == null || errMsg === ''){
-      try{
-      var response =await axios.post('http://localhost:8080/api/v1/users/login', 
-              req)
-      }
-      catch(exception)
-      {
-        console.log(exception);
-        if(exception.response.status === 400){
-          console.log('Setting error message'); setErrMsg(exception.response.data.message)}
-      }
+        try{
+        var response =await axios.post('http://localhost:8080/api/v1/users/login', 
+                req)
+        }
+        catch(exception)
+        {
+          console.log(exception);
+          if(exception.response.status === 400){
+            console.log('Setting error message'); setErrMsg(exception.response.data.message)}
+        }
       if(response.status===200) { 
-        sessionStorage.setItem("auth-token",response.data.accesstoken)
-        props.setHomeURL('/');
-        navigate('/Profile');
-        // window.location.replace('http://localhost:4200/Home');
-    }
+          sessionStorage.setItem("auth-token",response.data.accesstoken)
+          props.setHomeURL('/');
+          navigate('/Profile');
+        }
+      }
     }
   }
 
   const registerUser= async ()=>{
-    alert('inisde registerUser')
-    validateRegisterUserInput();
-    let req={firstName:firstName, lastName:lastName,password:password,email:email};
-    alert('errmesg'+errMsg);
-    if(errMsg == null || errMsg === ''){
-      userRef.current.value='';
-      try{
-      var response =await axios.post('http://localhost:8080/api/v1/users/register', 
-              req)
-      console.log(response);
+    alert('inisde registerUser');
+    if(validateRegisterUserInput()){
+      let req={firstName:firstName, lastName:lastName,password:password,email:email};
+      alert('errmesg'+errMsg);
+      if(errMsg == null || errMsg === ''){
+        userRef.current.value='';
+        try{
+        var response =await axios.post('http://localhost:8080/api/v1/users/register', 
+                req)
+        console.log(response);
+        }
+        catch(exception)
+        {
+          console.log(exception);
+          if(exception.response.status === 400){
+            console.log('Setting error message'); setErrMsg(exception.response.data.message)}
+        }
+        if(response.status===200) { 
+          setSuccessMsg(response.data.message);
       }
-      catch(exception)
-      {
-        console.log(exception);
-        if(exception.response.status === 400){
-          console.log('Setting error message'); setErrMsg(exception.response.data.message)}
-      }
-      if(response.status===200) { 
-        setSuccessMsg(response.data.message);
-        // window.location.replace('http://localhost:4200/Home');
     }
-    }
+  }
   }
 
   function checkPasswordMatch(confirmPwd){
@@ -81,34 +81,21 @@ function LoginPage(props) {
    */
   function validateInput(){
     alert ('user: '+user+' pwd : ' +pwd);
-    if(!user){ 
-      console.log('Error Message in validate user');
-      setErrMsg("Please enter User Name"); 
-      console.log(errMsg);
-      return;
-    }
-    if(!pwd){
-      setErrMsg("Please enter Password"); 
-      console.log('Error Message in validate pwd');
-      console.log(errMsg)
-      return;
-    }
-    if(pwd.toString().length<8){
-      setErrMsg("Password Should be minimum 8 chars"); return;
-    }
+    if(!user){ setErrMsg("Please enter User Name");  return false;  }
+    if(!pwd){ setErrMsg("Please enter Password");       return false;  }
+    if(pwd.length<8){setErrMsg("Password Should be minimum 8 chars"); return false;}
+    return true;
   }
   
   function validateRegisterUserInput(){
-    if(firstName==null || firstName===''){ 
-      setErrMsg("Please enter First Name"); alert('inisde firstname null'); return;    }
-    if(lastName==null || lastName===''){
-      setErrMsg("Please enter Last Name");  alert('inisde lastname null');     return;    }
-    if(email == null || email === ''){
-      setErrMsg("Please enter email");  alert('inisde email null');    return;    }
-    if(password == null || password === ''){
-      setErrMsg("Please enter Password"); alert('inisde password null');     return;    }
-    if(password != null && password!=='' && password.toString().length<8){
-      setErrMsg("Password Should be minimum 8 chars"); return;    }
+    console.log('validateRegisterUserInput'+firstName+lastName+email+password)
+    if(!firstName){ setErrMsg("Please enter First Name"); return false;    }
+    if(!lastName){setErrMsg("Please enter Last Name");  return false;    }
+    if(!email){setErrMsg("Please enter email"); return false;    }
+    if(!password){setErrMsg("Please enter Password"); return false;}  
+    else if(password.toString().length<8){
+            setErrMsg("Password Should be minimum 8 chars"); return false;    }
+    return true;
   }
 
   // Set showSignUpForm to toggle  Create User and Sign In forms
@@ -161,8 +148,9 @@ function LoginPage(props) {
       { showSignUpForm &&
       <div>
       <p ref={errRef} className={errMsg ? "errmsg" : "successmsg"}>
-         {successMessage} {successMessage && 
+        {successMessage} {successMessage && 
                   <button className="loginButton" onClick={displaySignUpForm}>Login</button>}
+          {!successMessage && errMsg}
       </p>
       <form className="signupForm" onClick={(event)=>event.preventDefault()}>
         <h2>Create Account</h2>

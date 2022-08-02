@@ -15,6 +15,7 @@ import {useEffect, useState} from 'react';
 function App() {
 
   const [homeURL, setHomeURL] = useState('/login');
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(()=>{
     var token = sessionStorage.getItem("auth-token");
@@ -25,18 +26,18 @@ function App() {
 
   return (
     <div>
-      <Navbar url={homeURL} setHomeURL={setHomeURL}/>
+      <Navbar url={homeURL} setHomeURL={setHomeURL} isAdmin={isAdmin}/>
       <div className="page-container">
           <div className="content-wrap">
             <Routes>
                 <Route path='/login' element={<LoginPage setHomeURL={setHomeURL} />}></Route>
                 <Route path='/' element={<Home/>}></Route>
-                <Route path='/Profile' element={<Profile/>}></Route>
+                <Route path='/Profile' element={<Profile setIsAdmin={setIsAdmin}/>}></Route>
                 <Route path='/Cart' element={<Cart/>}></Route>
                 <Route path='/Department' element={<Department/>}></Route>
                 <Route path='/AddProduct' element={<AddProduct/>}></Route>
                 <Route path='/Offers' element={<Offers/>}></Route>
-                <Route path='/Logout' element={<Logout setHomeURL={setHomeURL}/>}></Route>
+                <Route path='/Logout' element={<Logout setHomeURL={setHomeURL} setIsAdmin={setIsAdmin}/>}></Route>
             </Routes>
           </div>
         </div>

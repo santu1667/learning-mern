@@ -3,6 +3,8 @@ const bodyParser = require("body-parser");
 const initiateMongoServer = require("./config/db");
 const user = require("./routes/UserController");
 const cors = require('cors');
+const Product = require("./routes/ProductController");
+const Order = require("./routes/OrdersController")
 
 initiateMongoServer();
 
@@ -19,6 +21,10 @@ app.get('/', function(req,res){
 });
 
 app.use('/api/v1',user);
+
+app.use('/api/v1',Product);
+
+app.use('/api/v1',Order);
 
 app.listen(port,function(req,res){
     console.log(`App is Started and listening at port ${port}`)

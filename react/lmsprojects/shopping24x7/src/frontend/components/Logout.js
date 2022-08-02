@@ -7,6 +7,7 @@ function Logout(props) {
   useEffect(()=>{
     sessionStorage.clear();
     props.setHomeURL('/login');
+    props.setIsAdmin(false);
   })
   
   return (

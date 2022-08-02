@@ -4,8 +4,7 @@ import { Link } from "react-router-dom"
 
 function Navbar(props) {
 var homeURL = props.url;
-var isAdmin = sessionStorage.getItem("role")==='Admin' ? true:false;
-
+var isAdmin = props.isAdmin;
 
   return (
       <nav>

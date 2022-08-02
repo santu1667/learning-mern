@@ -1,0 +1,18 @@
+1. /homepage/banner - List of latest 3 produts added
+> db.getLastNRecordsDemo.find().sort({$natural:-1}).limit(7);
+2. /homepage/Categories -  randomly selected 3 categories
+MyModel.find().distinct('_id', function(error, ids) {
+3. /homepage/products
+aggregate.sample(3);
+4. /products
+5. GET DELETE PATCH /prodcuts/:productId
+6. POST  /checkout
+7. GET /orders
+8. PATCH /orders/:id 
+9. DELETE /orders/:id
+10. /addProduct
+{ProductName , Department, Price, Discount Price, 
+Product Image, Product Description, Top Selling Product}
+
+
+

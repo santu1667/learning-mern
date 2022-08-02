@@ -5,7 +5,7 @@ import { useEffect, useState, useRef} from 'react';
 import { Link } from "react-router-dom";
 import axios from 'axios';
 
-function Profile() {
+function Profile(props) {
   const [isAddressDisplayable, setIsAddressDisplayable] = useState(true);
   const [isUserLogged,setUserLogged] = useState('');
   const [streetAddress, setStreetAddr] =useState('No Address');
@@ -145,8 +145,8 @@ function Profile() {
           })
           setImageSrc(profile.profileImage.imageURL?
             profile.profileImage.imageURL:'./images/profile/avatar.jpeg');
-          sessionStorage.setItem('user',JSON.stringify(profile));
-          sessionStorage.setItem("role",user.role);
+            props.setIsAdmin(user.role==='Admin' ? true:false);
+          sessionStorage.setItem("role",profile.role);
         }
     catch(exception){
       console.log('Exception  happened while retreving user details');

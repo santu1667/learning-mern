@@ -7,6 +7,7 @@ const router = express.Router();
 const file_store_base_location ="D:\\Learning\\learning-mern\\react\\lmsprojects\\shopping24x7\\public\\images\\profile\\";
 const fs = require('fs');
 var multer = require('multer');
+
 var Storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, 'D:\\Learning\\learning-mern\\react\\lmsprojects\\shopping24x7\\public\\images\\profile')
@@ -52,7 +53,11 @@ router.post(
                     firstName,
                     lastName,
                     password,
-                    email
+                    email,
+                    profileImage:{
+                        imageLocation:null,
+                        imageURL:null
+                    }
                 });
 
                 const salt = await bcrypt.genSalt(10);
@@ -161,7 +166,9 @@ router.get('/profile', function(req, res) {
     console.log('token in profile: '+token)
     if (!token) return res.status(401).send({ auth: false, message: 'No token provided.' });
     const decoded = jwt.verify(token, "randomString");
-    User.findOne(decoded.id,{password:0,_id:0,__v:0}, function (err, user) {
+    console.log('****decoded*****');
+    console.log(decoded);
+    User.findById(decoded.user.id,{password:0,_id:0,__v:0}, function (err, user) {
         if (err) return res.status(500).send("There was a problem finding the user.");
         if (!user) return res.status(404).send("No user found.");
         res.status(200).json({status:"success",
@@ -225,8 +232,6 @@ router.patch("/profile/image",
         }
         const email = req.body.email;
         let oldFileLocation = null;
-        console.log(req.body);
-        console.log(req.file);
         let newImageLocation = file_store_base_location+req.file.originalname;
         const newimageURL = "./images/profile/"+req.file.originalname;
         const saveImage = {

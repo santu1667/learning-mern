@@ -1,32 +1,34 @@
 import '../css/Categories.css';
+import { useNavigate } from 'react-router-dom';
 
-function Categories(){
-
-    const categories =[{
-        categoryName : "Phones",
-        categoryImage: "https://thumbs.dreamstime.com/b/apple-computer-logo-16497803.jpg"
-        },
-        {
-            categoryName : "Groceries",
-            categoryImage: "https://www.rd.com/wp-content/uploads/2019/08/fresh-fruit-scaled.jpg?resize=768,686"
-        },
-        {
-            categoryName : "Consoles",
-            categoryImage: "https://10beasts.com/images/Consoles-Gamepads-Illustration.png"
-        }
-    ]
+function Categories(props){
     
-    const displayAlert = (category) =>
-    {
-        var alertMessage = "clicked on "+category.categoryName;
-        alert(alertMessage);
+    let navigate = useNavigate();
+
+    function getCategoryImage(category){
+        switch(category){
+            case "Mobiles": 
+                return "./images/categories/Mobiles.jpg";
+            case "Video Games": 
+                return "./images/categories/Video Games.png";
+            case "Toys": 
+                return "./images/categories/Toys.jpg";
+            default :
+                return "./images/categories/NI-Placeholder.png";
+        }
     }
+    const navigateToURL = (category) =>
+    {
+        const path = 'Categories?categoryName='+category;
+        navigate(path);
+    }
+
     return(
     <div className="categoriesContainer">
-        {categories && categories.map((category,index) => (
-            <div key={Math.random()} className='categoryItem' onClick={()=> displayAlert(category)}>
-            <img key={Math.random()} src={category.categoryImage} alt=""></img>
-            <p key={Math.random()}> {category.categoryName}</p>
+        {props.categoryList && props.categoryList.map((category) => (
+            <div key={Math.random()} className='categoryItem' onClick={()=> navigateToURL(category)}>
+            <img key={Math.random()} src={getCategoryImage(category)} alt=""></img>
+            <p key={Math.random()}> {category}</p>
         </div>
         )
         )}

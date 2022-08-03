@@ -1,6 +1,6 @@
 import '../css/App.css';
 
-function Product() {
+function ProductDetails() {
   return (
     <div>
      <p>This is Product Page</p>
@@ -8,4 +8,4 @@ function Product() {
   );
 }
 
-export default Product;
+export default ProductDetails;

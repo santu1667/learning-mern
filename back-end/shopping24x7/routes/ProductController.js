@@ -63,7 +63,7 @@ router.get(
     "/products",
     async (req,res) => {
         try{
-            let products = await Product.find();
+            let products = await Product.find().clone();
             return res.status(200).json({status:"success",products: products})
         }
         catch(exception){
@@ -159,7 +159,7 @@ router.get(
             let productList = await Product.aggregate().sample(8);
             if(productList.length>0){
                 return res.status(200).json({status:"success",
-                prodcuts:productList});
+                products:productList});
             }
                 return res.status(404).json({status:"success",
                 message:"No Categories Found"});

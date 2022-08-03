@@ -2,7 +2,7 @@ import '../css/Cart.css';
 import {useEffect,useState} from "react"
 import { Link } from "react-router-dom";
 
-function Cart() {
+function Cart(props) {
   const[isUserLogged, setUserLoggedIn] = useState(false);
 
   useEffect( ()=>{

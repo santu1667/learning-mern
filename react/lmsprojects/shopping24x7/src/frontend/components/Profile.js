@@ -147,6 +147,7 @@ function Profile(props) {
             profile.profileImage.imageURL:'./images/profile/avatar.jpeg');
             props.setIsAdmin(user.role==='Admin' ? true:false);
           sessionStorage.setItem("role",profile.role);
+          sessionStorage.setItem("user",JSON.stringify(profile));
         }
     catch(exception){
       console.log('Exception  happened while retreving user details');

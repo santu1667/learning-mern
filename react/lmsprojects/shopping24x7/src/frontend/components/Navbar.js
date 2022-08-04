@@ -5,6 +5,7 @@ import { Link } from "react-router-dom"
 function Navbar(props) {
 var homeURL = props.url;
 var isAdmin = props.isAdmin;
+var count= props.cartCount;
 
   return (
       <nav>
@@ -17,6 +18,7 @@ var isAdmin = props.isAdmin;
             {isAdmin &&
             <Link to="/AddProduct" className="nav-item">AddProduct</Link>}
             <Link to="/Cart" className="nav-item"><ShoppingCartIcon/></Link>
+            {count>0 && <label>{count}</label>}
             <Link to="/Logout" className="nav-item">Logout</Link>
         </ul>
     </nav>

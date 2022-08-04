@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 
-import "./App.css";
+import "../App.css";
 
 function CheckList() {
   // State with list of all checked item
   const [checked, setChecked] = useState([]);
 
-  const checkList = ["Bus", "Car", "Suv", "Sedan","Innova"];
+  const checkList = ["Iphone", "Samsung", "Oppo", "Nokia"];
 
   // Add/Remove checked item from list
   const handleCheck = (event) => {
+    alert('inside');
     var checkedList = [...checked];
     //get the checkbox
     var checkboxChanged = event.target;
@@ -19,6 +20,8 @@ function CheckList() {
         checkedList.splice(checked.indexOf(checkboxChanged.value), 1);
     }
     setChecked(checkedList);
+    console.log('********');
+    console.log(checked);
   };
 
   // Generate string of checked items
@@ -33,7 +36,7 @@ function CheckList() {
     checked.includes(item) ? "checked-item" : "item-not-checked";
 
   return (
-      <div className="App">
+      <div className="container">
         <div className="title">My CheckList:</div>
         <div className="list-container">
           {checkList.map((item, index) => (
@@ -44,7 +47,7 @@ function CheckList() {
           ))}
         </div>
       <div>
-        {`Checked List: ${checkedItems}`}
+        {`My checked items are: ${checkedItems}`}
       </div>
     </div>
   );

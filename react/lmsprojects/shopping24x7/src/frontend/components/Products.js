@@ -5,7 +5,7 @@ import axios from 'axios';
 
 function Products(props){
     const navigate = useNavigate();
-    const [randomProductList, getRandomProductList] = useState('');
+    const [randomProductList, getRandomProductList] = useState();
     
     useEffect(()=>{
         console.log('inside useEffect Products')

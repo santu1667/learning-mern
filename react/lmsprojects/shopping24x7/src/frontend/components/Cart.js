@@ -1,40 +1,113 @@
 import '../css/Cart.css';
-import {useEffect,useState} from "react"
-import { Link } from "react-router-dom";
+import { useEffect,useState} from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Cart(props) {
-  const[isUserLogged, setUserLoggedIn] = useState(false);
-
-  useEffect( ()=>{
-    var token = sessionStorage.getItem("auth-token");
-    if(token != null && token !== ''){
-    setUserLoggedIn(true);
-  }
-  },[isUserLogged])
   
+  const [cartItemsList,setCartItemsList] = useState(props.cart);
+  const [uniquecartItemsList,setuniquecartItemsList] = useState([]);
+  const [totalPrice, setTotalPrice] =useState(0);
+  const navigate = useNavigate();
 
+  useEffect(()=>{
+    console.log('Inside useEffect Cart');
+    if(cartItemsList.length<=0){
+      var cart=sessionStorage.getItem("cart");
+      setCartItemsList(JSON.parse(cart));
+      props.setCartCount(JSON.parse(cart).length);
+      props.setCart(JSON.parse(cart));
+      setuniquecartItemsList(getUniqueCartItemsList(JSON.parse(cart)))
+      setTotalPrice(getPrice(cartItemsList));}
+      else{
+        setuniquecartItemsList(getUniqueCartItemsList(cartItemsList));
+        setTotalPrice(getPrice(uniquecartItemsList));
+      }
+  },[]);
+  
+  function getUniqueCartItemsList(inputList){
+      if(inputList.length>0){
+          const countDistinct = inputList.reduce((inputList, curr) => {
+            const { _id } = curr;
+            if (inputList[_id]) ++inputList[_id];
+            else inputList[_id] = 1;
+            return inputList;
+        }, {});
+        const result = inputList.map((obj) => {
+            obj["quantitySelected"] = countDistinct[obj._id];
+            return obj;
+        });
+      const uniqueArray = [... new Map(result.map((item)=>[item["_id"], item])).values()]
+      return uniqueArray
+  }
+  return [];
+  }
+
+
+  function updateCart(product){
+      const updatedList=[];
+    if(uniquecartItemsList.length>0){
+      for(let item in uniquecartItemsList){
+        if(uniquecartItemsList[item]._id === product._id){
+          if(uniquecartItemsList[item].quantitySelected>1){
+            uniquecartItemsList[item].quantitySelected = uniquecartItemsList[item].quantitySelected-1;
+            updatedList.push(uniquecartItemsList[item]);
+          }
+        }
+        else{
+          updatedList.push(uniquecartItemsList[item]);
+        }
+      }
+    setuniquecartItemsList(updatedList);
+    setCartItemsList(updatedList);
+    props.setCartCount(updatedList.length);
+    props.setCart(updatedList);
+    setTotalPrice(getPrice(updatedList));
+    sessionStorage.removeItem("cart");
+    sessionStorage.setItem("cart",JSON.stringify(updatedList));
+  }}
+
+  function getPrice(inputList){
+    if(inputList.length>0){
+      let totalPrice =0;
+      for(let i in inputList){
+        let effectivePrice = inputList[i].quantitySelected*(inputList[i].price-
+          inputList[i].discountPrice);
+        totalPrice+= effectivePrice;
+      }
+      return totalPrice;
+    }
+  }
+
+  function proceedToCheckOutPage(){
+    sessionStorage.setItem("uniqueCart",JSON.stringify(uniquecartItemsList));
+    navigate('/checkout');
+  }
   return (
-    <>{isUserLogged &&
-      <div className="cartContainer">
-        <p><b> Cart</b></p>
-        <div className="cartItems">
-          <div className="cartDescription">
-            <span> 1 X SmartPhone</span>
-            <label>Price $1000</label>
-            <label>Discount $200</label>
-          </div>
-            <label className="cartPrice"> $800</label>
+    <> 
+    <div className="cartContainer">
+    {uniquecartItemsList.length>0 && <label><b> Cart</b></label>}
+    {uniquecartItemsList && uniquecartItemsList.map((product) => (
+      <div key={Math.random()}className="cartItems">
+        <div key={Math.random()} className="cartDescription">
+          <span> {product.quantitySelected} X {product.name}</span>
+          <label>Price ${product.price}</label>
+          <label>Discount ${product.discountPrice}</label>
+        </div >
+            <label className="cartPrice"> ${product.quantitySelected*(product.price-product.discountPrice)}</label>
+            <p  onClick={(event)=>{event.preventDefault();updateCart(product)}}>remove</p>
         </div>
-        <hr/>
-        <div className="cartCheckout">
-          <p>Grand Total $800</p>
-          <button className="addProductButton" type="submit">Checkout</button>
-        </div>
+      ))}
+      {uniquecartItemsList.length>0 &&
+      <div className="cartCheckout">
+        <p>GrandTotal $ {totalPrice}</p>
+        <button onClick={(event)=>{event.preventDefault();proceedToCheckOutPage();}} className="addProductButton" type="submit">Checkout</button>
       </div>}
+      </div>
 
-      {!isUserLogged && 
+
+      {!props.cart.length>0 && 
           <div className="profileLogin">
-            <p> Please <Link to="/login">Login</Link> to view Your Cart</p>
+            <p> Please Add Items to Your Cart</p>
           </div>
         }
       </>

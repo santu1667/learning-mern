@@ -1,0 +1,38 @@
+.checkOutPageContainer{
+    margin-left:10%;
+    margin-right:10%;
+    width:90%
+}
+
+.checkOutPageContainer h4{
+    font-family: monospace;
+    color: green;
+}
+
+.checkOutPageUserDetails, .shippingAddressContainer{
+    display: grid;
+}
+
+.checkOutPageUserDetails input,.shippingAddressContainer input{
+    width: 60%;
+    border-radius: 10px !important;
+}
+
+.shippingAddressContainer{
+    margin-top: 10px;
+}
+.shippingAddressSection1{
+    margin-top: 10px;
+}
+.shippingAddressSection1 input{
+    width: 20%;
+    border-radius: 10px !important;
+    margin-left:5px;
+    margin-right:5px;
+}
+
+.checkOutPageContainer button{
+    margin-top: 20px;
+    margin-left:25%;
+    width:20%
+}

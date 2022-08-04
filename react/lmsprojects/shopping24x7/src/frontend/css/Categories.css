@@ -6,7 +6,7 @@
     width: fit-content;
     position: relative;
     display: flex;
-    max-width: 65%;
+    max-width: 100%;
 }
 .categoryItem{
     width: 100%;

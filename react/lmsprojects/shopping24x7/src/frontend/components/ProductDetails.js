@@ -1,11 +1,12 @@
 import '../css/ProductDetails.css';
 import {useEffect,useState} from 'react';
 import axios from 'axios';
-import { useParams } from "react-router-dom"
+import {useParams,useNavigate } from "react-router-dom"
 
 function ProductDetails(props) {
 
 const [imageURL,setImageURL] = useState("../images/products/NI-Placeholder.png")
+const navigate = useNavigate();
 
 let params =useParams();
 
@@ -26,7 +27,9 @@ let params =useParams();
   }
 
   function handleBuyNow(){
-
+    sessionStorage.removeItem("temporaryProductId");
+    sessionStorage.setItem("temporaryProductId",props.selectedProduct._id);
+    navigate('/checkout');
   }
 
   function handleAddToCart(){
@@ -38,15 +41,15 @@ let params =useParams();
   return (
     <div className='productDetailsContainer'>
     <h3><b>{props.selectedProduct.category+' - '+props.selectedProduct.name}</b></h3>
-      <div className='productImageContainer'>
+      <div id="product-page-banner" className='productImageContainer'>
           <img src={imageURL} alt=""></img>
       </div>
       <div className='productDetails'>
         <div className='prodcutDetailsSection1'>
           <p>Price:${props.selectedProduct.price-props.selectedProduct.discountPrice}  
             {props.selectedProduct.discountPrice>0 && <label>${props.selectedProduct.price}</label>}</p>
-            <button className="btn btn-warning" id="“profile-delete-button" onClick={(event)=>{event.preventDefault();handleBuyNow()}}>Buy Now</button>
-                <button className="btn btn-primary" id="profile-upload-button" onClick={(event)=>{event.preventDefault();handleAddToCart()}}>Add to Cart</button>
+            <button id="product-page-buynow" className="btn btn-warning" onClick={(event)=>{event.preventDefault();handleBuyNow()}}>Buy Now</button>
+                <button id="product-page-add-to-cart"  className="btn btn-primary" onClick={(event)=>{event.preventDefault();handleAddToCart()}}>Add to Cart</button>
         </div>
         <div className='prodcutDetailsSection2'>
           <p>{props.selectedProduct.description}</p>

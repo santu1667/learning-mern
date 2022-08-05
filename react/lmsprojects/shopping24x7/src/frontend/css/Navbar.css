@@ -1,5 +1,5 @@
 .nav-list {
-    background-color: #ff9000;
+    background-color: lightblue;
     color: black;
     display: flex;
     justify-content: flex-end;
@@ -8,6 +8,11 @@
     margin-block-end: 14px;
     padding-inline-start: 0px;
     margin-block-start: 0px;
+}
+.navContainer{
+    width: 100%;
+    overflow: hidden;
+    position: fixed;
 }
 .nav-item {
     list-style: none;
@@ -26,7 +31,6 @@
 .nav-item:nth-last-child(3){
     margin-left: auto;
     margin-right: 5px;
-    padding-top: 10px;
     width:70%;
 }
 .nav-item svg{
@@ -41,7 +45,8 @@
     padding: 5px;
 }
 .main-footer {
-    background-color: #ff9000;
+    /* background-color: #ff9000; */
+    background-color: lightblue;
     color: black;
     padding-top: 1px;
     position: fixed;

@@ -139,7 +139,8 @@ function CategoryProducts(props){
             {filteringProductList.length===0 && <p> No Products Found</p>}
             {filteringProductList && filteringProductList.map((product) => (
                 <div key={Math.random()} className='categoryProductItem' >
-                    <img key={Math.random()} src={product.image} alt="" onClick={(event)=>{event.preventDefault();navigateToURL(product)}}></img>
+                    <img key={Math.random()} src={product.image} alt="" 
+                            onClick={(event)=>{event.preventDefault();navigateToURL(product)}}></img>
                     <hr/>
                     <p key={Math.random()}> {product.name}</p>
                         <p key={Math.random()}>Price: ${product.price-product.discountPrice}</p>

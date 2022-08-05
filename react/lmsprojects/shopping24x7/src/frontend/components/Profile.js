@@ -130,6 +130,7 @@ function Profile(props) {
             'Content-Type': 'application/json'
           }})
           var profile = response.data.profile;
+          console.log(profile);
           setUser({
             firstName : profile.firstName,
             lastName : profile.lastName,
@@ -145,7 +146,7 @@ function Profile(props) {
           })
           setImageSrc(profile.profileImage.imageURL?
             profile.profileImage.imageURL:'./images/profile/avatar.jpeg');
-            props.setIsAdmin(user.role==='Admin' ? true:false);
+          props.setIsAdmin(user.role==='Admin' ? true:false);
           sessionStorage.setItem("role",profile.role);
           sessionStorage.setItem("user",JSON.stringify(profile));
         }
@@ -167,8 +168,8 @@ function Profile(props) {
             <Col xs={3}>
               <img id="profile-image" src={imageSrc} alt="" /><br/>
               <div className="imageButtons">
-              <button className="btn btn-warning" id="“profile-delete-button" onClick={handleDelete}> Delete Image</button>
-              <button className="btn btn-primary" id="profile-upload-button" onClick={handleClick}> Upload</button>
+              <button className="btn btn-warning" id="“profile-delete-button" onClick={(event)=>{event.preventDefault();handleDelete()}}> Delete Image</button>
+              <button className="btn btn-primary" id="profile-upload-button" onClick={(event)=>{event.preventDefault();handleClick()}}> Upload</button>
               </div>
               <input type="file"  ref={hiddenFileInput} multiple accept="image/*" 
                 style={{display: 'none'}} onChange={onImageChange} />

@@ -11,16 +11,19 @@ function Cart(props) {
 
   useEffect(()=>{
     console.log('Inside useEffect Cart');
-    if(cartItemsList.length<=0){
+    if(cartItemsList.length<=0 ){
+      if(sessionStorage.getItem("cart")){
       var cart=sessionStorage.getItem("cart");
       setCartItemsList(JSON.parse(cart));
       props.setCartCount(JSON.parse(cart).length);
       props.setCart(JSON.parse(cart));
       setuniquecartItemsList(getUniqueCartItemsList(JSON.parse(cart)))
       setTotalPrice(getPrice(cartItemsList));}
+      }
       else{
+        console.log('inside else useEffect');
         setuniquecartItemsList(getUniqueCartItemsList(cartItemsList));
-        setTotalPrice(getPrice(uniquecartItemsList));
+        setTotalPrice(getPrice(cartItemsList));
       }
   },[]);
   
@@ -67,15 +70,19 @@ function Cart(props) {
   }}
 
   function getPrice(inputList){
+    let totalPrice =0;
     if(inputList.length>0){
-      let totalPrice =0;
+      console.log(inputList);
       for(let i in inputList){
         let effectivePrice = inputList[i].quantitySelected*(inputList[i].price-
           inputList[i].discountPrice);
-        totalPrice+= effectivePrice;
+        totalPrice= totalPrice+effectivePrice;
       }
+      console.log(totalPrice);
+      setTotalPrice(totalPrice);
       return totalPrice;
     }
+    return totalPrice;
   }
 
   function proceedToCheckOutPage(){
@@ -99,8 +106,8 @@ function Cart(props) {
       ))}
       {uniquecartItemsList.length>0 &&
       <div className="cartCheckout">
-        <p>GrandTotal $ {totalPrice}</p>
-        <button onClick={(event)=>{event.preventDefault();proceedToCheckOutPage();}} className="addProductButton" type="submit">Checkout</button>
+        <p id="cart-grand-total">GrandTotal ${totalPrice}</p>
+        <button id="cart-button" onClick={(event)=>{event.preventDefault();proceedToCheckOutPage();}} className="addProductButton" type="submit">Checkout</button>
       </div>}
       </div>
 

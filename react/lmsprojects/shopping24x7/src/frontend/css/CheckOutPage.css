@@ -4,6 +4,9 @@
     width:90%
 }
 
+.checkOutPageLoginUserDetails{
+    display: block;
+}
 .checkOutPageContainer h4{
     font-family: monospace;
     color: green;
@@ -11,6 +14,10 @@
 
 .checkOutPageUserDetails, .shippingAddressContainer{
     display: grid;
+}
+
+.checkOutPageLoginUserDetails{
+    display: flex;
 }
 
 .checkOutPageUserDetails input,.shippingAddressContainer input{
@@ -35,4 +42,18 @@
     margin-top: 20px;
     margin-left:25%;
     width:20%
+}
+
+.checkOutPageLoginUserDetails label,.shippingAddressDetails label{
+    font-family: monospace;
+    font-size:20px;
+    font-weight: bold;
+}
+
+.checkOutPageLoginUserDetails .userNameDetails{
+    margin-right:30%
+}
+
+.checkOutPageLoginUserDetails p, .shippingAddressDetails p{
+    font-family: monospace;
 }

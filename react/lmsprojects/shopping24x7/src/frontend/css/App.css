@@ -13,6 +13,7 @@ body{
 }
 .content-wrap {
   flex: 1;
+  margin-top:6%
 }
 .App{
   text-align: center;

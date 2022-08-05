@@ -18,7 +18,7 @@ router.post(
                 products:cart
             });
         await order.save();
-        return res.status(200).json({status:"success",message:"Order Placed Successfully"})
+        return res.status(200).json({status:"success",message:"Order Placed Successfully",orderId:order._id})
         }
         catch(e)
         {

@@ -26,14 +26,15 @@ function Home(props) {
 
   return (
       <div className='App'>
-        <div>
+        <div id="homepage-banner">
           <Carousel/>
         </div>
-        <div>
+        <div id="homepage-category">
           <Categories categoryList={categoryList}/>
         </div>
         <div>
-          <Products setCart={props.setCart}/>
+          <Products id="homepage-product" setCart={props.setCart} cart={props.cart} 
+          setCartCount={props.setCartCount}/>
         </div>
         <br/><br/><br/>
       </div>

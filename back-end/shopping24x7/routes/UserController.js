@@ -138,7 +138,7 @@ if (!isMatch) {
 jwt.sign(
     payload,
     "randomString",{
-        expiresIn:10000
+        expiresIn:'60d'
     },
     function(err,token){
         if (err) throw err;

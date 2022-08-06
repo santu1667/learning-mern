@@ -49,7 +49,6 @@ function LoginPage(props) {
     alert('inisde registerUser');
     if(validateRegisterUserInput()){
       let req={firstName:firstName, lastName:lastName,password:password,email:email};
-      alert('errmesg'+errMsg);
       if(errMsg == null || errMsg === ''){
         userRef.current.value='';
         try{
@@ -64,6 +63,7 @@ function LoginPage(props) {
             console.log('Setting error message'); setErrMsg(exception.response.data.message)}
         }
         if(response.status===200) { 
+          setFirstName('');setLastName('');setEmail('');setPassword('')
           setSuccessMsg(response.data.message);
       }
     }

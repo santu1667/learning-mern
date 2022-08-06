@@ -127,9 +127,9 @@ if (!isMatch) {
     return res.status(400).json({
     message: "Incorrect Password!",
     });
-  }
+}
 
-  const payload ={
+const payload ={
     user:{
         id:user.id
     }
@@ -138,7 +138,7 @@ if (!isMatch) {
 jwt.sign(
     payload,
     "randomString",{
-        expiresIn:'60d'
+        expiresIn:'30m'
     },
     function(err,token){
         if (err) throw err;

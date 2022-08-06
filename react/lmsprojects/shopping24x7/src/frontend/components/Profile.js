@@ -83,7 +83,6 @@ function Profile(props) {
 }
 
   useEffect( () => {
-    console.log('inside useEffect');
     setErrMsg('');
     var token = sessionStorage.getItem("auth-token");
     if(token != null && token !== ''){
@@ -95,9 +94,8 @@ function Profile(props) {
     }
   },[]);
 
-  const handleClick = (event) => {
+  const handleClick = () => {
     if(window.confirm('Do you want to Upload Profile Pic?')){
-      event.preventDefault();
       hiddenFileInput.current.click();
     }
   };
@@ -123,14 +121,13 @@ function Profile(props) {
   };
 
   async function getUserDetails(token){
-    try{
-    var response =  await axios.get('http://localhost:8080/api/v1/profile',
+    await axios.get('http://localhost:8080/api/v1/profile',
           {headers: {
             'token': token,
             'Content-Type': 'application/json'
-          }})
-          var profile = response.data.profile;
-          console.log(profile);
+          }}).then(response=>{
+            console.log(response);
+            var profile = response.data.profile;
           setUser({
             firstName : profile.firstName,
             lastName : profile.lastName,
@@ -146,16 +143,17 @@ function Profile(props) {
           })
           setImageSrc(profile.profileImage.imageURL?
             profile.profileImage.imageURL:'./images/profile/avatar.jpeg');
-          props.setIsAdmin(user.role==='Admin' ? true:false);
+            if(profile.role === 'Admin'){
+              props.setIsAdmin(true);
+            }
+          props.setIsUserLoggedIn(true);
           sessionStorage.setItem("role",profile.role);
           sessionStorage.setItem("user",JSON.stringify(profile));
-        }
-    catch(exception){
-      console.log('Exception  happened while retreving user details');
-      console.log(exception.message);
-      setErrMsg("Error Occured While retreiving Profile");
-      return;
-    }  
+          }).catch(err=>{
+            console.log('Exception  happened while retreving user details');
+            console.log(err);
+            setErrMsg("Error Occured While retreiving Profile");
+          })
   }
 
   return (

@@ -9,6 +9,17 @@
     padding-inline-start: 0px;
     margin-block-start: 0px;
 }
+.nav-admin-list {
+    background-color: lightsalmon;
+    color: black;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    list-style-type: disc;
+    margin-block-end: 14px;
+    padding-inline-start: 0px;
+    margin-block-start: 0px;
+}
 .navContainer{
     width: 100%;
     overflow: hidden;
@@ -19,24 +30,16 @@
     margin-right: 0.5rem;
     text-decoration: none;
 }
+
 .nav-item:first-child {
-    margin-right: 25px;
+    margin-right: 34px;
     font-size: 2rem;
 }
-.nav-item:last-child {
-    margin-left: 9px;
-    margin-right: 1rem;
-    padding-top: 10px;
-}
-.nav-item:nth-last-child(3){
-    margin-left: auto;
-    margin-right: 5px;
-    width:70%;
-}
+
 .nav-item svg{
-    margin-left: 99%;
+    margin-left: 97%;
 }
-.nav-list a {
+.nav-admin-list a,.nav-list a {
     color: inherit;
     font-family: monospace;
     text-decoration: none;
@@ -57,8 +60,17 @@
     font-family: monospace;
     padding: 0px 0px 10px 10px;
 }
-.nav-list label {
+.nav-admin-list label,.nav-list label {
     margin-bottom: 20px;
     margin-left:-5px;
-    margin-left: 8px;
+    margin-left: 0px;
+}
+
+.shoppingCartSymbol{
+    width: 80%;
+}
+
+.cartCount{
+    margin-left: 0px;
+    margin-right:5px
 }

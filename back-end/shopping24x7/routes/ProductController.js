@@ -24,6 +24,8 @@ router.post(
     async (req,res) => {
         
         const {name,category,price,discountPrice,description,isTopProduct} = req.body;
+        console.log('Input Request');
+        console.log(req.file);
         var quantityAvailable= 1;
         var imageURL = "";
         if(Object.keys(req).includes("file") && req.file.originalname){
@@ -222,7 +224,7 @@ router.patch(
             addData("isTopProduct",isTopProduct);addData("discountPrice",discountPrice)
         }
         else{
-            return res.status(404).send({message:"Mandatory details passed"}); 
+            return res.status(404).send({message:"Mandatory details not passed"}); 
         }
         console.log('data****');
         console.log(data)

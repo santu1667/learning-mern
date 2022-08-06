@@ -62,7 +62,7 @@ router.patch(
             const orderId = req.params.id;
             const isDelivered = req.body.isDelivered;
             try{
-                await Order.updateOne({id:orderId},{isDelivered:isDelivered,
+                await Order.updateOne({_id:orderId},{isDelivered:isDelivered,
                             orderDeliveredOn:new Date()},
                             function(err,result){
                                 if(err){
@@ -90,15 +90,15 @@ router.delete(
         async (req,res) => {
             const orderId = req.params.id;
             try{
-                await Order.deleteOne({id:orderId},
+                await Order.deleteOne({_id:orderId},
                         function(err,result){
                             if(err){
                                 return res.status(500).json({status:"failure",
                                         message:"Failed to update Order"})
                             }
                             return res.status(200).json({status:"success",
-                                        message:"Order modified Successfully"})
-                            })
+                                        message:"Order deleted Successfully"})
+                            }).clone();
             }
             catch(e)
             {

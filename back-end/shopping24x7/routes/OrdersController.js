@@ -48,7 +48,7 @@ router.get(
                 }
                 return res.status(200).json({status:"success",
                             orders:results})
-            }).sort({createdOn:-1}).clone()
+            }).sort({orderPlacedOn:-1}).clone()
         }
         catch(e)
         {

@@ -31,9 +31,7 @@ function Profile(props) {
             setImageSrc(createupdatedURL);
           }
       }
-      catch(exception){
-        console.log('Exception Occured while updating Image'+exception.message);
-      }
+      catch(exception){}
   }
   }
 
@@ -51,13 +49,9 @@ function Profile(props) {
           {email:user.email,
           address: {streetAddress:streetAddress,city:city,zipcode:zipcode,state:state}
           }};
-          console.log('req');
-          console.log(req);
         var response =  await axios.patch('http://localhost:8080/api/v1/profile/address', 
                   req);
-          console.log(response);
         if(response.status === 200){
-          console.log('Address Updated Successfully');
           setIsAddressDisplayable(!isAddressDisplayable);
           var address = streetAddress +', '+city+', '+state+', '+zipcode;
           user.address = address;
@@ -65,8 +59,6 @@ function Profile(props) {
         }
       }
       catch(exception){
-        console.log('Exception  happened while updating address details');
-        console.log(exception.message);
         return;
       }   
     }
@@ -103,18 +95,14 @@ function Profile(props) {
   const handleDelete = async () => {
     if(window.confirm('Do you want to delete Profile Pic?')){
       try{
-        console.log('inside handleDelete');
       var request = {email:user.email}
-      console.log(request);
       var response =  await axios.delete('http://localhost:8080/api/v1/profile/image',
       {data:request});
-      console.log(response);
       if(response.status === 200){
         setImageSrc('./images/profile/avatar.jpeg');
       }
     }
       catch(exception){
-        console.log('Exception  happened while deleting Image');
         return;
       }
     }
@@ -126,7 +114,6 @@ function Profile(props) {
             'token': token,
             'Content-Type': 'application/json'
           }}).then(response=>{
-            console.log(response);
             var profile = response.data.profile;
           setUser({
             firstName : profile.firstName,
@@ -150,8 +137,6 @@ function Profile(props) {
           sessionStorage.setItem("role",profile.role);
           sessionStorage.setItem("user",JSON.stringify(profile));
           }).catch(err=>{
-            console.log('Exception  happened while retreving user details');
-            console.log(err);
             setErrMsg("Error Occured While retreiving Profile");
           })
   }

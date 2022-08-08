@@ -25,9 +25,8 @@ function LoginPage(props) {
         }
         catch(exception)
         {
-          console.log(exception);
           if(exception.response.status === 400){
-            console.log('Setting error message'); setErrMsg(exception.response.data.message)}
+            setErrMsg(exception.response.data.message)}
         }
       if(response.status===200) { 
           sessionStorage.setItem("auth-token",response.data.accesstoken)
@@ -58,7 +57,6 @@ function LoginPage(props) {
   
 // Clear Error Message after updating user, pwd
   useEffect(() => {
-    console.log('Setting Error Message to empty');
     setErrMsg('');
 }, [user, pwd])
     

@@ -16,7 +16,7 @@ function ManageOrders() {
     await await axios.get('http://localhost:8080/api/v1/orders')
     .then(response => {
       setOrdersList(response.data.orders);
-    }).catch(error =>{ console.log(error);setErrorMessage('Error Occured While retreiving Orders')})
+    }).catch(error =>{setErrorMessage('Error Occured While retreiving Orders')})
   }
 
   async function processOrder(inputOrder){
@@ -32,10 +32,10 @@ function ManageOrders() {
             newOrderList.push(ordersList[index]);
           }
           else{ordersList[index].isDelivered = true; newOrderList.push(ordersList[index]);}
-        }  console.log('newOrderList');console.log(newOrderList);setOrdersList(newOrderList);
+        }  setOrdersList(newOrderList);
       }
     }).catch(error => {
-      console.log(error);setErrorMessage('Unable to Process the Order');
+      setErrorMessage('Unable to Process the Order');
     })
   }
 

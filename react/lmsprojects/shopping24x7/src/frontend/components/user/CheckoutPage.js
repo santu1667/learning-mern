@@ -32,10 +32,8 @@ useEffect(()=> {
 const placeOrder = async ()=>{
     if(validateInputFeilds()){
     var req= getPlaceOrderRequest();
-    console.log(req);
     await axios.post('http://localhost:8080/api/v1/checkout',req)
     .then(response =>{
-                    console.log(response)
                     if(!sessionStorage.getItem("temporaryProductId")){
                     props.setCartCount(0);
                     props.setCart('');
@@ -46,7 +44,7 @@ const placeOrder = async ()=>{
                     sessionStorage.removeItem("uniqueCart");
                     sessionStorage.removeItem("temporaryProductId");
                     navigate('/orders')})
-    .catch(err => {console.log(err);
+    .catch(err => {
                 setErrMsg('Error Occured while placing Order')})
     }
 }

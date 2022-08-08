@@ -10,7 +10,6 @@ function Cart(props) {
   const navigate = useNavigate();
 
   useEffect(()=>{
-    console.log('Inside useEffect Cart');
     if(cartItemsList.length<=0 ){
       if(sessionStorage.getItem("cart")){
       var cart=sessionStorage.getItem("cart");
@@ -21,7 +20,6 @@ function Cart(props) {
       setTotalPrice(getPrice(cartItemsList));}
       }
       else{
-        console.log('inside else useEffect');
         setuniquecartItemsList(getUniqueCartItemsList(cartItemsList));
         setTotalPrice(getPrice(cartItemsList));
       }
@@ -72,13 +70,11 @@ function Cart(props) {
   function getPrice(inputList){
     let totalPrice =0;
     if(inputList.length>0){
-      console.log(inputList);
       for(let i in inputList){
         let effectivePrice = inputList[i].quantitySelected*(inputList[i].price-
           inputList[i].discountPrice);
         totalPrice= totalPrice+effectivePrice;
       }
-      console.log(totalPrice);
       setTotalPrice(totalPrice);
       return totalPrice;
     }

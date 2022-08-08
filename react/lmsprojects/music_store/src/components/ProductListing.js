@@ -3,8 +3,6 @@ import './product.css';
 
 
 function ProductListing({products}) {
-
-  console.log('products in product listing'+ {products})
   return (
     <div className="App">
        {products &&

@@ -8,17 +8,15 @@ function Products(props){
     const [productList,setProductList] = useState();
     
     useEffect(()=>{
-        console.log('inside useEffect Products')
         retreiveProducts();
     },[])
 
     const retreiveProducts = async () =>{
-    console.log('calling retreive products');
         await axios.get('http://localhost:8080/api/v1/homepage/products')
         .then(res =>{
             setProductList(res.data.products)
         })
-        .catch(err=> console.log(err))
+        .catch(err=>{})
     }
 
     const navigateToURL = (product) =>

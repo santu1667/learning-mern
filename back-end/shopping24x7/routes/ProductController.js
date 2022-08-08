@@ -47,7 +47,6 @@ router.post(
         }
         catch(e)
         {
-            console.log(e.message);
             return res.status(500).send({message:"Error in Saving Product"});
         }
     });
@@ -80,13 +79,10 @@ router.get(
     "/products/:PRODUCT_ID",
     async (req,res) => {
         const productId = req.params.PRODUCT_ID;
-        console.log('*****productId in get /products/:PRODUCT_ID*****'+productId)
         try{
             await Product.findOne({_id:productId},function(err,product){
-                if(err){console.log(err);return res.status(500).json({status:"error",
+                if(err){return res.status(500).json({status:"error",
                         message:"Error Occured in retreving product details"})}
-                    console.log("product retrevied in get product details")
-                    console.log(product)
                     if(product){
                     return res.status(200).json({"status":"success",product:product})}
                     else{return res.status(404).json({"message":"Product Not Found"})}
@@ -114,7 +110,6 @@ router.get(
             }
         }
         catch(exception){
-            console.log(exception.message)
             return res.status(500).json({message:"Error Occured in retreving banner products"});
         }
     }
@@ -140,7 +135,6 @@ router.get(
                 message:"No Categories Found"});
             }
         catch(exception){
-            console.log(exception.message)
             return res.status(500).json({message:"Error Occured in retreving banner products"});
         }
     }
@@ -160,7 +154,6 @@ router.get(
                 categories:categoryList});
             }
         catch(exception){
-            console.log(exception.message)
             return res.status(500).json({message:"Error Occured in retreving department categories"});
         }
     }
@@ -184,7 +177,6 @@ router.get(
                 message:"No Categories Found"});
             }
         catch(exception){
-            console.log(exception.message)
             return res.status(500).json({message:"Error Occured in retreving banner products"});
         }
     }
@@ -199,17 +191,15 @@ router.delete(
     "/admin/products/:id",
     async (req,res) => {
         const productId = req.params.id;
-        console.log('ProdcutId in delete *****'+productId)
         try{
             await Product.deleteOne({_id:productId},function(err,result){
-                if(err){console.log(err);return res.status(500).json({status:"error",
+                if(err){return res.status(500).json({status:"error",
                     message:"Error Occured in deleting products"})}
                     return res.status(200).json({status:"success",
                                         message:"Product deleted successfully"})
             }).clone();
         }
         catch(exception){
-            console.log(exception.message);
             return res.status(500).send({message:"Error Occured in deleting products"});
         }
     }
@@ -234,8 +224,6 @@ router.patch(
         if(Object.keys(req.body).includes("product")){
             const {name,category,price,discountPrice,description,quantityAvailable,isTopProduct} =
             req.body.product;
-            console.log(name+' '+category+' '+price+' '+discountPrice+' '+description+' '+
-                quantityAvailable+' '+isTopProduct)
             addData("name",name);addData("category",category);addData("price",price);
             addData("description",description);addData("quantityAvailable",quantityAvailable);
             addData("isTopProduct",isTopProduct);addData("discountPrice",discountPrice)
@@ -243,18 +231,15 @@ router.patch(
         else{
             return res.status(404).send({message:"Mandatory details not passed"}); 
         }
-        console.log('data****');
-        console.log(data)
         try{
             await Product.updateOne({_id:productId},data,function(err,result){
-                if(err){console.log(err);return res.status(500).json({status:"error",
+                if(err){return res.status(500).json({status:"error",
                     message:"Error Occured in Updating product details"})}
                     return res.status(200).json({status:"success",
                                         message:"Product edited successfully"})
             }).clone();
         }
         catch(exception){
-            console.log(exception.message);
             return res.status(500).send({message:"Error Occured in Updating product details"});
         }
     }

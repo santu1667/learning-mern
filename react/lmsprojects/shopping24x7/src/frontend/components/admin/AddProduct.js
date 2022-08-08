@@ -35,13 +35,12 @@ async function addProduct(){
         await axios.post('http://localhost:8080/api/v1/admin/products'
             , formData)
             .then(response=>{
-                console.log(response);
                 if(response.status===200){
                     setSuccessMsg('Product had been Created Successfully');
                     clearInputs();
                 }
                 })
-                .catch(err=>{console.log(err)})
+                .catch(err=>{})
     }
 }
 
@@ -52,8 +51,6 @@ productDescriptionRef.current.value='';categoryRef.current.value='';
 }
 
 function validateInput(){
-    console.log('ProductName:'+productName+' product Description:'+productDescription);
-    console.log('Price:'+price+' category:'+category+'discount Price: '+discountPrice)
     if(!productName || !productDescription || !price || !category){
         setErrMsg('Mandatory Feilds are Missing');
         return false;

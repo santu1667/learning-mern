@@ -35,11 +35,10 @@ if(validateInput()){
     axios.patch(apiURL,request)
     .then(response => {
         if(response.status===200){
-            var confirmMessage = 'Product was updated successfully.Navigating to Manage products';
             navigate('/admin/products');
         }
     }
-    ).catch(error=>{console.log(error);
+    ).catch(err=>{
         setErrMsg('Error Occured While Saving the Product')})
 }
 }

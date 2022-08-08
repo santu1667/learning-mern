@@ -36,9 +36,7 @@ function CategoryProducts(props){
                 filterProductsOnCategory(categoryName,productsList);
             })
         }
-        catch(err){
-            console.log('Error occured while retreving Products')
-        }
+        catch(err){}
     }
 
     const handlePriceFilter = (event)=>{

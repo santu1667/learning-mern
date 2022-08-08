@@ -40,7 +40,6 @@ function ManageProducts(props) {
         if(response.status===200){
           setSuccessMsg('Product '+inputproduct.name+' is deleted Successfully')
           var newList=[];
-          console.log(productsList);
           for(let index in productsList){
             if(productsList[index]._id !==inputproduct._id){
               newList.push(productsList[index])} }}

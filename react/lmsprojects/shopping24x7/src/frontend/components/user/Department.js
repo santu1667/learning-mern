@@ -15,7 +15,7 @@ function Department() {
   async function retreiveDepartments(){
     await axios.get('http://localhost:8080/api/v1/department/categories')
     .then(response => setCategoryList(response.data.categories))
-    .catch(error => console.log(error))
+    .catch(error =>{})
   }
 
   function getCategoryImage(category){

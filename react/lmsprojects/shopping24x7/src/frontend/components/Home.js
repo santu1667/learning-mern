@@ -9,15 +9,12 @@ function Home(props) {
   const [categoryList,setCategoryList] = useState(["Mobiles","Video Games","Toys"]);
 
   useEffect(()=>{
-    console.log('inside useEffect Home')
     retreiveCategories();
   },[])
 
   const retreiveCategories = async ()=>{
     var response =  await axios.get('http://localhost:8080/api/v1/homepage/categories');
       if(response && response.data){
-        console.log('***Inside categories')
-        console.log(response.data.categories);
           setCategoryList(response.data.categories)
       }
   }

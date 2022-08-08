@@ -18,13 +18,11 @@ function OrdersPage(props) {
     },[])
 
     async function retreiveOrders(inputemail){
-        var request = {email:inputemail}
-        console.log(request);
         await axios.get('http://localhost:8080/api/v1/orders',
             {params:{email:inputemail}})
         .then(response =>{
             setOrdersList(response.data.orders);
-        }).catch(error =>{console.log(error)})
+        }).catch(error =>{})
     }
 
 return (

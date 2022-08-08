@@ -85,7 +85,6 @@ router.post(
             }
             catch(e)
             {
-                console.log(e.message);
                 res.status(500).send({message:"Error in Saving User"});
             }
     });
@@ -103,7 +102,6 @@ router.post("/users/login",
 ],
 async (req,res) =>{
 const { username, password } = req.body;
-console.log(username);
 //validating inout request
 const errors = validationResult(req);
 if (!errors.isEmpty()) {
@@ -149,7 +147,6 @@ jwt.sign(
     })
 }
 catch(exception){
-    console.log(exception.message);
     res.status(500).json({message:"Error Occured! Please try again"});
 }
 
@@ -163,11 +160,8 @@ catch(exception){
  */
 router.get('/profile', function(req, res) {
     var token = req.headers['token'];
-    console.log('token in profile: '+token)
     if (!token) return res.status(401).send({ auth: false, message: 'No token provided.' });
     const decoded = jwt.verify(token, "randomString");
-    console.log('****decoded*****');
-    console.log(decoded);
     User.findById(decoded.user.id,{password:0,_id:0,__v:0}, function (err, user) {
         if (err) return res.status(500).send("There was a problem finding the user.");
         if (!user) return res.status(404).send("No user found.");
@@ -190,7 +184,6 @@ router.patch('/profile/address',
             check("state","Zip Code cannot be Empty").not().isEmpty(),
         ],
         async (req,res) => {
-            console.log(req.body);
             const errors = validationResult(req.body.profile.address);
             if(!errors.isEmpty()){
                 return res.status(400).json({
@@ -208,14 +201,14 @@ router.patch('/profile/address',
                 }}
             await User.updateOne({email :email},address,
                 (err, result)=>{
-                    console.log(err);
-                    if(err) { console.log('Error Occured'); 
+                    if(err) { 
                 return  res.status(500).json({message:"Error Occured! Please try again"})}
-                    console.log('Sending response')
                     return res.status(200).json({status:"success",
                                 message:"Profile Updated Successfully"}); 
                     }).clone()
-                    .catch((err)=> console.log('Error update address'+err));
+                    .catch(err=>{return res.status(500).json(
+                        {message:"Error Occured While updating Address"}
+                    ) });
         });
 
 
@@ -243,20 +236,15 @@ router.patch("/profile/image",
         try{
             let user = await User.findOne({email:email})
             if(user){
-            console.log('***user***'+user)
             oldFileLocation = Object.keys(user).includes("profileImage") ? 
                         user.profileImage.imageLocation : null;
-            console.log('****oldFileLocation***'+oldFileLocation)
             await User.updateOne({email:email},saveImage, (err, result)=>{
-                    if(err) { console.log('Error Occured');
+                    if(err) { 
                         return res.status(500).json({status:"failure",
                         message:"Error Occured while updating Profile Image"});}
                     else{
                         if(oldFileLocation){
                             fs.unlink(oldFileLocation, (err)=>{
-                                if(err){
-                                    console.log('Error Occured while deleting the File')
-                                }
                             });
                         }
                         return res.status(200).json({status:"success",
@@ -265,9 +253,7 @@ router.patch("/profile/image",
                 }
             }
         catch(err) {
-            console.log(err.message);
         }
-                
     });
 
 /**
@@ -277,7 +263,6 @@ router.patch("/profile/image",
  */
 router.delete('/profile/image',
         async (req,res) =>{
-        console.log(req.body);
         const email = req.body.email;
         let user = await User.findOne({
                 email:email
@@ -288,19 +273,14 @@ router.delete('/profile/image',
                         imageURL: null,
                     }
                 };
-        console.log('Inside Delete'+user)
         if (user){
             var oldFileLocation = user.profileImage ? user.profileImage.imageLocation : null;
             await User.updateOne({email:email},saveImage,
                 (err,result)=>{
-                    if(err){console.log('Error Occured');throw err;}
+                    if(err){;throw err;}
                     else{
-                        console.log(result);
                         if(oldFileLocation){
                             fs.unlink(oldFileLocation, (err)=>{
-                                if(err){
-                                    console.log('Error Occured while deleting the File')
-                                }
                             });
                         }
                     res.status(200).json({status:"success",

@@ -34,12 +34,10 @@ const registerUser= async ()=>{
         await axios.post('http://localhost:8080/api/v1/users/register', 
                 req)
                 .then(response =>{
-                    console.log(response);
                     setSuccessMsg(response.data.message);
                     clearInputFeilds();
                 })
                 .catch(err => {
-                    console.log(err);
                     setErrMsg(err)})}
 }
 

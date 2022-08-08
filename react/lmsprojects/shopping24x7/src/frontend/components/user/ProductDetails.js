@@ -18,12 +18,11 @@ let params =useParams();
     var requestURL = 'http://localhost:8080/api/v1/products/'+params.productId;
     await axios.get(requestURL)
     .then(response =>{
-      console.log(response.data.product);
       props.setSelectedProduct(response.data.product);
       let url='.'+response.data.product.image;
       setImageURL(url);
     })
-    .catch(error=> console.log(error));
+    .catch(error=> {});
   }
 
   function handleBuyNow(){

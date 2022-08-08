@@ -1,5 +1,5 @@
 import '../css/LoginPage.css';
-import { useRef, useState, useEffect} from 'react';
+import { useState, useEffect} from 'react';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
@@ -8,8 +8,6 @@ function LoginPage(props) {
   const description=   "Shop24x7 is online store which allows users to Create online orders." 
                       +"We had few stores available in person in TX. Customers who register "
                       +"can earn additional points and use them towards purchase. Happy Shopping!!";
-  const userRef = useRef();
-  const errRef = useRef();             
   const [user, setUser] = useState(null);
   const [pwd, setPwd] = useState(null);
   const [errMsg, setErrMsg] = useState(null);
@@ -74,14 +72,14 @@ function LoginPage(props) {
       <section>
 
       <div>
-      <p ref={errRef} className={errMsg ? "errmsg" : ""}>{errMsg}</p>
+      <p className={errMsg ? "errmsg" : ""}>{errMsg}</p>
       <form className="signInForm" onClick={(event)=>event.preventDefault()}>
         <h2>Login</h2>
         <label htmlFor="login-email">Username:</label>
-        <input  type="text" id="login-email" ref={userRef} autoComplete="off" 
+        <input  type="text" id="login-email" autoComplete="off" 
           onChange={(e) => setUser(e.target.value)} required/>
         <label htmlFor="login-password">Password:</label>
-        <input type={passwordShown ? "text" : "password"} ref={userRef} id="login-password" 
+        <input type={passwordShown ? "text" : "password"} id="login-password" 
         onChange={(e) => setPwd(e.target.value)} required/>
         <i className="far fa-eye toggle-eye" id="togglePassword" onClick={showPassword} ></i>
         <button className='signInFormButton' id="login-submit"

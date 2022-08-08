@@ -7,7 +7,13 @@ function Register() {
 const description=   "Shop24x7 is online store which allows users to Create online orders." 
                     +"We had few stores available in person in TX. Customers who register "
                     +"can earn additional points and use them towards purchase. Happy Shopping!!";
-const errRef = useRef();             
+const errRef = useRef();    
+const successRef = useRef();
+const firstNameRef = useRef();    
+const lastNameRef = useRef();
+const emailRef = useRef();    
+const passwordRef = useRef();
+const consfirmPasswordRef = useRef();    
 const [firstName, setFirstName] = useState(null);
 const [lastName, setLastName] = useState(null);
 const [email, setEmail] = useState(null);
@@ -19,20 +25,29 @@ const [successMessage, setSuccessMsg] =useState('');
                 
 // Clear Error Message after updating user, pwd
 useEffect(() => {
-    console.log('Setting Error Message to empty');
     setErrMsg('');
 }, [firstName,lastName,password,email,confirmPassword])
 
 const registerUser= async ()=>{
     if(validateRegisterUserInput()){
-    setFirstName('');setLastName('');setEmail('');setPassword('');setConfirmPassword('');
-    setErrMsg('');setSuccessMsg('');
     let req={firstName:firstName, lastName:lastName,password:password,email:email};
-    console.log(req);
         await axios.post('http://localhost:8080/api/v1/users/register', 
                 req)
-                .then(response =>{setSuccessMsg(response.data.message)})
-                .catch(err => {setErrMsg(err)})}
+                .then(response =>{
+                    console.log(response);
+                    setSuccessMsg(response.data.message);
+                    clearInputFeilds();
+                })
+                .catch(err => {
+                    console.log(err);
+                    setErrMsg(err)})}
+}
+
+function clearInputFeilds(){
+    firstNameRef.current.value='';lastNameRef.current.value=''
+    passwordRef.current.value='';emailRef.current.value='';
+    consfirmPasswordRef.current.value='';
+    setFirstName('');setLastName('');setConfirmPassword('');setPassword('');setEmail('');
 }
 
 function validateRegisterUserInput(){
@@ -57,31 +72,30 @@ return (
     {description}</p>
     <section>
     <div>
-    <p ref={errRef} className={errMsg ? "registerErrMsg" : "registerSuccessMsg"}>
-        {successMessage} {successMessage && <Link to="/login">Login</Link>}
-        {!successMessage && errMsg} </p>
+    {errMsg && <p ref={errRef} className="registerErrMsg">{errMsg}</p>}
+    {successMessage && <p ref={successRef} className="registerSuccessMsg"
+    >{successMessage} Please <Link to="/login">Login</Link></p>}
     <form className="signupForm" onClick={(event)=>event.preventDefault()}>
         <h5>Create Account</h5>
         <label htmlFor="register-first-name">FirstName:</label>
-        <input  type="text" id="register-first-name" autoComplete="off" 
+        <input  type="text" ref={firstNameRef} id="register-first-name" autoComplete="off" 
         onChange={(e) => setFirstName(e.target.value)}/>
 
         <label htmlFor="register-last-name">LastName:</label>
-        <input type="text"  id="register-last-name" 
+        <input type="text" ref={lastNameRef} id="register-last-name" 
         onChange={(e) => setLastName(e.target.value)} required/>
 
         <label htmlFor="register-email">Email:</label>
-        <input type="text" id="register-email" 
+        <input type="text" ref={emailRef} id="register-email" 
         onChange={(e) => setEmail(e.target.value)} required/>
 
         <label htmlFor="register-password">Password:</label>
-        <input type={passwordShown ? "text" : "password"} id="register-password" 
+        <input type={passwordShown ? "text" : "password"} ref={passwordRef} id="register-password" 
         onChange={(e) => setPassword(e.target.value)} required/>
         <i className="far fa-eye toggle-eye" id="togglePassword" onClick={showPassword} ></i>
 
         <label htmlFor="register-confirm-password">Confirm Password:</label>
-        <input type={passwordShown ? "text" : "password"} id="register-confirm-password" 
-        onChange={(e) =>{setConfirmPassword(e.target.value)}} required/>
+        <input type={passwordShown ? "text" : "password"} ref={consfirmPasswordRef} id="register-confirm-password" onChange={(e) =>{setConfirmPassword(e.target.value)}} required/>
         <i className="far fa-eye toggle-eye" id="togglePassword" onClick={showPassword} ></i>
 
         <button className="registerButton" id="register-submit" onClick={registerUser}>Register</button>

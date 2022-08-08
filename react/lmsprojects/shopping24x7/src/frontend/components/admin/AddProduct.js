@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import '../../css/AddProduct.css';
 import axios from 'axios';
+import { Link } from "react-router-dom"
 
 function AddProduct() {
 const [productName,setProductName] = useState('');
@@ -12,11 +13,14 @@ const [isTopProduct,setIsTopProduct] = useState(false);
 const [productImage,setIsProductImage]= useState('../images/products/NI-Placeholder.png');
 const [errMsg,setErrMsg] = useState('');
 const [successMessage, setSuccessMsg] = useState('');
+const productNameRef = useRef();
+const productDescriptionRef = useRef();
+const priceRef = useRef();
+const categoryRef = useRef();
 var formData = new FormData();
 
 useEffect(()=>{
     setErrMsg('');
-    setSuccessMsg('');
 },[productDescription,productName,price])
 
 async function addProduct(){
@@ -27,7 +31,7 @@ async function addProduct(){
         formData.append('name',productName);
         formData.append('category',category);
         formData.append('price',parseInt(price));
-        formData.append('discountPrice',discountPrice);
+        formData.append('discountPrice',parseInt(discountPrice));
         formData.append('description',productDescription);
         formData.append('isTopProduct',isTopProduct);
         await axios.post('http://localhost:8080/api/v1/admin/products'
@@ -36,16 +40,25 @@ async function addProduct(){
                 console.log(response);
                 if(response.status===200){
                     setSuccessMsg('Product had been Created Successfully');
-                    setProductDescription('');setPrice('');setProductName('');
-                    setIsTopProduct(false);setIsProductImage('../images/products/NI-Placeholder.png');
+                    clearInputs();
                 }
                 })
+                .catch(err=>{console.log(err)})
     }
 }
 
+function clearInputs(){
+setProductDescription('');setProductName('');setPrice('');setIsTopProduct(false);
+priceRef.current.value='';productNameRef.current.value='';
+productDescriptionRef.current.value='';categoryRef.current.value='';
+}
+
 function validateInput(){
+    console.log('ProductName:'+productName+' product Description:'+productDescription);
+    console.log('Price:'+price+' category:'+category)
     if(!productName || !productDescription || !price || !category){
         setErrMsg('Mandatory Feilds are Missing');
+        return false;
     }
     return true;
 }
@@ -68,22 +81,23 @@ function handleImageChange(event){
 
 return (
     <>
-    {(errMsg||successMessage) && <p className={errMsg? "addProductContainerErrorMsg":"addProductContainerSuccessMsg"}>
-            {errMsg ? errMsg:successMessage}</p>}
+    {errMsg && <p className='addProductContainerErrorMsg'>{errMsg}</p>}
+    {successMessage && <p className='addProductContainerSuccessMsg'>{successMessage}
+    . Go to <Link to="/admin/products">Manage Products</Link> to View Added Product</p>}
     <div className="addProductContainer">
         <div className='productDetailsContainer'>
         <h5><b> Add New Product</b></h5>
             <div className="product-item">
                 <label>Product Name</label>
-                <input type="text" onChange={(e)=>setProductName(e.target.value)}></input>
+                <input type="text" ref={productNameRef} onChange={(e)=>setProductName(e.target.value)}></input>
             </div>
             <div className="product-item">
                 <label>Category</label>
-                <input type="text" onChange={(e)=>setCategory(e.target.value)}></input>
+                <input type="text" ref={categoryRef} onChange={(e)=>setCategory(e.target.value)}></input>
             </div>
             <div className="product-item">
                 <label>Price</label>
-                <input type="text" onChange={(e)=>setPrice(e.target.value)}></input>
+                <input type="text" ref={priceRef}onChange={(e)=>setPrice(e.target.value)}></input>
             </div>
             <div className="product-item">
                 <label>Discount Price</label>
@@ -91,7 +105,7 @@ return (
             </div>
             <div className="product-item">
                 <label>Product Description</label>
-                <input type="textarea" onChange={(e)=>setProductDescription(e.target.value)}></input>
+                <input type="textarea" ref={productDescriptionRef} onChange={(e)=>setProductDescription(e.target.value)}></input>
             </div>
             <div className='product-image'>
                 <label>Product Image</label>

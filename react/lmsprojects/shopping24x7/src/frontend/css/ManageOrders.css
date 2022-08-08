@@ -1,5 +1,6 @@
 .manageOrderContainer{
     margin-left:15%;
+    margin-bottom:5%;
     width:60%
 }
 .manageOrderItems{
@@ -7,7 +8,7 @@
     border-bottom: groove;
     margin-top: 5px;
     margin-bottom: 5px;
-    width:100%
+    width:100%;
 }
 .manageOrderDescription{
     display: grid;

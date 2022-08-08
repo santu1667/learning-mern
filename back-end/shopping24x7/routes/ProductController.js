@@ -22,9 +22,7 @@ router.post(
     "/admin/products",
     upload.single("productImage"),
     async (req,res) => {
-        
         const {name,category,price,discountPrice,description,isTopProduct} = req.body;
-        console.log(req.body);
         var quantityAvailable= 1;
         var imageURL = "";
         if(Object.keys(req).includes("file") && req.file.originalname){
@@ -64,7 +62,7 @@ router.get(
     "/products",
     async (req,res) => {
         try{
-            let products = await Product.find().clone();
+            let products = await Product.find().sort({createdOn:-1}).clone();
             return res.status(200).json({status:"success",products: products})
         }
         catch(exception){

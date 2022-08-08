@@ -17,7 +17,7 @@ const productNameRef = useRef();
 const productDescriptionRef = useRef();
 const priceRef = useRef();
 const categoryRef = useRef();
-var formData = new FormData();
+
 
 useEffect(()=>{
     setErrMsg('');
@@ -25,9 +25,7 @@ useEffect(()=>{
 
 async function addProduct(){
     if(validateInput()){
-        if(formData.has('productImage')){
-            console.log('has Product Image');
-        }
+        var formData = new FormData();
         formData.append('name',productName);
         formData.append('category',category);
         formData.append('price',parseInt(price));
@@ -55,9 +53,13 @@ productDescriptionRef.current.value='';categoryRef.current.value='';
 
 function validateInput(){
     console.log('ProductName:'+productName+' product Description:'+productDescription);
-    console.log('Price:'+price+' category:'+category)
+    console.log('Price:'+price+' category:'+category+'discount Price: '+discountPrice)
     if(!productName || !productDescription || !price || !category){
         setErrMsg('Mandatory Feilds are Missing');
+        return false;
+    }
+    if(isNaN(price) || isNaN(discountPrice)){
+        setErrMsg('Price and Discount Price should be numberic');
         return false;
     }
     return true;
@@ -65,14 +67,6 @@ function validateInput(){
 
 function handleImageChange(event){
     if(event.target.files[0]){
-        if(formData.has('productImage')){
-            formData.delete('productImage');
-            formData.append('productImage',event.target.files[0]);
-            console.log('Adding Product Image to FormData if');
-        }
-        else{
-            console.log('Adding Product Image to FormData ELse');
-        formData.append('productImage',event.target.files[0]);}
         var createupdatedURL = URL.createObjectURL(event.target.files[0]);
         setIsProductImage(createupdatedURL);
     }
@@ -101,7 +95,7 @@ return (
             </div>
             <div className="product-item">
                 <label>Discount Price</label>
-                <input type="text" value={parseInt(0)} onChange={(e)=>setDiscountPrice(e.target.value)}></input>
+                <input type="text" onChange={(e)=>setDiscountPrice(e.target.value)}></input>
             </div>
             <div className="product-item">
                 <label>Product Description</label>

@@ -24,8 +24,7 @@ router.post(
     async (req,res) => {
         
         const {name,category,price,discountPrice,description,isTopProduct} = req.body;
-        console.log('Input Request');
-        console.log(req.file);
+        console.log(req.body);
         var quantityAvailable= 1;
         var imageURL = "";
         if(Object.keys(req).includes("file") && req.file.originalname){

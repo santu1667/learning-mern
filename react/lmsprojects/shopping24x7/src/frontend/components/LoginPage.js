@@ -46,7 +46,6 @@ function LoginPage(props) {
    * Password should be minimum 8 chars
    */
   function validateInput(){
-    alert ('user: '+user+' pwd : ' +pwd);
     if(!user){ setErrMsg("Please enter User Name");  return false;  }
     if(!pwd){ setErrMsg("Please enter Password");       return false;  }
     if(pwd.length<8){setErrMsg("Password Should be minimum 8 chars"); return false;}

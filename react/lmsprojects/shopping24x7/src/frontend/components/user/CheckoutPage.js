@@ -31,7 +31,6 @@ useEffect(()=> {
 
 const placeOrder = async ()=>{
     if(validateInputFeilds()){
-        alert('Inside');
     var req= getPlaceOrderRequest();
     console.log(req);
     await axios.post('http://localhost:8080/api/v1/checkout',req)

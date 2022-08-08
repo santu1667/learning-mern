@@ -4,20 +4,21 @@ import Footer from './Footer';
 import { Route, Routes } from 'react-router-dom';
 import Home from './Home';
 import Profile from './Profile';
-import Cart from './Cart';
+import Cart from './user/Cart';
 import LoginPage from './LoginPage';
-import Department from './Department';
-import Offers from './Offers';
+import Department from './user/Department';
+import Offers from './user/Offers';
 import Logout from './Logout';
-import AddProduct from './AddProduct';
+import AddProduct from './admin/AddProduct';
 import {useEffect, useState} from 'react';
-import CategoryProducts from './CategoryProducts';
-import ProductDetails from './ProductDetails';
-import CheckoutPage from './CheckoutPage';
-import OrdersPage from './OrdersPage';
-import ManageProducts from './ManageProducts';
-import ManageOrders from './ManageOrders';
-import EditProduct from './EditProduct';
+import CategoryProducts from './user/CategoryProducts';
+import ProductDetails from './user/ProductDetails';
+import CheckoutPage from './user/CheckoutPage';
+import OrdersPage from './user/OrdersPage';
+import ManageProducts from './admin/ManageProducts';
+import ManageOrders from './admin/ManageOrders';
+import EditProduct from './admin/EditProduct';
+import Register from './Register';
 
 function App() {
   const [orderMessage,setOrderMessage] = useState('');
@@ -35,6 +36,7 @@ function App() {
     }
     if(sessionStorage.getItem("role")==="Admin"){
       setIsAdmin(true);
+      setIsUserLoggedIn(true);
     }
   },[homeURL])
 
@@ -48,6 +50,8 @@ function App() {
       <Routes>
         <Route path='/login' element={<LoginPage setHomeURL={setHomeURL} />}></Route>
         
+        <Route path='/register' element={<Register/>}></Route>
+
         <Route path='/' element={<Home cart={cart} setCart={setCart}
           setCartCount={setCartCount} />}></Route>
         
@@ -72,7 +76,9 @@ function App() {
         <Route path='/Offers' element={<Offers/>}></Route>
         
         <Route path='/Logout' element={<Logout setHomeURL={setHomeURL} setIsAdmin={setIsAdmin}
-                setCart={setCart}/>}></Route>
+                setCart={setCart} setIsUserLoggedIn={setIsUserLoggedIn}
+                setOrderMessage={setOrderMessage} setSelectedProduct={setSelectedProduct}
+                /> }></Route>
         
         <Route path='/products/:productId' element={<ProductDetails 
           setSelectedProduct={setSelectedProduct} setCartCount={setCartCount} 

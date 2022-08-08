@@ -1,4 +1,4 @@
-import '../css/Categories.css';
+import '../../css/Categories.css';
 import { useNavigate } from 'react-router-dom';
 
 function Categories(props){
@@ -24,6 +24,10 @@ function Categories(props){
     }
 
     return(
+    <>
+    <div className="categoriesHeading">
+    <h5>Browse Products by Categories</h5>
+    </div>
     <div className="categoriesContainer">
         {props.categoryList && props.categoryList.map((category) => (
             <div key={Math.random()} className='categoryItem' onClick={()=> navigateToURL(category)}>
@@ -32,7 +36,7 @@ function Categories(props){
         </div>
         )
         )}
-    </div>
+    </div></>
     )
 }
 

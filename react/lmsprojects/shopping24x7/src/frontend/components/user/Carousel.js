@@ -1,4 +1,4 @@
-import '../css/Carousel.css';
+import '../../css/Carousel.css';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
@@ -27,12 +27,12 @@ function Carousel(){
     var settings = {
         dots: true,
         infinite: true,
-        arrows:true,
+        arrows:false,
         slidesToShow: 1,
         slidesToScroll: 1,
         autoplay: true,
         speed: 100,
-        lazyLoad: true,
+        lazyLoad: false,
         cssEase: "linear",
     };
 

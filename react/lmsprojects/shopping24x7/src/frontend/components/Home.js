@@ -1,8 +1,8 @@
 import { useEffect, useState} from 'react';
 import '../css/Home.css';
-import Carousel from './Carousel';
-import Categories from './Categories';
-import Products from './Products';
+import Carousel from './user/Carousel';
+import Categories from './user/Categories';
+import Products from './user/Products';
 import axios from 'axios';
 
 function Home(props) {

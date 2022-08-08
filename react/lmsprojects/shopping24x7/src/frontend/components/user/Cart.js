@@ -1,4 +1,4 @@
-import '../css/Cart.css';
+import '../../css/Cart.css';
 import { useEffect,useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 

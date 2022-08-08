@@ -32,7 +32,7 @@
     text-align: center;
     width: 20%;
     height: 230px;
-    background-color: lightgray;
+    background-color: lightblue;
     margin: 0px 0px 12px 10px;
 }
 
@@ -60,4 +60,12 @@
     font-family: monospace;
     font-weight: bold;
     margin-bottom: 0px;
+}
+
+.isTopCategoryProductText{
+    width:195px !important;
+    position: absolute;
+    color: black;
+    font-size: 10px;
+    background-color: orange;
 }

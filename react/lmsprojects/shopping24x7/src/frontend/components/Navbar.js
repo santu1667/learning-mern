@@ -21,9 +21,13 @@ var isUserLoggedIn = props.isUserLoggedIn;
             <Link to="/admin/add-new-product" className="nav-item">AddProduct</Link>
             <Link to="/admin/products" className="nav-item">Manage Products</Link>
             <Link to="/admin/orders" className="nav-item">Manage Orders</Link></>}
-            <Link to="/Profile"  className="nav-item">Profile</Link>
+            {!isUserLoggedIn &&
+            <Link to="/login"  className="nav-item">Login</Link>}
+            
             {isUserLoggedIn &&
-            <Link className='nav-item' to="/Logout">Logout</Link>}
+            <>
+            <Link to="/Profile"  className="nav-item">Profile</Link>
+            <Link className='nav-item' to="/Logout">Logout</Link></>}
             {!isAdmin &&<>
             <Link to="/Cart" className="nav-item shoppingCartSymbol"><ShoppingCartIcon/></Link>
             {count>0 && <label className='cartCount'>{count}</label>}</>}

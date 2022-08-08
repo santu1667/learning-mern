@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import '../css/AddProduct.css';
+import '../../css/AddProduct.css';
 import axios from 'axios';
 
 function AddProduct() {

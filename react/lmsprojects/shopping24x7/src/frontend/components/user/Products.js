@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import '../css/Products.css';
+import '../../css/Products.css';
 import { useEffect, useState} from 'react';
 import axios from 'axios';
 
@@ -34,10 +34,13 @@ function Products(props){
         sessionStorage.setItem('cart',myCartJSON);
     }
     return( 
+        <>
+        <h5> Top Selling Products</h5>
         <div className="productContainer">
         {productList && productList.map((item) => (
             <div key={item.id} className='productItem'>
-            <img key={Math.random()} src={item.image} alt=""
+            {item.isTopProduct && <p className='isTopProductText'>#1 in {item.category}</p>}
+            <img  key={Math.random()} src={item.image} alt=""
                     onClick={(event)=>
                         {event.preventDefault();navigateToURL(item)} }></img>
             <hr></hr>
@@ -47,7 +50,7 @@ function Products(props){
             </div>
         )
         )}
-    </div>)
+    </div></>)
 }
 
 export default Products;

@@ -151,6 +151,26 @@ router.get(
 
 /**
  * @method - GET
+ * @param - /department/categories
+ * @description - This Method helps in returning last 3 added product details
+ */
+ router.get(
+    "/department/categories",
+    async (req,res) => {
+        try{
+            let categoryList = await Product.find().distinct("category").clone();
+            return res.status(200).json({status:"success",
+                categories:categoryList});
+            }
+        catch(exception){
+            console.log(exception.message)
+            return res.status(500).json({message:"Error Occured in retreving department categories"});
+        }
+    }
+)
+
+/**
+ * @method - GET
  * @param - /homepage/banner
  * @description - This Method helps in returning last 3 added product details
  */

@@ -1,4 +1,4 @@
-import '../css/ProductDetails.css';
+import '../../css/ProductDetails.css';
 import {useEffect,useState} from 'react';
 import axios from 'axios';
 import {useParams,useNavigate } from "react-router-dom"

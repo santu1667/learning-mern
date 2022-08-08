@@ -1,4 +1,4 @@
-import '../css/CategoryProducts.css'
+import '../../css/CategoryProducts.css'
 import {useEffect,useState,useRef} from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
@@ -139,6 +139,7 @@ function CategoryProducts(props){
             {filteringProductList.length===0 && <p> No Products Found</p>}
             {filteringProductList && filteringProductList.map((product) => (
                 <div key={Math.random()} className='categoryProductItem' >
+                    {product.isTopProduct && <p className='isTopCategoryProductText'>#1 in {product.category}</p>}
                     <img key={Math.random()} src={product.image} alt="" 
                             onClick={(event)=>{event.preventDefault();navigateToURL(product)}}></img>
                     <hr/>

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import '../css/ManageOrders.css';
+import '../../css/ManageOrders.css';
 
 
 function ManageOrders() {

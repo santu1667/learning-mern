@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect,useState,useRef } from 'react';
-import '../css/CheckOutPage.css';
+import '../../css/CheckOutPage.css';
 import {useNavigate} from 'react-router-dom';
 
 
@@ -42,7 +42,7 @@ const placeOrder = async ()=>{
                     props.setCart('');
                     }
                     var orderMessage = " Order #"+response.data.orderId+
-                    ". You will receive email on" +req.user.email+"";
+                    "placed successfully. You will receive email on " +req.user.email+"";
                     props.setOrderMessage(orderMessage);
                     sessionStorage.removeItem("uniqueCart");
                     sessionStorage.removeItem("temporaryProductId");

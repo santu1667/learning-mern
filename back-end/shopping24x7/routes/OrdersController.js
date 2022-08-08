@@ -36,8 +36,14 @@ router.get(
     "/orders",
     async (req,res) => {
         try{
-            await Order.find({},function(err,results){
-                if(err){
+            console.log('Inside Order get')
+            console.log(req.query);
+            var filter ={};
+            if(Object.keys(req.query).includes("email")){
+                filter={"user.email":req.query.email};
+            }
+            await Order.find(filter,function(err,results){
+                if(err){console.log(err);
                     return res.status(500).send({message:"Error in getting Orders"});
                 }
                 return res.status(200).json({status:"success",

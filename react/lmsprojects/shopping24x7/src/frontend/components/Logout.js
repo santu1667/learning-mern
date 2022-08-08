@@ -8,6 +8,9 @@ function Logout(props) {
     sessionStorage.clear();
     props.setHomeURL('/login');
     props.setIsAdmin(false);
+    props.setIsUserLoggedIn(false);
+    props.setSelectedProduct('');
+    props.setOrderMessage('');
   })
   
   return (

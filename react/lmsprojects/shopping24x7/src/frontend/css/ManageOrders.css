@@ -7,6 +7,7 @@
     border-bottom: groove;
     margin-top: 5px;
     margin-bottom: 5px;
+    width:100%
 }
 .manageOrderDescription{
     display: grid;

@@ -1,1 +1,125 @@
---> GraphQL : ()
+--> GraphQL : Query language for API's and server side runtime for executing the queries.
+              - Also known as syntax that describes how to ask for remote data.
+              - Alternative for Rest API
+    
+    Cons of Rest API : Rest API requires multiple round trips to fetch the realted resources.
+        - either Rest API will be over fetching or under fetching data.
+        - As the Application goes bigger, it would be hard for maintenance.
+
+    Rest API design : Client needs to make multiple calls to fetch data from multiple endpoints
+
+    Advantages of GraphQL: 
+        - Query responses are controlled by client and returns exactly what needed for client nothing
+        more or less
+        - GraphQL has single endpoints
+        - Graph QL query itself has hierarchical set of fields.
+        - GraphQL query can be ensured to be a valid with in GraphQL type system at development time 
+        allowing server to make garantee about the response.
+
+    GraphQL design : To fetch data we send query in sinlge request. This query specifies the exact 
+        fields what client needs.
+    Example :{
+        book(id:1){
+            title
+            genre 
+            author{
+                name
+                age
+                price{}
+            }
+        }
+    }
+
+    * Frontend Backend Communication using GraphQL:
+        - The webserver was built in node and express.
+        - React or Client Application will make request to GraphQL server by Apollo CLient Library or 
+        GraphIQL browser.
+        - the query will be parsed and validated against defined schema 
+        - If schema validation passes then the associated resolver functions will be executed.
+        - The resolver will contain code to fetch data either API call pr database call.
+    
+    Type System : defines various data types that can be used in graphQL Application.
+        - adds type safety checks to program.
+        - validation happens either at compile time or at code execution time.
+        - As per dynamic nature of JS, we can assign a string to a varilable and then use the same
+        like number.
+        - Type system will flag the programming mishaps and let know the error
+        - has fields that represents the data associated with each object.
+
+    GraphQL datatypes: 
+        Scalar - primitve datatypes that can store only a single value. Default scalar types are int,
+                 string, ID, Float and boolean.
+                Syntax : feild:data_type
+                ID is used as unique identifier to fetch an object or as a key to cache data.
+        Object - Object type represents group of fields.It is composed of multiple scalar types.
+                Syntax: const {feild1
+                                feild2...}= GraphQL
+        Query - type defines what information we are getting from data
+                Syntax: type Query{person(personID:5){
+                    firstName:String
+                    age:Floatscore:float
+                }}
+        Mutation - are operations sent to server to add, update or delete data. They are comparable to 
+                POST, UPDATE, DELETE requests of Rest API.
+                Syntax: type Mutation{
+                    addUser(firstname:"Raj",age:20){id firstName age}
+                }
+        ENum - is similar to Scalar type except if a value of feild supposed to restrict from list of 
+                options.
+                Syntax: type Days_of_week{SUNDAY MONDAY TUESDAY WEDNESDAY}
+
+        * Modifier : in GraphQL used to specify the server particular return value. It has 2 categories
+            Type Modifiers: We add an exclamation at end of each scalar feilds makes sure that server
+                returns non null values field:string!
+            List Modifiers: enforce them in brackets to make sure server returns list of values
+                field:[int]
+
+        *Schemas in GraphQL: Schema describes the functionality that is avaialable to clients which 
+            connects to GraphQL server.
+            - Every Schema must have query type
+            - Schema had ability to create relationships between types.
+            - Defines which data-fetching and mutating by client
+
+            Synatx: const {GraphQLObjectType GraphQLStringGraphQLInt GraphQLSchema} = graphQL;
+                    // create Object of User
+                    const UserType = new GraphQLObjectType({
+                        name:"User",
+                        fields:{
+                            id:{type:GraphQLString},
+                            firstName:{type:GraphQLString},
+                            age:{type:GraphQLInt}
+                        }
+                    })
+                    //Define Root Query
+                    const rootQuery - new GraphQLObjectType({
+                        name:"RootQueryType",
+                        fields:{
+                            type:UserType,
+                            args:{id:{type:GraphQLString}},
+                            resolve(parentValue,args){
+                                return _.find(users,{id:args.id})
+                            }
+                        }
+                    })
+
+    *** GraphIQL : query tool used by client to make queries to the server. This can be added to 
+            Application by npm install --save graphiql
+        - GraphQL server builds on express and node JS framework
+
+        const express = require("express");
+        const graphqlHTTP = require("express-graphql");
+        const app =express();
+        app.use('/graphql',graphqlHTTP([schema,graphiql:true]))
+        app.listen(4000);
+
+    * Setup : libraries needed - graphql, express express-graphql axios concurrently lodash
+
+    --> Apollo CLient : is a client side library that helps to fetch data from GraphQL server and
+            can be used with any JS frontend technology
+        - Caching is one of the major feature of the Apollo CLient
+        - Apollo Client takes care of the request and caching of the Application data as well as
+            updating the UI.
+        
+        Libraries Needed: react-apollo, apollo-boost, cors, 
+        ApolloClient - creates an instance and connects it to graphql server
+        ApolloProvider - wraps our application code and send it to Apollo Client.

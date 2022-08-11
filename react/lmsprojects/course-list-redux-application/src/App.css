@@ -1,0 +1,44 @@
+.App {
+  text-align: center;
+}
+
+form{
+border-style: groove;
+width: 60%;
+display: inline-block;
+}
+
+span{
+  padding-left: 30px;
+}
+
+.selectedCourse{
+  padding-top: 20px;
+}
+
+table{
+  display:initial;
+  border:1px;
+}
+
+thead, tbody, tfoot, tr, td, th{
+  border-width: 0.5px !important;
+  font-family: monospace;
+}
+
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+

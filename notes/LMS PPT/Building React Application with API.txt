@@ -1,0 +1,31 @@
+Building React Application with Native API:
+    - Native Modules: A native module is a set of javascript functions that are implemented
+        natively for each platform.
+        - used where native capabilities are needed , when react native lacks a corresponding 
+        module or where the performance needs to be better.
+    
+    ** Navigation Libraries : There are 2 majorly used libraries for navigaiton.
+        - React Navigation : written in JS and doesnt directly use the native navigation API's
+            on IOS and Android
+            - recreates some subset of those API'set
+            - it allows integration of 3r party JS plugins , max customization , easier debugging
+        
+        - React Native Navigation : This uses native navigation API's hence the look and feel is 
+        more like native
+
+    ** React Native and Redux: Requirements to perfomr the integration of React native and 
+        redux are:
+        - React : To build and manage UI and also hanlde async actions
+        - Redux : To manage state
+        - React native: To provide mobile application development platform.
+
+        Redux Thunk : middleware that lets us call action creators that returns a function 
+            instead of an action object.
+            - This function receives store dispatch methodwhich is used to dispatch regular
+            synchronous actions.
+            - Most common use of Thunk is communicating asynchronously with API's to retreive 
+            and save data.
+            Syntax : npm install --save redux-thunk
+            npm i react-redux, npm i expo-cli, npm i redux-thunk
+
+        - 

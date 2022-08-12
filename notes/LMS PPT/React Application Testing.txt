@@ -1,0 +1,47 @@
+--> Software Testing: process to evaluate the functionality of a software application to 
+        check if application met the specified requirements or not and to produce a bug
+        free quality product.
+
+    - Types of testing: 
+
+        * Unit Testing: Test small pieces of independent code
+            used to prevent frequent happening bugs, easy to pinpoint and fix the problem,
+            - if taking more time to complete menas the code is written in too complex manner,
+            - Jest is one fo the popular tool for unit testing.
+
+        * Functional Testing: Tests which are made against combination of many units.
+            - can use any number of external objects like DB's,UI,Security
+            - takes longer time than unit test
+            - Funcitonal tests represents major changes and unit tests are minor
+
+        * Integration Testing: Ensures the entire system is working properly.
+            - can be executed only in real environment.
+            - slower than remaining tests and are complex to write.
+
+    --> Testing of React Application :
+
+        * Jest - fast testing framework and it acts as runner, assertion library and 
+            mocking library
+        * Enzyme - JS testing utility for react makes it to easier for assert, manipulate and 
+            traverse react components output.
+            - Provides additional methods for rendering component, finding elementd and interacting
+            with elements.
+            - create-react-app comes with Jest but enzyme needs to be installed seperately.
+
+            Syntax : install Jest : npm install --save-dev jest babel-jest
+                            Enzyme: npm install enzyme enzyme-adapter-react-16 enzyme-to-json
+                            Update package.json with "jest":{
+                                "snapshotSerailizers":["enzyme-to-json/serializer"]
+                            }
+        * Nginx: web server software by which we can make sure our page load times are reduced.
+            - An open source software and provides HTTP server capabilities
+            - mainly used for load balancing, reverse proxing and caching
+            - Designed for maximum performance and stability.
+            - uses non threaded and event driven architecture.
+
+        * Docker : build, deploy and run the Applications anywhere by using containers.
+            - Docker file : basic building block of docker containers.
+            - file with set of instructions and forms the base for any docker image
+            - Every time , base image is going to be based on another image. We need to build 
+            or application on the base image.
+            

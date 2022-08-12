@@ -1,0 +1,29 @@
+-- > React Native :
+        Native Application is the Application designed particularly for mobile platforms.
+    - React Native is technology that allows to build real time native Applications with
+    hemp of JS and react librarieswhich we can ship to either apple app store or google app 
+    store
+
+    - Provides a collection of special components and these are compiled to native widgets
+    of ios and Android
+    
+    - Provides access to native API's like device camera.
+
+    - Provides certain tools to connect JS code to native code
+
+    - React native features are combined with react js to develop a react native Application
+    which will be moved to play store.
+
+    * React Native Elements : Like Html elements we have View and Text are the elemnts for
+        react native
+        - Syntax : return{
+            <View>
+                <Text>This is my first react Application</Text>
+            </View>
+        } 
+    - Expo CLI is the command line App which is the main interface between developers and 
+    expo tools.
+        - creating new projects
+        - Publishing App , JS and other resources and managing their releases
+        - Managing Apple credentials and Google key stores
+        - Developing App (running project server, running simulator and vieing logs)
